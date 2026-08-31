@@ -1,0 +1,79 @@
+# Complete Construction & Home Solutions LLC — website
+
+Private demo build for Adolfo (Complete Construction & Home Solutions LLC, New Jersey).
+Single static page, no build step. Open `index.html` or serve the folder.
+
+```
+index.html          the whole site (HTML + CSS + JS inline)
+images/             project photos and logo crops
+fonts/              self-hosted Archivo, Source Serif 4, IBM Plex Mono (SIL OFL)
+```
+
+## Before this goes live — three things
+
+**1. Connect the contact form.**
+Create a free Web3Forms access key at https://web3forms.com using the business email
+that should receive enquiries, then replace the placeholder in `index.html`:
+
+```html
+<input type="hidden" name="access_key" value="REPLACE_WITH_WEB3FORMS_ACCESS_KEY">
+```
+
+Until that key is set the form deliberately refuses to submit and says so. It never
+shows a fake "thank you", so nobody can believe a message was sent when it wasn't.
+
+**2. Turn on search indexing.**
+Delete this line from `<head>`:
+
+```html
+<meta name="robots" content="noindex, nofollow">
+```
+
+It is there on purpose. An unapproved demo carrying a real business name should not
+appear in Google.
+
+**3. Remove the preview banner.**
+Delete the `<div class="demo-flag">…</div>` element just inside `<body>`.
+
+Also update the canonical URL and the two `og:*` image/URL values in `<head>` once the
+real domain is known. They currently point at `completeconstructionnj.com`, which is a
+guess, not a registered domain.
+
+## Still outstanding
+
+- **NJ Home Improvement Contractor registration (13VH…).** Not on the page anywhere.
+  New Jersey requires registered contractors to display the number in advertising. If
+  Adolfo has one, add it to the footer. If he does not, leave the page as it is — there
+  is deliberately no "licensed" or "registered" wording anywhere in the copy.
+- **Photo permission.** Every image is a frame from video Adolfo sent, colour corrected.
+  Confirm he is happy for them to be public before the site is indexed.
+- **Higher-resolution photos.** Source video was 544x960 after phone compression. Originals
+  straight off his phone would be roughly four times the resolution. Drop-in replacements,
+  no layout changes needed.
+- **Service area.** Ocean, Monmouth, Middlesex and Hudson are listed. Confirm with him.
+
+## Claims on the page, and where they come from
+
+Everything factual traces to Adolfo's own written proposals. Nothing was invented.
+
+| Claim | Source |
+|---|---|
+| One-year workmanship warranty | Stated in both of his proposals |
+| Fully insured, COI on request | His own wording, Zuli proposal footer |
+| Written scope with exclusions | Both proposals |
+| Change orders approved in writing | Both proposals |
+| Staged payments tied to progress | Both proposals |
+| Homeowner supplies finish materials on labor-only scopes | Zuli proposal, Material Responsibility |
+
+There are no review counts, star ratings, years-in-business figures, named testimonials,
+license claims, or award claims, because none of those could be verified.
+
+## Notes
+
+- English first with a Spanish toggle. Choice persists in `localStorage` and follows the
+  browser language on a first visit. `<html lang>` updates with it.
+- Fonts are self-hosted rather than loaded from Google, so the page has no third-party
+  requests at all. Nothing is tracked and no analytics are installed.
+- Responsive to 360px. Verified: no horizontal overflow, no contrast failures, all tap
+  targets at least 44px, alt text on every image, single `h1` with no skipped levels,
+  `prefers-reduced-motion` respected.
