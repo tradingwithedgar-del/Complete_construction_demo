@@ -68,6 +68,34 @@ Everything factual traces to Adolfo's own written proposals. Nothing was invente
 There are no review counts, star ratings, years-in-business figures, named testimonials,
 license claims, or award claims, because none of those could be verified.
 
+## Structure
+
+Deliberately not hero / services / testimonials / CTA. Services are absorbed into the
+phase rail, because showing capability as a sequence is more persuasive here than an
+icon grid, and an icon grid was the one section that could have been lifted onto any
+other contractor's site.
+
+1. **Hero** — asymmetric, image right, claim left
+2. **Finish schedule** — six material details cropped from his own photos, labelled
+   M-01 to M-06 like a real finish schedule. Placed before any service copy so the
+   first thing after the hero is evidence, not assertion
+3. **Finished rooms** — three projects, P-01 to P-03
+4. **Every phase handled** — an interactive phase rail, six phases, full tablist
+   keyboard support. Dramatises the tagline rather than repeating it
+5. **What your proposal says** — a two-column ledger, Included against Not included
+6. **Where we work**
+7. **Start a project**
+
+## Art direction
+
+Concept: a job ticket that opens into a finished room.
+
+Ground `#16242E` is sampled from the glazed tile in his own shower; brass `#C4A575`
+and steel from the logo. Sharp corners throughout, hairline rules, mono type for
+anything behaving like a spec label, serif for reading. The dark ground is what lets
+his photography sit in the page rather than on it, and it matches a logo that was
+drawn for a black field.
+
 ## Notes
 
 - English first with a Spanish toggle. Choice persists in `localStorage` and follows the
