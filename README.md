@@ -39,6 +39,31 @@ Also update the canonical URL and the two `og:*` image/URL values in `<head>` on
 real domain is known. They currently point at `completeconstructionnj.com`, which is a
 guess, not a registered domain.
 
+## Deploying to Netlify
+
+`netlify.toml` is set up already. Two ways in:
+
+**Drag and drop (fastest, no account link needed).** Go to https://app.netlify.com/drop
+and drop the folder, or `complete-construction-netlify.zip` if one was built. You get a
+live URL in a few seconds. Rename the site under Site configuration → Change site name
+to get something like `complete-construction-preview.netlify.app`.
+
+**Connect the repo (better once he says yes).** New site → Import from Git → pick this
+repo and branch. Build command stays empty, publish directory is `.`. Every push then
+redeploys on its own.
+
+To put it on his own domain: Domain management → Add a domain, then point the domain's
+DNS at Netlify. HTTPS is issued automatically and free.
+
+The config sets security headers, caches images and fonts for a year while leaving HTML
+uncached so edits appear immediately, and sends `X-Robots-Tag: noindex, nofollow` on
+everything. That last one is a preview guard and is marked in the file for removal at
+launch, alongside the meta tag in `index.html`.
+
+Note: Netlify's password protection is a paid feature. On the free tier the URL is
+public to anyone who has it, which is why both noindex layers and the on-page preview
+banner matter.
+
 ## Still outstanding
 
 - **NJ Home Improvement Contractor registration (13VH…).** Not on the page anywhere.
