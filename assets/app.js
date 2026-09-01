@@ -302,14 +302,14 @@
       sending: "Sending…",
       ok: "Thank you. Your enquiry has been sent and we will get back to you shortly.",
       err: "Sorry, that did not send. Please call or text (732) 890-6244 instead.",
-      demo: "Preview mode: no lead endpoint is connected yet, so nothing was sent. See README.md, “Lead automation”.",
+      demo: "Preview mode: the form is not connected to an inbox yet, so nothing was sent. Add the Web3Forms key in assets/site.config.js.",
       fix: "Please check the highlighted fields."
     },
     es: {
       sending: "Enviando…",
       ok: "Gracias. Su solicitud fue enviada y le responderemos en breve.",
       err: "No se pudo enviar. Por favor llame o escriba al (732) 890-6244.",
-      demo: "Modo de vista previa: aún no hay un endpoint conectado, así que no se envió nada. Vea README.md, “Lead automation”.",
+      demo: "Modo de vista previa: el formulario aún no está conectado a un correo, así que no se envió nada. Agregue la clave de Web3Forms en assets/site.config.js.",
       fix: "Por favor revise los campos marcados."
     }
   };
@@ -357,60 +357,67 @@
     });
   }
 
-  /* --- the single reusable submit path ---------------------------------
-     Everything that sends a lead goes through submitLead(). To wire up
-     automation later you change ONE thing: CFG.lead.endpoint, pointing at
-     a server route you control. Never put an n8n URL or any credential in
-     this file — it ships to the browser.
-     See netlify/functions/lead.mjs and README.md.
+  /* --- the single submit path -----------------------------------------
+     One function sends the enquiry. It posts to Web3Forms, which emails
+     it to the inbox the access key was created against.
+
+     Field names double as the labels in the email Adolfo receives, so
+     they are written the way a person reads them, not the way a database
+     would store them. The subject carries the project type and town so
+     enquiries can be triaged from the inbox list without opening them.
+
+     To change where enquiries go, change the key in
+     assets/site.config.js. Nothing else needs touching.
      ------------------------------------------------------------------- */
-  function buildPayload() {
-    var g = function (n) { var el = form.elements[n]; return el ? String(el.value || "").trim() : ""; };
-    return {
-      name:             g("name"),
-      phone:            g("phone"),
-      email:            g("email"),
-      townOrZip:        g("townOrZip"),
-      projectType:      g("projectType"),
-      timeframe:        g("timeframe"),
-      budgetRange:      g("budgetRange"),
-      ownsPropertyOrLot: g("ownsPropertyOrLot"),
-      spacesIncluded:   g("spacesIncluded"),
-      message:          g("message"),
-      sourcePage:       (CFG.lead && CFG.lead.sourcePage) || "home",
-      submittedAt:      new Date().toISOString()
+  function labelOf(select) {
+    var el = form.elements[select];
+    if (!el || !el.value) { return ""; }
+    if (el.tagName === "SELECT") { return el.options[el.selectedIndex].textContent.trim(); }
+    return String(el.value).trim();
+  }
+
+  function buildEnquiry() {
+    var cfg  = CFG.form || {};
+    var v    = function (n) { var el = form.elements[n]; return el ? String(el.value || "").trim() : ""; };
+    var type = labelOf("projectType");
+    var town = v("townOrZip");
+
+    var body = {
+      access_key: cfg.web3formsAccessKey,
+      subject: (cfg.subjectPrefix || "New project enquiry")
+        + (type ? " — " + type : "")
+        + (town ? " — " + town : ""),
+      from_name: "Complete Construction website",
+      // Lets Adolfo hit reply in his mail client and reach the customer.
+      replyto: v("email"),
+      // Honeypot. Read .checked, not .value — an unchecked checkbox still
+      // reports "on", which would make Web3Forms treat every real
+      // submission as a bot and drop it silently.
+      botcheck: (form.elements.botcheck && form.elements.botcheck.checked) ? "1" : "",
+
+      "Name":                v("name"),
+      "Phone":               v("phone"),
+      "Email":               v("email"),
+      "Town or ZIP":         town,
+      "Project type":        type,
+      "Project details":     v("message")
     };
+
+    // Only include the optional answers that were actually filled in, so
+    // the email does not carry a wall of empty rows.
+    var extras = {
+      "Desired start":        labelOf("timeframe"),
+      "Investment range":     labelOf("budgetRange"),
+      "Owns property or lot": labelOf("ownsPropertyOrLot"),
+      "Spaces included":      v("spacesIncluded")
+    };
+    Object.keys(extras).forEach(function (k) { if (extras[k]) { body[k] = extras[k]; } });
+
+    body["Sent from"] = (cfg.sourcePage || "home") + " page";
+    return body;
   }
 
-  function submitLead(payload) {
-    var cfg = CFG.lead || {};
-
-    if (cfg.endpoint) {
-      return fetch(cfg.endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify(payload)
-      }).then(function (r) {
-        // 404 = function not deployed; 501 = deployed but no webhook configured yet.
-        if (r.status === 404 || r.status === 501) { return { notDeployed: true }; }
-        if (!r.ok) { throw new Error("Lead endpoint returned " + r.status); }
-        return r.json().catch(function () { return { ok: true }; });
-      });
-    }
-    return Promise.resolve({ notDeployed: true });
-  }
-
-  // Stopgap while no server endpoint is deployed. Web3Forms access keys are
-  // public by design, so this one is safe in client code — but it is a
-  // fallback for the demo, not the automation path.
-  function submitViaWeb3Forms(payload) {
-    var key = (CFG.lead || {}).web3formsAccessKey;
-    if (!key) { return Promise.resolve({ noFallback: true }); }
-    var body = Object.assign({
-      access_key: key,
-      subject: "New project enquiry — Complete Construction",
-      from_name: "completeconstructionnj.com"
-    }, payload);
+  function submitEnquiry(body) {
     return fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json", "Accept": "application/json" },
@@ -434,32 +441,31 @@
 
       var btn = form.querySelector('button[type="submit"]');
       var label = btn.textContent;
+      function restore() {
+        btn.disabled = false;
+        btn.removeAttribute("aria-busy");
+        btn.textContent = label;
+      }
       btn.disabled = true;
       btn.setAttribute("aria-busy", "true");
       btn.textContent = t().sending;
       say("ok", t().sending);
 
-      submitLead(buildPayload())
+      var body = buildEnquiry();
+      if (!body.access_key) { restore(); say("err", t().demo); return; }
+
+      submitEnquiry(body)
         .then(function (res) {
-          if (res && res.notDeployed) { return submitViaWeb3Forms(buildPayload()); }
-          return res;
-        })
-        .then(function (res) {
-          if (res && res.noFallback) { say("err", t().demo); return; }
-          if (res && (res.ok === true || res.success === true)) {
+          if (res && res.success === true) {
             say("ok", t().ok);
             form.reset();
             $$(".optional-block", form).forEach(function (b) { b.classList.remove("show"); });
-            return;
+          } else {
+            say("err", t().err);
           }
-          say("err", t().err);
         })
         .catch(function () { say("err", t().err); })
-        .finally(function () {
-          btn.disabled = false;
-          btn.removeAttribute("aria-busy");
-          btn.textContent = label;
-        });
+        .finally(restore);
     });
   }
 

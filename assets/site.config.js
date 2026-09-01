@@ -130,25 +130,27 @@ window.SITE = {
   },
 
   /* ---------------------------------------------------------------- */
-  /* Lead submission                                                   */
+  /* Contact form                                                     */
   /* ---------------------------------------------------------------- */
-  /* SECURITY: never put an n8n webhook URL, CRM key, or any other
-     secret in this file. It ships to the browser and is readable by
-     anyone. `endpoint` must point at a server route you control, which
-     holds the secret server-side. See netlify/functions/lead.mjs and the
-     "Lead automation" section of README.md. */
-  lead: {
-    // Relative path to the secure server endpoint. On Netlify the function
-    // at netlify/functions/lead.mjs is served from this path.
-    endpoint: "/api/lead",
+  /* The form posts straight to Web3Forms, which emails the enquiry to
+     whichever inbox the key was created against. No server, no build
+     step, nothing to maintain.
 
-    // Fallback while no server endpoint is deployed. Web3Forms accepts a
-    // public access key by design, so this is safe in client code — but it
-    // is a stopgap, not the automation path.
-    // TODO(owner): create a key at https://web3forms.com and paste it here.
+     A Web3Forms access key is PUBLIC by design. It identifies the
+     destination inbox, it is not a credential, and it cannot be used to
+     read anything back. It is safe to keep in this file. Do not put
+     anything here that would not be safe to publish. */
+  form: {
+    // TODO(owner): create a free key at https://web3forms.com using the
+    // business email that should receive enquiries, then paste it here.
+    // Until this is filled in, the form refuses to submit and says so,
+    // rather than showing a false confirmation.
     web3formsAccessKey: "",
 
-    // Where a lead should be considered to have come from.
+    // Email subject prefix. The project type and town are appended
+    // automatically so enquiries can be triaged from the inbox list.
+    subjectPrefix: "New project enquiry",
+
     sourcePage: "home"
   }
 };

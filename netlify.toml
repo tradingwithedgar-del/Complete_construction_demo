@@ -13,12 +13,6 @@
   publish = "."
   command = ""
 
-# Serverless lead endpoint. The function declares its own route
-# (/api/lead) via `export const config`, so no redirect is needed.
-[functions]
-  directory = "netlify/functions"
-  node_bundler = "esbuild"
-
 # ---------------------------------------------------------------
 # Security headers, applied to everything
 # ---------------------------------------------------------------
@@ -70,8 +64,3 @@
   to = "/index.html"
   status = 404
   force = true
-
-[[headers]]
-  for = "/api/*"
-  [headers.values]
-    Cache-Control = "no-store"

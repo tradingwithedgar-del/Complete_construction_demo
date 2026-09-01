@@ -10,8 +10,7 @@ index.html                  the page
 assets/site.config.js       ALL editable content flags — start here
 assets/styles.css           stylesheet
 assets/app.js               behaviour (menu, tabs, lightbox, form)
-netlify/functions/lead.mjs  secure lead endpoint (optional, see below)
-netlify.toml                headers, caching, functions config
+netlify.toml                headers and caching
 images/                     project photos and material crops
 fonts/                      self-hosted Archivo, Source Serif 4, IBM Plex Mono (OFL)
 ```
@@ -23,13 +22,6 @@ No install step. Any static server will do:
 ```bash
 npx http-server -p 8080 .
 # then open http://localhost:8080
-```
-
-To run the lead function locally as well:
-
-```bash
-npm install -g netlify-cli
-netlify dev
 ```
 
 There is nothing to build and no test suite. Verification is done in a browser at
@@ -67,70 +59,63 @@ With bathroom work only, the filter row is hidden rather than showing empty tabs
 
 ---
 
-## Lead automation
+## The contact form
 
-### Recommended flow
+The form posts straight to [Web3Forms](https://web3forms.com), which emails the
+enquiry to whichever inbox the access key was created against. No server, no build
+step, nothing to maintain.
 
-1. The browser validates the form and POSTs JSON to a server endpoint you control.
-2. That endpoint validates, sanitises, rate-limits and forwards the lead.
-3. The endpoint forwards to an n8n webhook using a secret held server-side.
-4. n8n notifies the contractor immediately (SMS or push).
-5. n8n sends the homeowner a confirmation.
-6. n8n creates a CRM follow-up task.
-7. Optional: a missed-call workflow texts back anyone whose call was not answered.
+**Setup, once:** create a free key at web3forms.com using the business email that
+should receive enquiries, then paste it into `assets/site.config.js`:
 
-**Never put an n8n webhook URL, CRM key or token in `assets/site.config.js`.** That
-file ships to the browser and anyone can read it.
-
-### Connecting it
-
-`netlify/functions/lead.mjs` is the server endpoint. It serves `/api/lead`, which is
-what `lead.endpoint` in the config already points at.
-
-In Netlify, under **Site configuration → Environment variables**, add:
-
-```
-N8N_WEBHOOK_URL    = https://<your-n8n-host>/webhook/<path>
-N8N_WEBHOOK_TOKEN  = <optional shared secret, also checked inside n8n>
+```js
+form: {
+  web3formsAccessKey: "paste-the-key-here",
 ```
 
-Redeploy. Until `N8N_WEBHOOK_URL` is set the function returns `501`, and the frontend
-falls back to Web3Forms if a key is present, or shows a preview notice.
+That is the whole integration. To change where enquiries land, change the key.
 
-The function rejects non-POST requests, rate-limits to 5 submissions per minute per
-IP, strips control characters, caps field length at 2000 characters, drops honeypot
-submissions, requires name/phone/details, and stamps `submittedAt` server-side so it
-cannot be spoofed.
+A Web3Forms access key is public by design. It names the destination inbox, it is not
+a credential, and it cannot be used to read anything back, so it is safe in a file
+that ships to the browser.
 
-### Lead payload
+**Until the key is filled in the form refuses to submit and says so.** It never shows
+a false confirmation, so a real customer cannot come away believing an enquiry was
+sent when nothing was.
 
-```json
-{
-  "name": "",
-  "phone": "",
-  "email": "",
-  "townOrZip": "",
-  "projectType": "",
-  "timeframe": "",
-  "budgetRange": "",
-  "ownsPropertyOrLot": "",
-  "spacesIncluded": "",
-  "message": "",
-  "sourcePage": "",
-  "submittedAt": ""
-}
+### What Adolfo receives
+
+Field names double as the labels in the email, so it reads as a message rather than a
+database dump. The subject carries the project type and town, so enquiries can be
+triaged from the inbox list without opening them:
+
+```
+Subject: New project enquiry — Whole-home renovation — Jackson, 08527
+Reply-to: maria@example.com
+
+Name              Maria Alvarez
+Phone             7325550123
+Email             maria@example.com
+Town or ZIP       Jackson, 08527
+Project type      Whole-home renovation
+Project details   Kitchen plus two bathrooms, hoping to start in spring.
+Desired start     In the next 1 to 3 months
+Spaces included   Kitchen, two bathrooms
+Sent from         home page
 ```
 
-`projectType` is one of `whole-home`, `kitchen`, `bathroom`, `addition`, `new-build`,
-`millwork`, `exterior`, `unsure`. The server adds `userAgent`.
+Optional answers appear only when they were filled in, so the email is not padded
+with empty rows. Reply-to is set to the customer's address, so hitting reply in any
+mail client reaches them directly.
+
+A hidden honeypot field catches bots. Web3Forms drops anything that fills it.
 
 ### Photo upload
 
 Not built. A fake upload that silently discards a homeowner's photos is worse than no
-upload at all. Add it once the endpoint has secure file storage; until then the SMS
-route is the photo path, and it stays hidden until `smsEnabled` is confirmed.
-
----
+upload at all. If photos matter, the simplest route is text messages to the business
+number — enable `smsEnabled` in the config once the owner confirms the number
+receives SMS, and the "Text us photos" option appears.
 
 ## Deploying to Netlify
 
