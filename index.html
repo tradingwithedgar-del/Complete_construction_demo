@@ -5,395 +5,265 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- ============================================================
-     DEMO SETTINGS — two things to change at launch
+     PRIVATE PREVIEW. Two things to change at launch:
      1. Delete the <meta name="robots"> line below.
-     2. Delete the .preview-flag element in <body>.
+     2. Delete the .preview-flag element at the top of <body>.
+     Also remove X-Robots-Tag from netlify.toml.
      ============================================================ -->
 <meta name="robots" content="noindex, nofollow">
 
-<title>Complete Construction &amp; Home Solutions LLC | Bathroom Renovations &amp; Custom Millwork, New Jersey</title>
-<meta name="description" content="Bathroom renovations, tile and waterproofing, and custom architectural millwork across New Jersey. Every job runs on a written scope that lists what is included and what is not. One-year workmanship warranty. Se habla espanol. Call (732) 890-6244.">
+<title>Complete Construction &amp; Home Solutions LLC | Home Renovations &amp; Residential Construction in New Jersey</title>
+<meta name="description" content="Whole-home renovations, kitchens and bathrooms, additions and custom millwork across New Jersey. Every trade coordinated from demolition through final finish, on a written scope you read before work starts. Call (732) 890-6244.">
 <link rel="canonical" href="https://completeconstructionnj.com/">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Complete Construction &amp; Home Solutions LLC">
-<meta property="og:title" content="Complete Construction &amp; Home Solutions LLC | Bathroom Renovations &amp; Custom Millwork">
-<meta property="og:description" content="Bathroom renovations and custom architectural millwork across New Jersey. Every job runs on a written scope. One-year workmanship warranty.">
+<meta property="og:title" content="Complete Construction &amp; Home Solutions LLC | Home Renovations in New Jersey">
+<meta property="og:description" content="Whole-home renovations, kitchens and bathrooms, additions and custom millwork across New Jersey, coordinated from demolition through final finish.">
 <meta property="og:url" content="https://completeconstructionnj.com/">
 <meta property="og:image" content="https://completeconstructionnj.com/images/powder-vanity-wallpaper.jpg">
-<meta property="og:image:alt" content="Finished powder room with botanical wallpaper, a brass oval mirror and a walnut floating vanity">
+<meta property="og:image:alt" content="Finished powder room with botanical wall covering, a brass oval mirror and a walnut floating vanity">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="es_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Complete Construction &amp; Home Solutions LLC">
-<meta name="twitter:description" content="Bathroom renovations and custom millwork across New Jersey. Every job runs on a written scope.">
+<meta name="twitter:description" content="Home renovations and residential construction across New Jersey.">
 <meta name="twitter:image" content="https://completeconstructionnj.com/images/powder-vanity-wallpaper.jpg">
 
 <meta name="theme-color" content="#0D161C">
 <link rel="icon" href="images/logo-mark.jpg">
 <link rel="apple-touch-icon" href="images/logo-mark.jpg">
-<link rel="stylesheet" href="fonts/fonts.css">
 
+<link rel="preload" as="image" href="images/powder-vanity-wallpaper.jpg" fetchpriority="high">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="assets/styles.css">
+
+<!-- ============================================================
+     LocalBusiness / GeneralContractor structured data.
+     EVERY value marked TODO(owner) is a placeholder. Do not publish
+     an address, opening hours, licence number, rating or review
+     count until the owner supplies and approves it. Fields that
+     cannot be verified are omitted rather than guessed.
+     ============================================================ -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "GeneralContractor",
   "@id": "https://completeconstructionnj.com/#business",
-  "name": "Complete Construction & Home Solutions LLC",
-  "alternateName": "Complete Construction",
-  "description": "Residential remodeling contractor specializing in full bathroom renovations, tile and waterproofing, and custom architectural millwork, serving New Jersey.",
-  "slogan": "Built right. No shortcuts. Every phase handled.",
+  "name": "Complete Construction",
+  "legalName": "Complete Construction & Home Solutions LLC",
+  "description": "Residential construction and renovation company serving New Jersey homeowners. Whole-home renovations, kitchens and bathrooms, additions, and custom architectural millwork.",
+  "slogan": "We finish the home, not just the room you can see.",
   "url": "https://completeconstructionnj.com/",
   "telephone": "+17328906244",
   "image": "https://completeconstructionnj.com/images/powder-vanity-wallpaper.jpg",
   "logo": "https://completeconstructionnj.com/images/logo-mark.jpg",
-  "priceRange": "$$$",
-  "knowsLanguage": ["en", "es"],
-  "address": { "@type": "PostalAddress", "addressRegion": "NJ", "addressCountry": "US" },
+  "knowsLanguage": ["en"],
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "NJ",
+    "addressCountry": "US"
+  },
   "areaServed": [
     { "@type": "AdministrativeArea", "name": "Ocean County, New Jersey" },
-    { "@type": "AdministrativeArea", "name": "Monmouth County, New Jersey" },
-    { "@type": "AdministrativeArea", "name": "Middlesex County, New Jersey" },
     { "@type": "AdministrativeArea", "name": "Hudson County, New Jersey" }
   ],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "Services",
     "itemListElement": [
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bathroom renovation" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Custom architectural millwork" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Tile, stone and waterproofing" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Framing and structural carpentry" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Stone and exterior work" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Kitchen counters and lighting" } }
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Whole-home renovation" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Kitchen and bathroom renovation" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Home additions and reconfigurations" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Custom interiors and architectural millwork" } }
     ]
   }
 }
 </script>
-
-<style>
-/* ============================================================
-   Complete Construction — "job ticket, finished room"
-   Ground colour sampled from the glazed tile in the client's own
-   shower; brass and steel from the logo. Sharp corners throughout,
-   hairline rules, mono for anything that behaves like a spec label.
-   ============================================================ */
-:root{
-  --ground:#16242E;
-  --ground-2:#1B2C38;
-  --panel:#20323E;
-  --panel-2:#25404F;
-  --ink:#EFE9DE;
-  --ink-soft:#AEBAC2;
-  --ink-dim:#8494A0;
-  --brass:#C4A575;
-  --brass-deep:#9A7F4E;
-  --steel:#8A9AA3;
-  --rule:#2E4150;
-  --rule-soft:#243745;
-  --black:#0D161C;
-  --action:#2F5A73;
-  --maxw:1240px;
-  --gut:clamp(20px,5vw,68px);
-}
-
-*,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{
-  margin:0;background:var(--ground);color:var(--ink);
-  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
-  font-size:17px;line-height:1.62;font-optical-sizing:auto;overflow-x:hidden;
-}
-img{max-width:100%;display:block;height:auto}
-a{color:inherit}
-p{margin:0 0 1.05em}
-
-h1,h2,h3,.mono,.btn,nav a,.kicker{font-family:Archivo,"Helvetica Neue",Arial,sans-serif}
-h1,h2,h3{margin:0;font-weight:700;font-stretch:112%;letter-spacing:.02em;text-transform:uppercase;line-height:1.06}
-h1{font-size:clamp(32px,4.6vw,58px);letter-spacing:.005em}
-h2{font-size:clamp(23px,3vw,38px)}
-h3{font-size:clamp(16px,1.6vw,20px);letter-spacing:.05em}
-
-.mono,.kicker{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;line-height:1.5}
-.kicker{color:var(--brass)}
-
-.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gut);position:relative}
-section{padding-block:clamp(54px,8vw,108px)}
-
-.skip{position:absolute;left:-9999px;top:0;background:var(--brass);color:var(--black);padding:12px 18px;z-index:200}
-.skip:focus{left:8px;top:8px}
-:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
-
-/* ---- preview flag: DELETE AT LAUNCH ---- */
-.preview-flag{background:var(--brass);color:var(--black);text-align:center;padding:7px 16px;position:relative;z-index:60}
-.preview-flag span{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase}
-
-/* ---- section heading: index number sits in a left rail, not centred ---- */
-.head{display:grid;grid-template-columns:72px 1fr;gap:0 20px;align-items:start;margin-bottom:clamp(26px,3.6vw,46px)}
-.head .no{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;color:var(--brass);padding-top:11px;border-top:1px solid var(--brass)}
-.head .ht{border-top:1px solid var(--rule);padding-top:10px}
-.head p{margin:10px 0 0;color:var(--ink-soft);max-width:52ch;font-size:15.5px}
-
-/* ---- header ---- */
-header{background:var(--black);position:relative;z-index:50;border-bottom:1px solid var(--rule)}
-.bar{display:flex;align-items:center;gap:clamp(10px,3vw,34px);padding-block:12px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex:0 1 auto;min-width:0;padding:6px 0;min-height:44px}
-.brand img{width:34px}
-.brand b{font-family:Archivo,sans-serif;font-weight:700;font-stretch:112%;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);display:block;line-height:1.15}
-.brand i{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--steel)}
-nav{margin-left:auto;display:flex;align-items:center;gap:clamp(10px,2.2vw,26px);flex:0 0 auto}
-.nav-links{display:flex;gap:clamp(12px,2.2vw,26px)}
-nav a{font-size:11px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:var(--ink-soft);padding:15px 0;border-bottom:1px solid transparent}
-nav a:hover{color:var(--ink);border-bottom-color:var(--brass)}
-.lang{display:flex;border:1px solid var(--rule);flex:0 0 auto}
-.lang button{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.14em;background:none;border:0;color:var(--steel);padding:14px 13px;min-height:44px;cursor:pointer;text-transform:uppercase}
-.lang button[aria-pressed="true"]{background:var(--brass);color:var(--black)}
-.call-top{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border:1px solid var(--brass);color:var(--brass);padding:11px 15px;font-family:Archivo,sans-serif;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;white-space:nowrap}
-.call-top:hover{background:var(--brass);color:var(--black)}
-
-/* ---- hero ---- */
-.hero{padding-top:clamp(40px,6vw,80px);padding-bottom:0;position:relative}
-.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(26px,4.5vw,64px);align-items:end}
-.hero h1{margin:14px 0 0}
-.hero-lede{font-size:clamp(17px,1.5vw,19.5px);color:var(--ink-soft);max-width:44ch;margin-top:20px}
-.draw{height:1px;background:var(--brass);margin-top:24px;transform-origin:left;animation:draw 900ms cubic-bezier(.2,.7,.2,1) 120ms both}
-@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;padding-bottom:6px}
-.btn{display:inline-flex;align-items:center;gap:9px;text-decoration:none;cursor:pointer;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:15px 24px;border:1px solid transparent}
-.btn-primary{background:var(--brass);color:var(--black);font-weight:700}
-.btn-primary:hover{background:#D8BC8C}
-.btn-ghost{border-color:var(--ink-dim);color:var(--ink)}
-.btn-ghost:hover{border-color:var(--ink);background:rgba(239,233,222,.07)}
-.hero-fig{margin:0;position:relative}
-.hero-fig img{width:100%;height:clamp(340px,44vw,520px);object-fit:cover;object-position:center 42%}
-.hero-fig figcaption{margin-top:9px;color:var(--ink-dim);font-size:10.5px}
-
-/* ---- finish schedule (signature 1) ---- */
-.schedule{background:var(--black);border-block:1px solid var(--rule)}
-.sched-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 22px;margin-bottom:20px}
-.sched-top h2{font-size:clamp(18px,2vw,24px)}
-.sched-top .mono{color:var(--brass)}
-.sched-top p{margin:0;color:var(--ink-dim);font-size:14px;max-width:46ch}
-.sched{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--rule)}
-.sched figure{margin:0;background:var(--black);position:relative}
-.sched img{width:100%;aspect-ratio:1;object-fit:cover}
-.sched figcaption{padding:11px 12px 14px}
-.sched .m-n{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.14em;color:var(--brass-deep);display:block;margin-bottom:4px}
-.sched .m-t{font-family:Archivo,sans-serif;font-weight:700;font-stretch:112%;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);display:block;line-height:1.25}
-
-/* ---- work ---- */
-.project{border-top:1px solid var(--rule);padding-top:clamp(22px,3vw,34px);margin-bottom:clamp(34px,5vw,64px)}
-.project:last-child{margin-bottom:0}
-.project-head{display:grid;grid-template-columns:72px 1fr;gap:0 20px;margin-bottom:16px}
-.project-head .pn{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;color:var(--brass)}
-.project-head .mono{color:var(--ink-dim);display:block;margin-top:6px}
-.project p{color:var(--ink-soft);max-width:60ch;margin:0}
-.pbody{display:grid;grid-template-columns:72px 1fr;gap:0 20px}
-.shots{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:clamp(8px,1vw,14px);margin-top:20px}
-.shots a{display:block;border:1px solid transparent}
-.shots a:hover,.shots a:focus-visible{border-color:var(--brass)}
-.shots img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center 42%;background:var(--panel)}
-.shots a:first-child img{aspect-ratio:3/4}
-
-/* ---- phase rail (signature 2) ---- */
-.phases{background:var(--ground-2);border-block:1px solid var(--rule)}
-.rail{display:flex;border:1px solid var(--rule);background:var(--black);overflow:hidden}
-.rail button{
-  flex:1 1 0;min-width:0;background:none;border:0;border-right:1px solid var(--rule);
-  color:var(--ink-dim);cursor:pointer;text-align:left;padding:16px 14px 18px;
-  font-family:Archivo,sans-serif;font-size:11px;font-weight:700;font-stretch:112%;
-  letter-spacing:.1em;text-transform:uppercase;line-height:1.3;position:relative;min-height:44px;
-  transition:background .18s ease,color .18s ease;
-}
-.rail button:last-child{border-right:0}
-.rail button .rn{display:block;font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.14em;color:var(--brass-deep);margin-bottom:7px;font-weight:400}
-.rail button:hover{background:var(--panel);color:var(--ink)}
-.rail button[aria-selected="true"]{background:var(--brass);color:var(--black)}
-.rail button[aria-selected="true"] .rn{color:var(--black);opacity:.62}
-.panel{border:1px solid var(--rule);border-top:0;background:var(--black);padding:clamp(22px,3.4vw,38px)}
-.panel[hidden]{display:none}
-.panel-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:clamp(20px,3.5vw,50px);align-items:start}
-.panel h3{margin-bottom:10px}
-.panel .lede{color:var(--ink-soft);margin:0}
-.panel ul{margin:0;padding:0;list-style:none;columns:2;column-gap:30px}
-.panel li{color:var(--ink-soft);font-size:15.5px;padding-left:16px;position:relative;margin-bottom:7px;break-inside:avoid}
-.panel li::before{content:"";position:absolute;left:0;top:.68em;width:7px;height:1px;background:var(--brass)}
-
-/* ---- scope ledger (signature 3) ---- */
-.ledger-wrap{border:1px solid var(--rule)}
-.ledger{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule)}
-.led{background:var(--black);padding:clamp(22px,3vw,34px)}
-.led.out{background:var(--panel)}
-.led-h{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--rule);padding-bottom:12px;margin-bottom:18px}
-.led-h h3{font-size:clamp(14px,1.4vw,17px)}
-.led.in .led-h h3{color:var(--brass)}
-.led.out .led-h h3{color:var(--steel)}
-.led-h .mono{margin-left:auto;color:var(--ink-soft);font-size:9.5px}
-.led ul{margin:0;padding:0;list-style:none}
-.led li{position:relative;padding-left:22px;margin-bottom:13px;color:var(--ink-soft);font-size:15.5px;line-height:1.55}
-.led li:last-child{margin-bottom:0}
-.led.in li::before{content:"";position:absolute;left:0;top:.55em;width:9px;height:9px;border:1px solid var(--brass);background:var(--brass)}
-.led.out li::before{content:"";position:absolute;left:0;top:.55em;width:9px;height:9px;border:1px solid var(--steel)}
-.led-foot{border-top:1px solid var(--rule);margin-top:22px;padding-top:16px;color:var(--ink);font-size:15.5px}
-.led-foot strong{color:var(--brass);font-weight:600}
-
-/* ---- area ---- */
-.area .counties{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 20px;padding:0;list-style:none}
-.area .counties li{border:1px solid var(--rule);padding:11px 17px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
-.area p{color:var(--ink-soft);max-width:56ch}
-
-/* ---- contact ---- */
-.contact{background:var(--black);border-top:1px solid var(--rule)}
-.contact-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,5vw,64px);align-items:start}
-.big-call{display:inline-flex;flex-direction:column;text-decoration:none;border:1px solid var(--brass);padding:18px 26px;margin-bottom:20px}
-.big-call:hover{background:var(--brass);color:var(--black)}
-.big-call:hover .mono{color:var(--black)}
-.big-call .mono{color:var(--brass)}
-.big-call strong{font-family:Archivo,sans-serif;font-weight:700;font-stretch:112%;font-size:clamp(21px,2.3vw,28px);letter-spacing:.02em;margin-top:4px}
-.contact-aside p{color:var(--ink-soft)}
-form{display:grid;gap:15px}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-label{display:block}
-label .mono{display:block;margin-bottom:6px;color:var(--ink-dim)}
-input,select,textarea{width:100%;font-family:"Source Serif 4",Georgia,serif;font-size:16px;color:var(--ink);background:var(--ground-2);border:1px solid var(--rule);border-radius:0;padding:13px 14px}
-input:focus,select:focus,textarea:focus{border-color:var(--brass);outline:2px solid var(--brass);outline-offset:1px}
-textarea{min-height:118px;resize:vertical}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.form-note{font-size:13.5px;color:var(--ink-dim);margin:0}
-.form-msg{padding:14px 16px;border:1px solid var(--rule);font-size:15px;display:none}
-.form-msg.show{display:block}
-.form-msg.ok{border-color:var(--brass);background:var(--panel);color:var(--brass)}
-.form-msg.err{border-color:#B5705E;background:#33241F;color:#E8AD9B}
-
-/* ---- footer ---- */
-footer{background:var(--black);color:var(--ink-soft);padding-block:clamp(38px,5vw,62px);font-size:14.5px;border-top:1px solid var(--rule)}
-.foot-grid{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:clamp(24px,4vw,52px);align-items:start}
-footer img{width:150px;margin-bottom:16px}
-footer a{color:var(--ink-soft)}
-footer a:hover{color:var(--brass)}
-footer h3.f{font-size:11.5px;letter-spacing:.16em;color:var(--ink);margin:0 0 10px}
-footer ul{list-style:none;margin:0;padding:0}
-footer li{margin-bottom:2px}
-footer li a{display:inline-block;padding:11px 0}
-footer li:not(:has(a)){padding:11px 0}
-.legal{border-top:1px solid var(--rule-soft);margin-top:clamp(26px,4vw,44px);padding-top:20px;font-size:12.5px;color:var(--ink-dim)}
-
-/* ---- sticky mobile call ---- */
-.sticky{position:fixed;left:0;right:0;bottom:0;z-index:80;display:none;background:var(--brass);border-top:1px solid var(--brass-deep)}
-.sticky a{display:flex;align-items:center;justify-content:center;gap:10px;padding:15px;color:var(--black);text-decoration:none;font-family:Archivo,sans-serif;font-size:13px;letter-spacing:.13em;text-transform:uppercase;font-weight:700}
-
-/* ---- responsive ---- */
-@media (max-width:1000px){
-  .hero-grid{grid-template-columns:1fr;gap:28px}
-  .hero-fig{order:-1}
-  .hero-fig img{height:clamp(300px,60vw,430px)}
-  .sched{grid-template-columns:repeat(3,1fr)}
-  .panel-grid{grid-template-columns:1fr;gap:20px}
-  .contact-grid{grid-template-columns:1fr}
-  .foot-grid{grid-template-columns:1fr 1fr}
-  .nav-links{display:none}
-  .rail{flex-wrap:wrap}
-  .rail button{flex:1 1 33.333%;border-bottom:1px solid var(--rule)}
-}
-@media (max-width:680px){
-  body{font-size:16px;padding-bottom:58px}
-  .head{grid-template-columns:1fr;gap:0}
-  .head .no{border-top:0;padding-top:0;padding-bottom:8px}
-  .project-head,.pbody{grid-template-columns:1fr;gap:0}
-  .project-head .pn{margin-bottom:8px}
-  .shots{grid-template-columns:1fr 1fr}
-  .shots a:first-child{grid-column:span 2}
-  .shots a:first-child img{aspect-ratio:16/10}
-  .sched{grid-template-columns:repeat(2,1fr)}
-  .rail button{flex:1 1 50%}
-  .panel ul{columns:1}
-  .ledger{grid-template-columns:1fr}
-  .row2{grid-template-columns:1fr}
-  .foot-grid{grid-template-columns:1fr}
-  .call-top{display:none}
-  .brand i{display:none}
-  .brand b{font-size:11.5px;letter-spacing:.08em}
-  .brand img{width:30px}
-  .sticky{display:block}
-}
-@media (max-width:380px){ .bar{gap:8px} }
-
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
-}
-</style>
 </head>
 <body>
 
 <!-- DELETE AT LAUNCH -->
-<div class="preview-flag"><span data-en="Private preview for Complete Construction &amp; Home Solutions LLC — not a live site" data-es="Vista previa privada para Complete Construction &amp; Home Solutions LLC — no es un sitio publicado">Private preview for Complete Construction &amp; Home Solutions LLC — not a live site</span></div>
+<div class="preview-flag"><span><span data-en="Private preview" data-es="Vista previa privada">Private preview</span><span class="pf-long"> <span data-en="for Complete Construction &amp; Home Solutions LLC" data-es="para Complete Construction &amp; Home Solutions LLC">for Complete Construction &amp; Home Solutions LLC</span></span> <span data-en="— not a live site" data-es="— no es un sitio publicado">— not a live site</span></span></div>
 
 <a class="skip" href="#main" data-en="Skip to content" data-es="Ir al contenido">Skip to content</a>
 
 <header>
   <div class="wrap bar">
     <a class="brand" href="#main">
-      <img src="images/logo-mark.jpg" width="34" alt="Complete Construction hexagonal C monogram in gold and brushed steel">
+      <img src="images/logo-mark.jpg" width="34" height="36" alt="Complete Construction hexagonal C monogram in gold and brushed steel">
       <span><b>Complete Construction</b><i>&amp; Home Solutions LLC</i></span>
     </a>
-    <nav aria-label="Main">
+
+    <!-- Desktop navigation -->
+    <nav class="desk-nav" aria-label="Main">
       <div class="nav-links">
         <a href="#work" data-en="Work" data-es="Trabajos">Work</a>
-        <a href="#phases" data-en="Phases" data-es="Fases">Phases</a>
-        <a href="#scope" data-en="Scope" data-es="Alcance">Scope</a>
-        <a href="#area" data-en="Area" data-es="Zona">Area</a>
+        <a href="#services" data-en="Services" data-es="Servicios">Services</a>
+        <a href="#phases" data-en="Process" data-es="Proceso">Process</a>
+        <a href="#scope" data-en="Proposal" data-es="Propuesta">Proposal</a>
+        <a href="#area" data-en="Service area" data-es="Zona">Service area</a>
         <a href="#contact" data-en="Contact" data-es="Contacto">Contact</a>
       </div>
       <div class="lang" role="group" aria-label="Language">
         <button type="button" data-lang="en" aria-pressed="true">EN</button>
         <button type="button" data-lang="es" aria-pressed="false">ES</button>
       </div>
-      <a class="call-top" href="tel:+17328906244">(732) 890-6244</a>
+      <a class="call-top" href="tel:+17328906244" data-phone-link>
+        <span data-phone-display>(732) 890-6244</span>
+      </a>
     </nav>
+
+    <!-- Mobile controls -->
+    <div class="mobile-tools">
+      <a class="icon-btn is-call" href="tel:+17328906244" data-phone-link>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.4 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+        <span data-en="Call" data-es="Llamar">Call</span>
+      </a>
+      <button class="icon-btn" id="burger" type="button" aria-expanded="false" aria-controls="drawer">
+        <span class="burger-lines" aria-hidden="true"><span></span></span>
+        <span class="sr-only" data-en="Open menu" data-es="Abrir menú">Open menu</span>
+      </button>
+    </div>
   </div>
 </header>
+
+<!-- Slide-out mobile menu -->
+<div class="drawer-backdrop" id="drawer-backdrop"></div>
+<aside class="drawer" id="drawer" aria-hidden="true" aria-label="Menu">
+  <div class="drawer-head">
+    <span class="mono" data-en="Menu" data-es="Menú">Menu</span>
+    <button class="icon-btn" id="drawer-close" type="button">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only" data-en="Close menu" data-es="Cerrar menú">Close menu</span>
+    </button>
+  </div>
+  <nav aria-label="Mobile">
+    <a href="#work" data-en="Work" data-es="Trabajos">Work</a>
+    <a href="#services" data-en="Services" data-es="Servicios">Services</a>
+    <a href="#phases" data-en="Process" data-es="Proceso">Process</a>
+    <a href="#scope" data-en="Proposal" data-es="Propuesta">Proposal</a>
+    <a href="#area" data-en="Service area" data-es="Zona">Service area</a>
+    <a href="#contact" data-en="Start a project" data-es="Empezar un proyecto">Start a project</a>
+  </nav>
+  <div class="drawer-foot">
+    <p class="area-note" data-en="Serving New Jersey homeowners. Call and we will tell you quickly whether your project is a fit." data-es="Atendemos a propietarios en Nueva Jersey. Llame y le diremos rápidamente si su proyecto encaja.">Serving New Jersey homeowners. Call and we will tell you quickly whether your project is a fit.</p>
+    <a class="btn btn-primary" href="tel:+17328906244" data-phone-link>
+      <span data-en="Call" data-es="Llamar">Call</span>&nbsp;<span data-phone-display>(732) 890-6244</span>
+    </a>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">English</button>
+      <button type="button" data-lang="es" aria-pressed="false">Español</button>
+    </div>
+  </div>
+</aside>
 
 <main id="main">
 
 <section class="hero">
   <div class="wrap hero-grid">
-    <div>
-      <p class="kicker">Built right. No shortcuts. Every phase handled.</p>
-      <h1 data-en="We finish the room, not just the part you can see." data-es="Terminamos el cuarto completo, no solo lo que se ve.">We finish the room, not just the part you can see.</h1>
+    <div class="hero-copy">
+      <p class="kicker" data-en="Residential construction &amp; renovation · New Jersey" data-es="Construcción y remodelación residencial · Nueva Jersey">Residential construction &amp; renovation · New Jersey</p>
+      <h1 data-en="We finish the home, not just the room you can see." data-es="Terminamos la casa, no solo el cuarto que se ve.">We finish the home, not just the room you can see.</h1>
       <div class="draw" aria-hidden="true"></div>
-      <p class="hero-lede" data-en="Bathroom renovations and custom millwork across New Jersey. Waterproofing, tile, fixtures and finish carpentry handled by one contractor, on a written scope you read before anything starts." data-es="Remodelación de baños y carpintería a medida en Nueva Jersey. Impermeabilizado, azulejo, accesorios y carpintería de acabado a cargo de un solo contratista, con un alcance por escrito que usted lee antes de empezar.">Bathroom renovations and custom millwork across New Jersey. Waterproofing, tile, fixtures and finish carpentry handled by one contractor, on a written scope you read before anything starts.</p>
+      <p class="hero-lede" data-en="Whole-home renovations, kitchens and bathrooms, additions and custom interiors across New Jersey. Planned clearly and built with every trade coordinated, from demolition through final finish." data-es="Remodelaciones de casa completa, cocinas y baños, ampliaciones e interiores a medida en Nueva Jersey. Planeado con claridad y construido con todos los oficios coordinados, desde la demolición hasta el acabado final.">Whole-home renovations, kitchens and bathrooms, additions and custom interiors across New Jersey. Planned clearly and built with every trade coordinated, from demolition through final finish.</p>
       <div class="hero-cta">
-        <a class="btn btn-primary" href="tel:+17328906244" data-en="Call about your project" data-es="Llame sobre su proyecto">Call about your project</a>
-        <a class="btn btn-ghost" href="#work" data-en="See finished rooms" data-es="Ver cuartos terminados">See finished rooms</a>
+        <a class="btn btn-primary" href="#contact" data-en="Start your project" data-es="Empiece su proyecto">Start your project</a>
+        <a class="btn btn-ghost" href="#work" data-en="See selected work" data-es="Ver trabajos seleccionados">See selected work</a>
       </div>
+      <!-- Shown only when the owner confirms the business number receives SMS. -->
+      <p class="hero-sms" data-flag="smsEnabled" hidden>
+        <a class="btn btn-ghost" href="sms:+17328906244" data-en="Text us photos" data-es="Envíenos fotos">Text us photos</a>
+        <span class="form-note" data-en="Send photos of your space for a quick project-fit check." data-es="Envíe fotos de su espacio para una revisión rápida de compatibilidad.">Send photos of your space for a quick project-fit check.</span>
+      </p>
     </div>
     <figure class="hero-fig">
-      <img src="images/powder-vanity-wallpaper.jpg" width="544" height="960" alt="Finished powder room with dark botanical wallpaper, an oval brass mirror, brass faucet and a walnut floating vanity above blush panelled wainscoting" fetchpriority="high" decoding="async">
-      <figcaption class="mono" data-en="Powder room, completed" data-es="Medio baño, terminado">Powder room, completed</figcaption>
+      <img src="images/powder-vanity-wallpaper.jpg" width="544" height="960" alt="Completed powder room with dark botanical wall covering, an oval brass-framed mirror, brass tapware and a walnut floating vanity above blush panelled wainscoting" fetchpriority="high" decoding="async">
+      <figcaption class="mono" data-en="Featured project: powder room renovation, New Jersey" data-es="Proyecto destacado: remodelación de medio baño, Nueva Jersey">Featured project: powder room renovation, New Jersey</figcaption>
     </figure>
   </div>
 </section>
 
-<!-- SIGNATURE 1 — finish schedule, read as a materials list off a real job -->
+<!-- Trust line. Claims needing owner sign-off carry data-flag and ship hidden. -->
+<div class="trustline">
+  <div class="wrap">
+    <ul>
+      <li data-en="Written scope before work begins" data-es="Alcance por escrito antes de empezar">Written scope before work begins</li>
+      <li data-en="Serving New Jersey homeowners" data-es="Atendemos a propietarios en Nueva Jersey">Serving New Jersey homeowners</li>
+      <li data-flag="licensedAndInsuredClaim" hidden data-en="Licensed &amp; insured" data-es="Con licencia y asegurado">Licensed &amp; insured</li>
+      <li data-flag="warrantyClaim" hidden data-en="One-year workmanship warranty" data-es="Garantía de un año sobre la mano de obra">One-year workmanship warranty</li>
+      <li data-flag="spanishSupported" hidden data-en="English &amp; Spanish" data-es="Inglés y español">English &amp; Spanish</li>
+    </ul>
+  </div>
+</div>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="head">
+      <span class="no">01</span>
+      <div class="ht">
+        <h2 data-en="What we build" data-es="Lo que construimos">What we build</h2>
+        <p data-en="From one room to a whole house, every project is planned around the work behind the walls as carefully as the finish you end up seeing." data-es="De un solo cuarto a una casa completa, cada proyecto se planea alrededor del trabajo detrás de los muros con el mismo cuidado que el acabado que usted termina viendo.">From one room to a whole house, every project is planned around the work behind the walls as carefully as the finish you end up seeing.</p>
+      </div>
+    </div>
+    <div class="svc-grid">
+      <article class="svc-card" data-service="whole-home">
+        <span class="sn">S-01</span>
+        <h3 data-en="Whole-home renovations" data-es="Remodelación de casa completa">Whole-home renovations</h3>
+        <p data-en="Rooms, systems and finishes brought together as one coordinated scope rather than a series of separate jobs." data-es="Cuartos, instalaciones y acabados unidos en un solo alcance coordinado, en lugar de una serie de trabajos separados.">Rooms, systems and finishes brought together as one coordinated scope rather than a series of separate jobs.</p>
+      </article>
+      <article class="svc-card" data-service="kitchen-bath">
+        <span class="sn">S-02</span>
+        <h3 data-en="Kitchens &amp; bathrooms" data-es="Cocinas y baños">Kitchens &amp; bathrooms</h3>
+        <p data-en="Waterproofing, tile, cabinetry, plumbing, lighting and finish carpentry handled as one scope by one contractor." data-es="Impermeabilizado, azulejo, gabinetes, plomería, iluminación y carpintería de acabado en un solo alcance y con un solo contratista.">Waterproofing, tile, cabinetry, plumbing, lighting and finish carpentry handled as one scope by one contractor.</p>
+      </article>
+      <article class="svc-card" data-service="additions">
+        <span class="sn">S-03</span>
+        <h3 data-en="Additions &amp; reconfigurations" data-es="Ampliaciones y reconfiguraciones">Additions &amp; reconfigurations</h3>
+        <p data-en="More space and better flow, built to connect naturally to the house that is already there." data-es="Más espacio y mejor circulación, construido para conectarse de forma natural con la casa que ya existe.">More space and better flow, built to connect naturally to the house that is already there.</p>
+      </article>
+      <article class="svc-card" data-service="millwork">
+        <span class="sn">S-04</span>
+        <h3 data-en="Custom interiors &amp; millwork" data-es="Interiores y carpintería a medida">Custom interiors &amp; millwork</h3>
+        <p data-en="Built-ins, trim, cabinetry, panelled walls and architectural detail, designed and fabricated to the room." data-es="Muebles empotrados, molduras, gabinetes, muros panelados y detalle arquitectónico, diseñados y fabricados a la medida del cuarto.">Built-ins, trim, cabinetry, panelled walls and architectural detail, designed and fabricated to the room.</p>
+      </article>
+      <!-- TODO(owner): confirm before enabling in assets/site.config.js -->
+      <article class="svc-card" data-service="new-build" hidden>
+        <span class="sn">S-05</span>
+        <h3 data-en="New home construction" data-es="Construcción de casa nueva">New home construction</h3>
+        <p data-en="Ground-up residential construction built around the way you want to live." data-es="Construcción residencial desde cero, pensada alrededor de cómo quiere vivir.">Ground-up residential construction built around the way you want to live.</p>
+        <p class="flag-note" data-en="Awaiting owner confirmation" data-es="Pendiente de confirmación del propietario">Awaiting owner confirmation</p>
+      </article>
+      <!-- TODO(owner): confirm before enabling in assets/site.config.js -->
+      <article class="svc-card" data-service="exterior" hidden>
+        <span class="sn">S-06</span>
+        <h3 data-en="Structural &amp; exterior work" data-es="Trabajo estructural y exterior">Structural &amp; exterior work</h3>
+        <p data-en="Exterior improvements and structural changes that support the rest of the project." data-es="Mejoras exteriores y cambios estructurales que dan soporte al resto del proyecto.">Exterior improvements and structural changes that support the rest of the project.</p>
+        <p class="flag-note" data-en="Awaiting owner confirmation" data-es="Pendiente de confirmación del propietario">Awaiting owner confirmation</p>
+      </article>
+    </div>
+  </div>
+</section>
+
 <section class="schedule" aria-labelledby="sched-h">
   <div class="wrap">
     <div class="sched-top">
-      <span class="mono">Finish schedule</span>
+      <span class="mono" data-en="Finish schedule" data-es="Lista de acabados">Finish schedule</span>
       <h2 id="sched-h" data-en="Materials from jobs we have finished" data-es="Materiales de trabajos que hemos terminado">Materials from jobs we have finished</h2>
-      <p data-en="Every surface below is a photograph of our own work, not a catalogue." data-es="Cada superficie de abajo es una fotografía de nuestro propio trabajo, no de un catálogo.">Every surface below is a photograph of our own work, not a catalogue.</p>
+      <p data-en="Every surface below is photographed from our own work, not a catalogue. Tap any one to see it larger." data-es="Cada superficie de abajo está fotografiada de nuestro propio trabajo, no de un catálogo. Toque cualquiera para verla más grande.">Every surface below is photographed from our own work, not a catalogue. Tap any one to see it larger.</p>
     </div>
-    <div class="sched">
-      <figure><img src="images/materials/brass-niche.jpg" loading="lazy" decoding="async" width="300" height="300" alt="Unlacquered brass shower valve and handshower against dark glazed tile">
+    <div class="sched" data-gallery="materials">
+      <figure><button type="button" data-full="images/materials/brass-niche.jpg" data-caption="Unlacquered brass shower valve and handshower against dark glazed tile"><img src="images/materials/brass-niche.jpg" loading="lazy" decoding="async" width="300" height="300" alt="Unlacquered brass shower valve and handshower against dark glazed tile"></button>
         <figcaption><span class="m-n">M-01</span><span class="m-t" data-en="Unlacquered brass" data-es="Latón sin laca">Unlacquered brass</span></figcaption></figure>
-      <figure><img src="images/materials/glazed-tile.jpg" loading="lazy" decoding="async" width="300" height="300" alt="Stacked dark glazed ceramic tile with a brass-lined recessed niche">
+      <figure><button type="button" data-full="images/materials/glazed-tile.jpg" data-caption="Stacked dark glazed ceramic tile with a brass-lined recessed niche"><img src="images/materials/glazed-tile.jpg" loading="lazy" decoding="async" width="300" height="300" alt="Stacked dark glazed ceramic tile with a brass-lined recessed niche"></button>
         <figcaption><span class="m-n">M-02</span><span class="m-t" data-en="Glazed stack tile" data-es="Azulejo vidriado apilado">Glazed stack tile</span></figcaption></figure>
-      <figure><img src="images/materials/marble.jpg" loading="lazy" decoding="async" width="300" height="300" alt="Marble waterfall vanity with a carved basin and brass tapware">
+      <figure><button type="button" data-full="images/materials/marble.jpg" data-caption="Marble waterfall vanity with a carved basin and brass tapware"><img src="images/materials/marble.jpg" loading="lazy" decoding="async" width="300" height="300" alt="Marble waterfall vanity with a carved basin and brass tapware"></button>
         <figcaption><span class="m-n">M-03</span><span class="m-t" data-en="Marble slab" data-es="Placa de mármol">Marble slab</span></figcaption></figure>
-      <figure><img src="images/materials/herringbone.jpg" loading="lazy" decoding="async" width="300" height="300" alt="Marble mosaic floor laid in a herringbone pattern">
+      <figure><button type="button" data-full="images/materials/herringbone.jpg" data-caption="Marble mosaic floor laid in a herringbone pattern"><img src="images/materials/herringbone.jpg" loading="lazy" decoding="async" width="300" height="300" alt="Marble mosaic floor laid in a herringbone pattern"></button>
         <figcaption><span class="m-n">M-04</span><span class="m-t" data-en="Herringbone mosaic" data-es="Mosaico en espigado">Herringbone mosaic</span></figcaption></figure>
-      <figure><img src="images/materials/walnut.jpg" loading="lazy" decoding="async" width="300" height="300" alt="Walnut floating vanity carcass beneath a white trough basin">
+      <figure><button type="button" data-full="images/materials/walnut.jpg" data-caption="Walnut floating vanity carcass beneath a white trough basin"><img src="images/materials/walnut.jpg" loading="lazy" decoding="async" width="300" height="300" alt="Walnut floating vanity carcass beneath a white trough basin"></button>
         <figcaption><span class="m-n">M-05</span><span class="m-t" data-en="Walnut casework" data-es="Mueble de nogal">Walnut casework</span></figcaption></figure>
-      <figure><img src="images/materials/wallpaper.jpg" loading="lazy" decoding="async" width="300" height="300" alt="Dark botanical wall covering showing painted foliage and a bird">
+      <figure><button type="button" data-full="images/materials/wallpaper.jpg" data-caption="Dark botanical wall covering showing painted foliage and a bird"><img src="images/materials/wallpaper.jpg" loading="lazy" decoding="async" width="300" height="300" alt="Dark botanical wall covering showing painted foliage and a bird"></button>
         <figcaption><span class="m-n">M-06</span><span class="m-t" data-en="Specialty wall covering" data-es="Recubrimiento especial">Specialty wall covering</span></figcaption></figure>
     </div>
   </div>
@@ -402,14 +272,18 @@ footer li:not(:has(a)){padding:11px 0}
 <section id="work">
   <div class="wrap">
     <div class="head">
-      <span class="no">01</span>
+      <span class="no">02</span>
       <div class="ht">
-        <h2 data-en="Finished rooms" data-es="Cuartos terminados">Finished rooms</h2>
-        <p data-en="Three jobs, photographed as they were handed over. No staging, no stock." data-es="Tres trabajos, fotografiados tal como se entregaron. Sin montaje, sin fotos de banco.">Three jobs, photographed as they were handed over. No staging, no stock.</p>
+        <h2 data-en="Selected work" data-es="Trabajos seleccionados">Selected work</h2>
+        <p data-en="Renovations, interiors and construction detail from completed projects. Tap any image to see it larger." data-es="Remodelaciones, interiores y detalles de construcción de proyectos terminados. Toque cualquier imagen para verla más grande.">Renovations, interiors and construction detail from completed projects. Tap any image to see it larger.</p>
       </div>
     </div>
 
-    <article class="project">
+    <!-- Filters render only for categories that contain published work.
+         Add a category to a project's data-category and the filter appears. -->
+    <div class="filters" id="filters" role="group" aria-label="Filter work by category" hidden></div>
+
+    <article class="project" data-category="bathrooms">
       <div class="project-head">
         <span class="pn">P-01</span>
         <div><h3 data-en="Powder room and shower" data-es="Medio baño y regadera">Powder room and shower</h3>
@@ -417,14 +291,13 @@ footer li:not(:has(a)){padding:11px 0}
       </div>
       <div class="pbody"><span></span>
         <p data-en="Patterned wall covering hung true to the wainscot cap, blush raised-panel millwork, a walnut floating vanity, and a shower in stacked glazed tile with unlacquered brass fixtures and a brass-lined niche." data-es="Recubrimiento con patrón alineado al remate del zócalo, molduras de panel realzado, tocador flotante de nogal, y una regadera en azulejo vidriado apilado con accesorios de latón sin laca y nicho forrado en latón.">Patterned wall covering hung true to the wainscot cap, blush raised-panel millwork, a walnut floating vanity, and a shower in stacked glazed tile with unlacquered brass fixtures and a brass-lined niche.</p></div>
-      <div class="shots">
-        <a href="images/powder-mirror-brass.jpg"><img src="images/powder-mirror-brass.jpg" loading="lazy" decoding="async" width="544" height="960" alt="Oval brass-framed mirror and brass faucet against dark botanical wall covering"></a>
-        <a href="images/shower-green-tile-brass.jpg"><img src="images/shower-green-tile-brass.jpg" loading="lazy" decoding="async" width="544" height="960" alt="Shower in stacked dark glazed tile with a brass recessed niche and patterned mosaic floor"></a>
-        <a href="images/wallpaper-detail.jpg"><img src="images/wallpaper-detail.jpg" loading="lazy" decoding="async" width="544" height="960" alt="Close detail of the botanical wall covering showing a bird among foliage"></a>
+      <div class="shots" data-gallery="P-01">
+        <button type="button" data-full="images/powder-mirror-brass.jpg" data-caption="Oval brass-framed mirror and brass tapware against dark botanical wall covering"><img src="images/powder-mirror-brass.jpg" loading="lazy" decoding="async" width="544" height="960" alt="Oval brass-framed mirror and brass tapware against dark botanical wall covering"></button>
+        <button type="button" data-full="images/shower-green-tile-brass.jpg" data-caption="Shower in stacked dark glazed tile with a brass recessed niche and patterned mosaic floor"><img src="images/shower-green-tile-brass.jpg" loading="lazy" decoding="async" width="544" height="960" alt="Shower in stacked dark glazed tile with a brass recessed niche and patterned mosaic floor"></button>
+        <button type="button" data-full="images/wallpaper-detail.jpg" data-caption="Close detail of the botanical wall covering showing a bird among foliage"><img src="images/wallpaper-detail.jpg" loading="lazy" decoding="async" width="544" height="960" alt="Close detail of the botanical wall covering showing a bird among foliage"></button>
       </div>
     </article>
-
-    <article class="project">
+    <article class="project" data-category="bathrooms">
       <div class="project-head">
         <span class="pn">P-02</span>
         <div><h3 data-en="Marble powder room" data-es="Medio baño en mármol">Marble powder room</h3>
@@ -432,14 +305,13 @@ footer li:not(:has(a)){padding:11px 0}
       </div>
       <div class="pbody"><span></span>
         <p data-en="A marble waterfall vanity with a carved basin, brass widespread tapware and a brass light bar, over a herringbone marble mosaic floor with custom panel wall treatment." data-es="Tocador de mármol en cascada con lavabo tallado, llave de latón de tres piezas y barra de luz en latón, sobre piso de mosaico de mármol en espigado con panelado a medida.">A marble waterfall vanity with a carved basin, brass widespread tapware and a brass light bar, over a herringbone marble mosaic floor with custom panel wall treatment.</p></div>
-      <div class="shots">
-        <a href="images/powder-marble-vanity.jpg"><img src="images/powder-marble-vanity.jpg" loading="lazy" decoding="async" width="544" height="960" alt="Marble waterfall vanity with brass tapware and a framed mirror lit by a three-globe brass light bar"></a>
-        <a href="images/powder-marble-herringbone.jpg"><img src="images/powder-marble-herringbone.jpg" loading="lazy" decoding="async" width="544" height="960" alt="Marble waterfall vanity seen from above with the herringbone mosaic floor below"></a>
-        <a href="images/powder-herringbone-floor.jpg"><img src="images/powder-herringbone-floor.jpg" loading="lazy" decoding="async" width="544" height="960" alt="Herringbone marble mosaic floor meeting a marble base and painted wainscot"></a>
+      <div class="shots" data-gallery="P-02">
+        <button type="button" data-full="images/powder-marble-vanity.jpg" data-caption="Marble waterfall vanity with brass tapware and a framed mirror lit by a three-globe brass light bar"><img src="images/powder-marble-vanity.jpg" loading="lazy" decoding="async" width="544" height="960" alt="Marble waterfall vanity with brass tapware and a framed mirror lit by a three-globe brass light bar"></button>
+        <button type="button" data-full="images/powder-marble-herringbone.jpg" data-caption="Marble waterfall vanity seen from above with the herringbone mosaic floor below"><img src="images/powder-marble-herringbone.jpg" loading="lazy" decoding="async" width="544" height="960" alt="Marble waterfall vanity seen from above with the herringbone mosaic floor below"></button>
+        <button type="button" data-full="images/powder-herringbone-floor.jpg" data-caption="Herringbone marble mosaic floor meeting a marble base and painted wainscot"><img src="images/powder-herringbone-floor.jpg" loading="lazy" decoding="async" width="544" height="960" alt="Herringbone marble mosaic floor meeting a marble base and painted wainscot"></button>
       </div>
     </article>
-
-    <article class="project">
+    <article class="project" data-category="bathrooms">
       <div class="project-head">
         <span class="pn">P-03</span>
         <div><h3 data-en="Full bathroom renovation" data-es="Remodelación completa de baño">Full bathroom renovation</h3>
@@ -447,93 +319,102 @@ footer li:not(:has(a)){padding:11px 0}
       </div>
       <div class="pbody"><span></span>
         <p data-en="Converted to a walk-in shower with waterproofed wet areas, large-format marble-look porcelain, a recessed niche, hex mosaic shower floor and matte black fixtures throughout." data-es="Convertido a regadera sin escalón con áreas húmedas impermeabilizadas, porcelanato de gran formato tipo mármol, nicho empotrado, piso de mosaico hexagonal y accesorios en negro mate.">Converted to a walk-in shower with waterproofed wet areas, large-format marble-look porcelain, a recessed niche, hex mosaic shower floor and matte black fixtures throughout.</p></div>
-      <div class="shots">
-        <a href="images/bath-marble-shower.jpg"><img src="images/bath-marble-shower.jpg" loading="lazy" decoding="async" width="544" height="960" alt="Walk-in shower with glass doors, marble-look porcelain walls, a matte black grab rail and a recessed niche"></a>
-        <a href="images/bath-shower-niche.jpg"><img src="images/bath-shower-niche.jpg" loading="lazy" decoding="async" width="544" height="960" alt="Recessed shower niche tiled in dark hex mosaic against marble-look porcelain"></a>
-        <a href="images/bath-marble-floor.jpg"><img src="images/bath-marble-floor.jpg" loading="lazy" decoding="async" width="544" height="960" alt="Finished bathroom floor in marble-look porcelain with the glass shower enclosure behind"></a>
+      <div class="shots" data-gallery="P-03">
+        <button type="button" data-full="images/bath-marble-shower.jpg" data-caption="Walk-in shower with glass doors, marble-look porcelain walls, a matte black grab rail and a recessed niche"><img src="images/bath-marble-shower.jpg" loading="lazy" decoding="async" width="544" height="960" alt="Walk-in shower with glass doors, marble-look porcelain walls, a matte black grab rail and a recessed niche"></button>
+        <button type="button" data-full="images/bath-shower-niche.jpg" data-caption="Recessed shower niche tiled in dark hex mosaic against marble-look porcelain"><img src="images/bath-shower-niche.jpg" loading="lazy" decoding="async" width="544" height="960" alt="Recessed shower niche tiled in dark hex mosaic against marble-look porcelain"></button>
+        <button type="button" data-full="images/bath-marble-floor.jpg" data-caption="Finished bathroom floor in marble-look porcelain with the glass shower enclosure behind"><img src="images/bath-marble-floor.jpg" loading="lazy" decoding="async" width="544" height="960" alt="Finished bathroom floor in marble-look porcelain with the glass shower enclosure behind"></button>
       </div>
     </article>
+
+    <p class="section-cta">
+      <a class="btn btn-ghost" href="#contact" data-en="Planning something similar?" data-es="¿Planea algo parecido?">Planning something similar?</a>
+    </p>
   </div>
 </section>
 
-<!-- SIGNATURE 2 — the phase rail. The tagline says every phase handled; this shows the phases. -->
 <section class="phases" id="phases">
   <div class="wrap">
     <div class="head">
-      <span class="no">02</span>
+      <span class="no">03</span>
       <div class="ht">
         <h2 data-en="Every phase handled" data-es="Cada fase a cargo">Every phase handled</h2>
-        <p data-en="Most remodels change hands three or four times, and the gaps between trades are where jobs go wrong. Pick a phase to see what we do in it." data-es="La mayoría de las remodelaciones cambia de manos tres o cuatro veces, y los huecos entre oficios son donde los trabajos salen mal. Elija una fase para ver qué hacemos en ella.">Most remodels change hands three or four times, and the gaps between trades are where jobs go wrong. Pick a phase to see what we do in it.</p>
+        <p data-en="Most renovations change hands three or four times, and the gaps between trades are where jobs go wrong. Pick a phase to see what we do in it." data-es="La mayoría de las remodelaciones cambia de manos tres o cuatro veces, y los huecos entre oficios son donde los trabajos salen mal. Elija una fase para ver qué hacemos en ella.">Most renovations change hands three or four times, and the gaps between trades are where jobs go wrong. Pick a phase to see what we do in it.</p>
       </div>
     </div>
-
     <div class="rail" role="tablist" aria-label="Project phases">
-      <button role="tab" id="tab-1" aria-controls="ph-1" aria-selected="true" tabindex="0"><span class="rn">01</span><span data-en="Demo &amp; prep" data-es="Demolición y preparación">Demo &amp; prep</span></button>
-      <button role="tab" id="tab-2" aria-controls="ph-2" aria-selected="false" tabindex="-1"><span class="rn">02</span><span data-en="Framing &amp; substrate" data-es="Estructura y sustrato">Framing &amp; substrate</span></button>
-      <button role="tab" id="tab-3" aria-controls="ph-3" aria-selected="false" tabindex="-1"><span class="rn">03</span><span data-en="Waterproofing" data-es="Impermeabilizado">Waterproofing</span></button>
-      <button role="tab" id="tab-4" aria-controls="ph-4" aria-selected="false" tabindex="-1"><span class="rn">04</span><span data-en="Tile &amp; stone" data-es="Azulejo y piedra">Tile &amp; stone</span></button>
-      <button role="tab" id="tab-5" aria-controls="ph-5" aria-selected="false" tabindex="-1"><span class="rn">05</span><span data-en="Fixtures &amp; power" data-es="Accesorios y electricidad">Fixtures &amp; power</span></button>
-      <button role="tab" id="tab-6" aria-controls="ph-6" aria-selected="false" tabindex="-1"><span class="rn">06</span><span data-en="Millwork &amp; finish" data-es="Carpintería y acabado">Millwork &amp; finish</span></button>
+      <button role="tab" id="tab-1" aria-controls="ph-1" aria-selected="true" tabindex="0"><span class="rn">01</span><span data-en="Consultation &amp; scope" data-es="Consulta y alcance">Consultation &amp; scope</span></button>
+      <button role="tab" id="tab-2" aria-controls="ph-2" aria-selected="false" tabindex="-1"><span class="rn">02</span><span data-en="Demo &amp; prep" data-es="Demolición y preparación">Demo &amp; prep</span></button>
+      <button role="tab" id="tab-3" aria-controls="ph-3" aria-selected="false" tabindex="-1"><span class="rn">03</span><span data-en="Framing &amp; substrate" data-es="Estructura y sustrato">Framing &amp; substrate</span></button>
+      <button role="tab" id="tab-4" aria-controls="ph-4" aria-selected="false" tabindex="-1"><span class="rn">04</span><span data-en="Waterproofing" data-es="Impermeabilizado">Waterproofing</span></button>
+      <button role="tab" id="tab-5" aria-controls="ph-5" aria-selected="false" tabindex="-1"><span class="rn">05</span><span data-en="Tile &amp; stone" data-es="Azulejo y piedra">Tile &amp; stone</span></button>
+      <button role="tab" id="tab-6" aria-controls="ph-6" aria-selected="false" tabindex="-1"><span class="rn">06</span><span data-en="Fixtures &amp; power" data-es="Accesorios y electricidad">Fixtures &amp; power</span></button>
+      <button role="tab" id="tab-7" aria-controls="ph-7" aria-selected="false" tabindex="-1"><span class="rn">07</span><span data-en="Millwork &amp; finish" data-es="Carpintería y acabado">Millwork &amp; finish</span></button>
+      <button role="tab" id="tab-8" aria-controls="ph-8" aria-selected="false" tabindex="-1"><span class="rn">08</span><span data-en="Final walkthrough" data-es="Recorrido final">Final walkthrough</span></button>
     </div>
-
     <div class="panel" id="ph-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0">
       <div class="panel-grid">
+        <div><h3 data-en="Consultation &amp; scope" data-es="Consulta y alcance">Consultation &amp; scope</h3>
+          <p class="lede" data-en="We come out, measure, look at what is actually behind the finishes, and talk through what you want the house to become. You leave that conversation with a written scope." data-es="Vamos al sitio, medimos, revisamos qué hay realmente detrás de los acabados y hablamos de en qué quiere convertir la casa. De esa conversación sale un alcance por escrito.">We come out, measure, look at what is actually behind the finishes, and talk through what you want the house to become. You leave that conversation with a written scope.</p></div>
+        <ul>
+          <li data-en="Field verification of existing conditions" data-es="Verificación de condiciones existentes">Field verification of existing conditions</li>
+          <li data-en="Scope written item by item" data-es="Alcance escrito partida por partida">Scope written item by item</li>
+          <li data-en="Guidance on materials and quantities" data-es="Asesoría sobre materiales y cantidades">Guidance on materials and quantities</li>
+          <li data-en="Staged payments set against progress" data-es="Pagos por etapas ligados al avance">Staged payments set against progress</li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel" id="ph-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0" hidden>
+      <div class="panel-grid">
         <div><h3 data-en="Demo &amp; prep" data-es="Demolición y preparación">Demo &amp; prep</h3>
-          <p class="lede" data-en="Protecting the rest of the house is part of the job. Floors, doorways and the path in and out get covered before anything comes apart." data-es="Proteger el resto de la casa es parte del trabajo. Pisos, puertas y el camino de entrada y salida se cubren antes de desarmar nada.">Protecting the rest of the house is part of the job. Floors, doorways and the path in and out get covered before anything comes apart.</p></div>
+          <p class="lede" data-en="Protecting the rest of the house is part of the job. Floors, doorways and the route in and out get covered before anything comes apart." data-es="Proteger el resto de la casa es parte del trabajo. Pisos, puertas y la ruta de entrada y salida se cubren antes de desarmar nada.">Protecting the rest of the house is part of the job. Floors, doorways and the route in and out get covered before anything comes apart.</p></div>
         <ul>
           <li data-en="Protection of work areas and access routes" data-es="Protección de áreas de trabajo y accesos">Protection of work areas and access routes</li>
           <li data-en="Removal of existing finishes and fixtures" data-es="Retiro de acabados y accesorios existentes">Removal of existing finishes and fixtures</li>
           <li data-en="Debris handling coordinated up front" data-es="Manejo de escombros coordinado desde el inicio">Debris handling coordinated up front</li>
-          <li data-en="Existing conditions inspected once opened up" data-es="Revisión de condiciones existentes al abrir">Existing conditions inspected once opened up</li>
+          <li data-en="Existing conditions inspected once opened up" data-es="Revisión de condiciones al abrir">Existing conditions inspected once opened up</li>
         </ul>
       </div>
     </div>
-
-    <div class="panel" id="ph-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0" hidden>
+    <div class="panel" id="ph-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0" hidden>
       <div class="panel-grid">
         <div><h3 data-en="Framing &amp; substrate" data-es="Estructura y sustrato">Framing &amp; substrate</h3>
-          <p class="lede" data-en="What sits behind the tile decides whether the tile lasts. Framing, blocking and shower substrate are set true before a single sheet goes up." data-es="Lo que va detrás del azulejo decide si el azulejo dura. Estructura, refuerzos y sustrato de regadera se dejan a plomo antes de colocar una sola placa.">What sits behind the tile decides whether the tile lasts. Framing, blocking and shower substrate are set true before a single sheet goes up.</p></div>
+          <p class="lede" data-en="What sits behind the tile decides whether the tile lasts. Framing, blocking and substrate are set true before a single sheet goes up." data-es="Lo que va detrás del azulejo decide si el azulejo dura. Estructura, refuerzos y sustrato se dejan a plomo antes de colocar una sola placa.">What sits behind the tile decides whether the tile lasts. Framing, blocking and substrate are set true before a single sheet goes up.</p></div>
         <ul>
           <li data-en="Structural carpentry and framing" data-es="Carpintería estructural y armado">Structural carpentry and framing</li>
-          <li data-en="Blocking for grab rails, niches and vanities" data-es="Refuerzos para barras, nichos y tocadores">Blocking for grab rails, niches and vanities</li>
+          <li data-en="Blocking for rails, niches and vanities" data-es="Refuerzos para barras, nichos y tocadores">Blocking for rails, niches and vanities</li>
           <li data-en="Shower substrate installation" data-es="Instalación de sustrato de regadera">Shower substrate installation</li>
           <li data-en="Subfloor preparation and levelling" data-es="Preparación y nivelación de contrapiso">Subfloor preparation and levelling</li>
-          <li data-en="Deck, shed and exterior framing" data-es="Estructura de terrazas, cobertizos y exteriores">Deck, shed and exterior framing</li>
         </ul>
       </div>
     </div>
-
-    <div class="panel" id="ph-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0" hidden>
+    <div class="panel" id="ph-4" role="tabpanel" aria-labelledby="tab-4" tabindex="0" hidden>
       <div class="panel-grid">
         <div><h3 data-en="Waterproofing" data-es="Impermeabilizado">Waterproofing</h3>
           <p class="lede" data-en="The phase nobody sees and the one that costs the most to get wrong. Wet areas are waterproofed properly before tile, every time." data-es="La fase que nadie ve y la que más cuesta si sale mal. Las áreas húmedas se impermeabilizan correctamente antes del azulejo, siempre.">The phase nobody sees and the one that costs the most to get wrong. Wet areas are waterproofed properly before tile, every time.</p></div>
         <ul>
-          <li data-en="Professional waterproofing of shower wet areas" data-es="Impermeabilizado profesional de áreas húmedas">Professional waterproofing of shower wet areas</li>
+          <li data-en="Professional waterproofing of wet areas" data-es="Impermeabilizado profesional de áreas húmedas">Professional waterproofing of wet areas</li>
           <li data-en="Corners, curbs and penetrations detailed" data-es="Esquinas, bordes y penetraciones detalladas">Corners, curbs and penetrations detailed</li>
-          <li data-en="Niches and benches sealed before tiling" data-es="Nichos y bancas selladas antes de azulejar">Niches and benches sealed before tiling</li>
-          <li data-en="Plumbing adjustments within the contracted room" data-es="Ajustes de plomería dentro del cuarto contratado">Plumbing adjustments within the contracted room</li>
+          <li data-en="Niches and benches sealed before tiling" data-es="Nichos y bancas sellados antes de azulejar">Niches and benches sealed before tiling</li>
+          <li data-en="Plumbing adjustments within the contracted scope" data-es="Ajustes de plomería dentro del alcance contratado">Plumbing adjustments within the contracted scope</li>
         </ul>
       </div>
     </div>
-
-    <div class="panel" id="ph-4" role="tabpanel" aria-labelledby="tab-4" tabindex="0" hidden>
+    <div class="panel" id="ph-5" role="tabpanel" aria-labelledby="tab-5" tabindex="0" hidden>
       <div class="panel-grid">
         <div><h3 data-en="Tile &amp; stone" data-es="Azulejo y piedra">Tile &amp; stone</h3>
           <p class="lede" data-en="Layout is decided before the first tile is set, so patterns land where they should and cuts fall where nobody looks." data-es="El trazo se decide antes de colocar el primer azulejo, para que los patrones caigan donde deben y los cortes queden donde nadie mira.">Layout is decided before the first tile is set, so patterns land where they should and cuts fall where nobody looks.</p></div>
         <ul>
           <li data-en="Ceramic, porcelain, marble and mosaic" data-es="Cerámica, porcelanato, mármol y mosaico">Ceramic, porcelain, marble and mosaic</li>
           <li data-en="Large-format and stacked wall tile" data-es="Azulejo de gran formato y apilado en muro">Large-format and stacked wall tile</li>
-          <li data-en="Herringbone, hex and patterned mosaic floors" data-es="Pisos de mosaico en espigado, hexagonal y con patrón">Herringbone, hex and patterned mosaic floors</li>
+          <li data-en="Herringbone, hex and patterned floors" data-es="Pisos en espigado, hexagonal y con patrón">Herringbone, hex and patterned floors</li>
           <li data-en="Grouting and finish detailing" data-es="Emboquillado y detalles de acabado">Grouting and finish detailing</li>
-          <li data-en="Stone facing and exterior stonework" data-es="Recubrimiento de piedra y trabajos exteriores">Stone facing and exterior stonework</li>
         </ul>
       </div>
     </div>
-
-    <div class="panel" id="ph-5" role="tabpanel" aria-labelledby="tab-5" tabindex="0" hidden>
+    <div class="panel" id="ph-6" role="tabpanel" aria-labelledby="tab-6" tabindex="0" hidden>
       <div class="panel-grid">
         <div><h3 data-en="Fixtures &amp; power" data-es="Accesorios y electricidad">Fixtures &amp; power</h3>
-          <p class="lede" data-en="Vanities, tapware, mirrors and lighting set, connected and tested before we call the room done." data-es="Tocadores, llaves, espejos e iluminación instalados, conectados y probados antes de dar el cuarto por terminado.">Vanities, tapware, mirrors and lighting set, connected and tested before we call the room done.</p></div>
+          <p class="lede" data-en="Vanities, tapware, mirrors and lighting set, connected and tested before we call a room done." data-es="Tocadores, llaves, espejos e iluminación instalados, conectados y probados antes de dar un cuarto por terminado.">Vanities, tapware, mirrors and lighting set, connected and tested before we call a room done.</p></div>
         <ul>
           <li data-en="Vanity, faucet, toilet and mirror installation" data-es="Instalación de tocador, llave, inodoro y espejo">Vanity, faucet, toilet and mirror installation</li>
           <li data-en="Shower body and trim connection" data-es="Conexión de cuerpo y accesorios de regadera">Shower body and trim connection</li>
@@ -543,32 +424,41 @@ footer li:not(:has(a)){padding:11px 0}
         </ul>
       </div>
     </div>
-
-    <div class="panel" id="ph-6" role="tabpanel" aria-labelledby="tab-6" tabindex="0" hidden>
+    <div class="panel" id="ph-7" role="tabpanel" aria-labelledby="tab-7" tabindex="0" hidden>
       <div class="panel-grid">
         <div><h3 data-en="Millwork &amp; finish" data-es="Carpintería y acabado">Millwork &amp; finish</h3>
           <p class="lede" data-en="The same shop that builds architectural millwork to measure also runs the molding, paint and caulk on a powder room." data-es="El mismo taller que fabrica carpintería arquitectónica a medida también hace las molduras, la pintura y el sellado de un medio baño.">The same shop that builds architectural millwork to measure also runs the molding, paint and caulk on a powder room.</p></div>
         <ul>
-          <li data-en="Custom architectural millwork, designed and fabricated" data-es="Carpintería arquitectónica a medida, diseñada y fabricada">Custom architectural millwork, designed and fabricated</li>
-          <li data-en="Columns, capitals, cornice and crown detailing" data-es="Columnas, capiteles, cornisas y coronas">Columns, capitals, cornice and crown detailing</li>
-          <li data-en="Raised panel and wainscot millwork" data-es="Panel realzado y zócalos de madera">Raised panel and wainscot millwork</li>
+          <li data-en="Custom millwork, designed and fabricated" data-es="Carpintería a medida, diseñada y fabricada">Custom millwork, designed and fabricated</li>
+          <li data-en="Cornice, crown and panelled detailing" data-es="Cornisas, coronas y detalle panelado">Cornice, crown and panelled detailing</li>
+          <li data-en="Built-ins, trim and wainscot" data-es="Empotrados, molduras y zócalos de madera">Built-ins, trim and wainscot</li>
           <li data-en="Professional staining and protective finishing" data-es="Teñido profesional y acabado protector">Professional staining and protective finishing</li>
-          <li data-en="Decorative molding, paint and finish caulking" data-es="Molduras decorativas, pintura y sellado de acabado">Decorative molding, paint and finish caulking</li>
-          <li data-en="Specialty wall covering installation" data-es="Instalación de recubrimientos especiales">Specialty wall covering installation</li>
+          <li data-en="Decorative molding, paint and finish caulking" data-es="Molduras decorativas, pintura y sellado">Decorative molding, paint and finish caulking</li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel" id="ph-8" role="tabpanel" aria-labelledby="tab-8" tabindex="0" hidden>
+      <div class="panel-grid">
+        <div><h3 data-en="Final walkthrough" data-es="Recorrido final">Final walkthrough</h3>
+          <p class="lede" data-en="We walk the finished work with you and handle the punch list before the last payment, not after it." data-es="Recorremos el trabajo terminado con usted y atendemos la lista de detalles antes del último pago, no después.">We walk the finished work with you and handle the punch list before the last payment, not after it.</p></div>
+        <ul>
+          <li data-en="Room-by-room walkthrough with you" data-es="Recorrido cuarto por cuarto con usted">Room-by-room walkthrough with you</li>
+          <li data-en="Punch list agreed and completed" data-es="Lista de detalles acordada y completada">Punch list agreed and completed</li>
+          <li data-en="Jobsite cleanup and debris removal" data-es="Limpieza del sitio y retiro de escombros">Jobsite cleanup and debris removal</li>
+          <li data-en="Care notes for new finishes" data-es="Notas de cuidado para los acabados nuevos">Care notes for new finishes</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SIGNATURE 3 — the scope ledger. Nobody in this trade publishes the right-hand column. -->
 <section id="scope">
   <div class="wrap">
     <div class="head">
-      <span class="no">03</span>
+      <span class="no">04</span>
       <div class="ht">
         <h2 data-en="What your proposal says" data-es="Lo que dice su propuesta">What your proposal says</h2>
-        <p data-en="Before any work is booked you get a written scope with both columns filled in. The right-hand one is the reason our final invoice matches our first number." data-es="Antes de agendar cualquier trabajo recibe un alcance por escrito con las dos columnas llenas. La de la derecha es la razón por la que nuestra factura final coincide con nuestro primer número.">Before any work is booked you get a written scope with both columns filled in. The right-hand one is the reason our final invoice matches our first number.</p>
+        <p data-en="Before any work is booked you get a written scope with both columns filled in. The right-hand one is the reason the final invoice matches the first number." data-es="Antes de agendar cualquier trabajo recibe un alcance por escrito con las dos columnas llenas. La de la derecha es la razón por la que la factura final coincide con el primer número.">Before any work is booked you get a written scope with both columns filled in. The right-hand one is the reason the final invoice matches the first number.</p>
       </div>
     </div>
     <div class="ledger-wrap"><div class="ledger">
@@ -580,7 +470,6 @@ footer li:not(:has(a)){padding:11px 0}
           <li data-en="Guidance on what to buy, how much, and what works together" data-es="Asesoría sobre qué comprar, cuánto y qué combina">Guidance on what to buy, how much, and what works together</li>
           <li data-en="Payments staged against progress, not taken up front" data-es="Pagos por etapas ligados al avance, no cobrados por adelantado">Payments staged against progress, not taken up front</li>
           <li data-en="A final walkthrough and punch list with you" data-es="Un recorrido final y lista de detalles con usted">A final walkthrough and punch list with you</li>
-          <li data-en="One-year workmanship warranty, in writing" data-es="Garantía de un año sobre la mano de obra, por escrito">One-year workmanship warranty, in writing</li>
         </ul>
       </div>
       <div class="led out">
@@ -594,70 +483,162 @@ footer li:not(:has(a)){padding:11px 0}
         </ul>
       </div>
     </div>
-    <div class="led led-foot-wrap" style="padding:clamp(20px,2.6vw,30px) clamp(22px,3vw,34px)">
+    <div class="led" style="padding:clamp(20px,2.6vw,30px) clamp(22px,3vw,34px)">
       <p class="led-foot" style="border-top:0;margin:0;padding:0" data-en="Anything found behind a wall is priced and approved by you in writing before we carry on. That is the whole mechanism, and it is why nobody gets a surprise at the end." data-es="Todo lo que aparezca detrás de un muro se cotiza y usted lo aprueba por escrito antes de continuar. Ese es todo el mecanismo, y por eso nadie se lleva una sorpresa al final.">Anything found behind a wall is priced and approved by you in writing before we carry on. That is the whole mechanism, and it is why nobody gets a surprise at the end.</p>
     </div></div>
+    <p class="section-cta">
+      <a class="btn btn-ghost" href="#contact" data-en="Talk through your scope" data-es="Hablemos de su alcance">Talk through your scope</a>
+    </p>
   </div>
 </section>
 
 <section class="area" id="area">
   <div class="wrap">
     <div class="head">
-      <span class="no">04</span>
+      <span class="no">05</span>
       <div class="ht">
         <h2 data-en="Where we work" data-es="Dónde trabajamos">Where we work</h2>
-        <p data-en="Central New Jersey and north to Hudson County." data-es="Centro de Nueva Jersey y hacia el norte hasta el condado de Hudson.">Central New Jersey and north to Hudson County.</p>
+        <p data-en="Complete Construction &amp; Home Solutions serves homeowners across New Jersey." data-es="Complete Construction &amp; Home Solutions atiende a propietarios en Nueva Jersey.">Complete Construction &amp; Home Solutions serves homeowners across New Jersey.</p>
       </div>
     </div>
-    <ul class="counties"><li>Ocean County</li><li>Monmouth County</li><li>Middlesex County</li><li>Hudson County</li></ul>
-    <p data-en="Not sure whether you are in range? Call and ask. If it is not a fit we will say so rather than waste your time." data-es="¿No sabe si está dentro del área? Llame y pregunte. Si no encaja, se lo decimos en lugar de hacerle perder el tiempo.">Not sure whether you are in range? Call and ask. If it is not a fit we will say so rather than waste your time.</p>
+    <!-- Counties render only when marked confirmed in assets/site.config.js -->
+    <ul class="counties">
+      <li data-county="Ocean County">Ocean County</li>
+      <li data-county="Hudson County">Hudson County</li>
+      <li data-county="Monmouth County" hidden>Monmouth County</li>
+      <li data-county="Middlesex County" hidden>Middlesex County</li>
+    </ul>
+    <p data-en="Not sure whether your project is in range? Call or send photos of the space. We will tell you quickly whether it is a fit." data-es="¿No sabe si su proyecto está dentro del área? Llame o envíe fotos del espacio. Le diremos rápidamente si encaja.">Not sure whether your project is in range? Call or send photos of the space. We will tell you quickly whether it is a fit.</p>
+    <p class="section-cta">
+      <a class="btn btn-ghost" href="#contact" id="check-area" data-en="Check your project area" data-es="Consulte su zona">Check your project area</a>
+    </p>
   </div>
 </section>
 
 <section class="contact" id="contact">
   <div class="wrap">
     <div class="head">
-      <span class="no">05</span>
+      <span class="no">06</span>
       <div class="ht">
         <h2 data-en="Start a project" data-es="Empezar un proyecto">Start a project</h2>
-        <p data-en="Fastest way is a call. A photo of the room by text works just as well." data-es="Lo más rápido es una llamada. Una foto del cuarto por mensaje funciona igual de bien.">Fastest way is a call. A photo of the room by text works just as well.</p>
+        <p data-en="The fastest way to start is a call or a few photos of the space. Tell us what you are planning and we will let you know whether it is a fit and what the next step looks like." data-es="Lo más rápido es una llamada o algunas fotos del espacio. Cuéntenos qué está planeando y le diremos si encaja y cómo es el siguiente paso.">The fastest way to start is a call or a few photos of the space. Tell us what you are planning and we will let you know whether it is a fit and what the next step looks like.</p>
       </div>
     </div>
     <div class="contact-grid">
       <div class="contact-aside">
-        <a class="big-call" href="tel:+17328906244">
-          <span class="mono" data-en="Call or text" data-es="Llame o escriba">Call or text</span>
-          <strong>(732) 890-6244</strong>
+        <a class="big-call" href="tel:+17328906244" data-phone-link>
+          <span class="mono" data-en="Call" data-es="Llame">Call</span>
+          <strong data-phone-display>(732) 890-6244</strong>
         </a>
-        <p data-en="Send a photo of the room and roughly what you have in mind. You will get a straight answer on whether it is a job we take on and what the next step costs." data-es="Envíe una foto del cuarto y más o menos lo que tiene en mente. Recibirá una respuesta directa sobre si es un trabajo que tomamos y cuánto cuesta el siguiente paso.">Send a photo of the room and roughly what you have in mind. You will get a straight answer on whether it is a job we take on and what the next step costs.</p>
-        <p class="mono" style="color:var(--brass)" data-en="Hablamos español" data-es="Hablamos español">Hablamos español</p>
+        <p data-en="Send a photo of the space and roughly what you have in mind. You will get a straight answer on whether it is a job we take on and what the next step costs." data-es="Envíe una foto del espacio y más o menos lo que tiene en mente. Recibirá una respuesta directa sobre si es un trabajo que tomamos y cuánto cuesta el siguiente paso.">Send a photo of the space and roughly what you have in mind. You will get a straight answer on whether it is a job we take on and what the next step costs.</p>
+        <p class="mono" style="color:var(--brass)" data-flag="spanishSupported" hidden data-en="Hablamos español" data-es="Hablamos español">Hablamos español</p>
       </div>
 
-      <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
-        <input type="hidden" name="access_key" value="REPLACE_WITH_WEB3FORMS_ACCESS_KEY">
-        <input type="hidden" name="subject" value="New website enquiry — Complete Construction">
-        <input type="hidden" name="from_name" value="completeconstructionnj.com">
+      <form id="contact-form" novalidate>
         <div class="hp" aria-hidden="true"><label>Do not fill this in<input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div>
-        <div class="row2">
-          <label><span class="mono" data-en="Name" data-es="Nombre">Name</span><input type="text" name="name" autocomplete="name" required></label>
-          <label><span class="mono" data-en="Phone" data-es="Teléfono">Phone</span><input type="tel" name="phone" autocomplete="tel" required></label>
+
+        <div class="field">
+          <label for="f-name"><span class="mono" data-en="Name" data-es="Nombre">Name</span></label>
+          <input id="f-name" type="text" name="name" autocomplete="name" required>
+          <p class="err" data-missing="Please enter your name." data-invalid="Please enter your name."></p>
         </div>
-        <div class="row2">
-          <label><span class="mono" data-en="Email" data-es="Correo electrónico">Email</span><input type="email" name="email" autocomplete="email" required></label>
-          <label><span class="mono" data-en="Town" data-es="Ciudad">Town</span><input type="text" name="town" autocomplete="address-level2"></label>
+
+        <div class="field">
+          <label for="f-phone"><span class="mono" data-en="Phone" data-es="Teléfono">Phone</span></label>
+          <input id="f-phone" type="tel" name="phone" inputmode="tel" autocomplete="tel" required>
+          <p class="err" data-missing="Please enter a phone number we can reach you on." data-invalid="That phone number does not look right."></p>
         </div>
-        <label><span class="mono" data-en="What are you planning?" data-es="¿Qué tiene en mente?">What are you planning?</span>
-          <select name="project_type">
-            <option data-en="Bathroom renovation" data-es="Remodelación de baño">Bathroom renovation</option>
-            <option data-en="Custom millwork" data-es="Carpintería a medida">Custom millwork</option>
-            <option data-en="Tile, stone or waterproofing" data-es="Azulejo, piedra o impermeabilizado">Tile, stone or waterproofing</option>
-            <option data-en="Deck, shed or framing" data-es="Terraza, cobertizo o estructura">Deck, shed or framing</option>
-            <option data-en="Kitchen counters or lighting" data-es="Cubiertas de cocina o iluminación">Kitchen counters or lighting</option>
-            <option data-en="Something else" data-es="Otra cosa">Something else</option>
-          </select></label>
-        <label><span class="mono" data-en="Tell us about the space" data-es="Cuéntenos del espacio">Tell us about the space</span><textarea name="message" required></textarea></label>
+
+        <div class="field">
+          <label for="f-email"><span class="mono" data-en="Email" data-es="Correo electrónico">Email</span></label>
+          <input id="f-email" type="email" name="email" autocomplete="email" required>
+          <p class="err" data-missing="Please enter your email address." data-invalid="That email address does not look right."></p>
+        </div>
+
+        <div class="field">
+          <label for="f-town"><span class="mono" data-en="Town or ZIP" data-es="Ciudad o código postal">Town or ZIP</span></label>
+          <input id="f-town" type="text" name="townOrZip" autocomplete="address-level2" required>
+          <p class="err" data-missing="Please tell us the town or ZIP code." data-invalid="Please tell us the town or ZIP code."></p>
+        </div>
+
+        <div class="field">
+          <label for="f-type"><span class="mono" data-en="Project type" data-es="Tipo de proyecto">Project type</span></label>
+          <select id="f-type" name="projectType" required>
+            <option value="" data-en="Select your project type" data-es="Seleccione el tipo de proyecto">Select your project type</option>
+            <option value="whole-home" data-en="Whole-home renovation" data-es="Remodelación de casa completa">Whole-home renovation</option>
+            <option value="kitchen" data-en="Kitchen renovation" data-es="Remodelación de cocina">Kitchen renovation</option>
+            <option value="bathroom" data-en="Bathroom renovation" data-es="Remodelación de baño">Bathroom renovation</option>
+            <option value="addition" data-en="Home addition" data-es="Ampliación">Home addition</option>
+            <option value="new-build" data-en="New home construction" data-es="Construcción de casa nueva">New home construction</option>
+            <option value="millwork" data-en="Custom millwork or interiors" data-es="Carpintería a medida o interiores">Custom millwork or interiors</option>
+            <option value="exterior" data-en="Exterior or structural work" data-es="Trabajo exterior o estructural">Exterior or structural work</option>
+            <option value="unsure" data-en="Not sure yet, I would like to discuss options" data-es="Aún no estoy seguro, quisiera ver opciones">Not sure yet, I would like to discuss options</option>
+          </select>
+          <p class="err" data-missing="Please choose a project type." data-invalid="Please choose a project type."></p>
+        </div>
+
+        <!-- Progressive disclosure: these appear once a project type is chosen -->
+        <div class="optional-block" id="opt-common">
+          <span class="mono" data-en="Optional, helps us prepare" data-es="Opcional, nos ayuda a prepararnos">Optional, helps us prepare</span>
+          <div class="field">
+            <label for="f-time"><span class="mono" data-en="Desired start" data-es="Inicio deseado">Desired start</span></label>
+            <select id="f-time" name="timeframe">
+              <option value="" data-en="No preference" data-es="Sin preferencia">No preference</option>
+              <option value="asap" data-en="As soon as possible" data-es="Lo antes posible">As soon as possible</option>
+              <option value="1-3-months" data-en="In the next 1 to 3 months" data-es="En los próximos 1 a 3 meses">In the next 1 to 3 months</option>
+              <option value="3-6-months" data-en="In 3 to 6 months" data-es="En 3 a 6 meses">In 3 to 6 months</option>
+              <option value="planning" data-en="Still planning" data-es="Todavía planeando">Still planning</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-budget"><span class="mono" data-en="Rough investment range" data-es="Rango de inversión aproximado">Rough investment range</span></label>
+            <select id="f-budget" name="budgetRange">
+              <option value="" data-en="Prefer to discuss" data-es="Prefiero conversarlo">Prefer to discuss</option>
+              <option value="under-10k" data-en="Under $10,000" data-es="Menos de $10,000">Under $10,000</option>
+              <option value="10-25k" data-en="$10,000 to $25,000" data-es="$10,000 a $25,000">$10,000 to $25,000</option>
+              <option value="25-50k" data-en="$25,000 to $50,000" data-es="$25,000 a $50,000">$25,000 to $50,000</option>
+              <option value="50-100k" data-en="$50,000 to $100,000" data-es="$50,000 a $100,000">$50,000 to $100,000</option>
+              <option value="over-100k" data-en="Over $100,000" data-es="Más de $100,000">Over $100,000</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="optional-block" id="opt-lot">
+          <div class="field">
+            <label for="f-lot"><span class="mono" data-en="Do you own the property or lot?" data-es="¿Es dueño de la propiedad o el terreno?">Do you own the property or lot?</span></label>
+            <select id="f-lot" name="ownsPropertyOrLot">
+              <option value="" data-en="Select" data-es="Seleccione">Select</option>
+              <option value="yes" data-en="Yes" data-es="Sí">Yes</option>
+              <option value="under-contract" data-en="Under contract" data-es="En contrato">Under contract</option>
+              <option value="no" data-en="Not yet" data-es="Todavía no">Not yet</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="optional-block" id="opt-spaces">
+          <div class="field">
+            <label for="f-spaces"><span class="mono" data-en="Which spaces are included?" data-es="¿Qué espacios se incluyen?">Which spaces are included?</span></label>
+            <input id="f-spaces" type="text" name="spacesIncluded" placeholder="Kitchen, two bathrooms, living room">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-msg"><span class="mono" data-en="Project details" data-es="Detalles del proyecto">Project details</span></label>
+          <textarea id="f-msg" name="message" required></textarea>
+          <p class="err" data-missing="Please tell us a little about the project." data-invalid="Please tell us a little about the project."></p>
+        </div>
+
         <button class="btn btn-primary" type="submit" data-en="Send enquiry" data-es="Enviar solicitud">Send enquiry</button>
-        <p class="form-note" data-en="We reply to enquiries ourselves. Your details are used to contact you about your project and nothing else." data-es="Respondemos las solicitudes personalmente. Sus datos se usan para contactarle sobre su proyecto y nada más.">We reply to enquiries ourselves. Your details are used to contact you about your project and nothing else.</p>
+
+        <p class="consent" data-en="Your details are used only to respond to your project enquiry." data-es="Sus datos se usan únicamente para responder a su solicitud.">Your details are used only to respond to your project enquiry.<span class="review-note" data-en="Placeholder wording — for owner and legal review" data-es="Texto provisional — para revisión del propietario y legal">Placeholder wording — for owner and legal review</span></p>
+
+        <!-- TODO: photo upload. Not built, because a fake upload that
+             silently discards a customer's photos is worse than none.
+             Add it once the lead endpoint has secure file storage; see
+             README.md, "Lead automation". Until then the SMS route below
+             is the photo path, once SMS is confirmed. -->
+        <p class="form-note" data-flag="smsEnabled" hidden data-en="Prefer to send photos? Text them to (732) 890-6244." data-es="¿Prefiere enviar fotos? Envíelas por mensaje al (732) 890-6244.">Prefer to send photos? Text them to (732) 890-6244.</p>
+
         <div class="form-msg" id="form-msg" role="status" aria-live="polite"></div>
       </form>
     </div>
@@ -670,142 +651,70 @@ footer li:not(:has(a)){padding:11px 0}
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <img src="images/logo-lockup.jpg" width="150" alt="Complete Construction and Home Solutions LLC logo. Built right. No shortcuts. Every phase handled.">
-        <p data-en="Residential remodeling and custom architectural millwork in New Jersey." data-es="Remodelación residencial y carpintería arquitectónica a medida en Nueva Jersey.">Residential remodeling and custom architectural millwork in New Jersey.</p>
+        <img src="images/logo-lockup.jpg" width="150" height="116" loading="lazy" alt="Complete Construction and Home Solutions LLC logo. Built right. No shortcuts. Every phase handled.">
+        <p data-en="Residential construction, renovation and custom millwork in New Jersey." data-es="Construcción residencial, remodelación y carpintería a medida en Nueva Jersey.">Residential construction, renovation and custom millwork in New Jersey.</p>
       </div>
       <div>
         <h3 class="f" data-en="Contact" data-es="Contacto">Contact</h3>
         <ul>
-          <li><a href="tel:+17328906244">(732) 890-6244</a></li>
+          <li><a href="tel:+17328906244" data-phone-link><span data-phone-display>(732) 890-6244</span></a></li>
           <li data-en="New Jersey" data-es="Nueva Jersey">New Jersey</li>
-          <li data-en="English and Spanish" data-es="Inglés y español">English and Spanish</li>
+          <li data-flag="spanishSupported" hidden data-en="English and Spanish" data-es="Inglés y español">English and Spanish</li>
         </ul>
       </div>
       <div>
         <h3 class="f" data-en="Sections" data-es="Secciones">Sections</h3>
         <ul>
-          <li><a href="#work" data-en="Finished rooms" data-es="Cuartos terminados">Finished rooms</a></li>
+          <li><a href="#services" data-en="What we build" data-es="Lo que construimos">What we build</a></li>
+          <li><a href="#work" data-en="Selected work" data-es="Trabajos seleccionados">Selected work</a></li>
           <li><a href="#phases" data-en="Every phase handled" data-es="Cada fase a cargo">Every phase handled</a></li>
-          <li><a href="#scope" data-en="What your proposal says" data-es="Lo que dice su propuesta">What your proposal says</a></li>
           <li><a href="#contact" data-en="Start a project" data-es="Empezar un proyecto">Start a project</a></li>
         </ul>
       </div>
     </div>
-    <p class="legal">&copy; <span id="yr">2026</span> Complete Construction &amp; Home Solutions LLC. <span data-en="Fully insured. Certificate of insurance available on request. One-year workmanship warranty on installations performed under our proposals." data-es="Totalmente asegurado. Certificado de seguro disponible a solicitud. Garantía de un año sobre la mano de obra en instalaciones realizadas bajo nuestras propuestas.">Fully insured. Certificate of insurance available on request. One-year workmanship warranty on installations performed under our proposals.</span></p>
+    <p class="legal">
+      &copy; <span id="yr">2026</span> Complete Construction &amp; Home Solutions LLC.
+      <span data-flag="licensedAndInsuredClaim" hidden data-en="Fully insured. Certificate of insurance available on request." data-es="Totalmente asegurado. Certificado de seguro disponible a solicitud.">Fully insured. Certificate of insurance available on request.</span>
+      <span data-flag="warrantyClaim" hidden data-en="One-year workmanship warranty on installations performed under our proposals." data-es="Garantía de un año sobre la mano de obra en instalaciones realizadas bajo nuestras propuestas.">One-year workmanship warranty on installations performed under our proposals.</span>
+      <span data-flag="showRegistrationNumber" hidden>NJ HIC Reg. #[TODO(owner): 13VH…]</span>
+    </p>
   </div>
 </footer>
 
-<div class="sticky"><a href="tel:+17328906244" data-en="Call (732) 890-6244" data-es="Llame al (732) 890-6244">Call (732) 890-6244</a></div>
+<!-- Fixed mobile action bar, below 768px only -->
+<div class="actionbar">
+  <div class="actionbar-in">
+    <a class="ab-call" href="tel:+17328906244" data-phone-link>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.4 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1z"/></svg>
+      <span data-en="Call" data-es="Llamar">Call</span>
+    </a>
+    <a class="ab-start" href="#contact">
+      <span data-en="Start project" data-es="Empezar">Start project</span>
+    </a>
+  </div>
+</div>
 
-<script>
-(function () {
-  "use strict";
+<!-- Accessible image lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Project image" aria-hidden="true">
+  <div class="lb-bar">
+    <span class="mono" id="lb-index">1 / 1</span>
+    <button class="lb-nav lb-close" id="lb-close" type="button">
+      <span aria-hidden="true">&times;</span><span class="sr-only" data-en="Close image" data-es="Cerrar imagen">Close image</span>
+    </button>
+  </div>
+  <div class="lb-stage">
+    <button class="lb-nav" id="lb-prev" type="button" hidden>
+      <span aria-hidden="true">&#8249;</span><span class="sr-only" data-en="Previous image" data-es="Imagen anterior">Previous image</span>
+    </button>
+    <img id="lb-img" alt="">
+    <button class="lb-nav" id="lb-next" type="button" hidden>
+      <span aria-hidden="true">&#8250;</span><span class="sr-only" data-en="Next image" data-es="Imagen siguiente">Next image</span>
+    </button>
+  </div>
+  <p class="lb-cap" id="lb-cap"></p>
+</div>
 
-  /* ---------- language ---------- */
-  var nodes = document.querySelectorAll("[data-en]");
-  var langBtns = document.querySelectorAll(".lang button");
-
-  function setLang(lang) {
-    if (lang !== "es") { lang = "en"; }
-    for (var i = 0; i < nodes.length; i++) {
-      var t = nodes[i].getAttribute("data-" + lang);
-      if (t !== null) { nodes[i].textContent = t; }
-    }
-    document.documentElement.lang = lang;
-    for (var j = 0; j < langBtns.length; j++) {
-      langBtns[j].setAttribute("aria-pressed", String(langBtns[j].dataset.lang === lang));
-    }
-    try { localStorage.setItem("cc-lang", lang); } catch (e) {}
-  }
-  for (var k = 0; k < langBtns.length; k++) {
-    langBtns[k].addEventListener("click", function () { setLang(this.dataset.lang); });
-  }
-  var saved = null;
-  try { saved = localStorage.getItem("cc-lang"); } catch (e) {}
-  if (!saved && (navigator.language || "").toLowerCase().indexOf("es") === 0) { saved = "es"; }
-  if (saved === "es") { setLang("es"); }
-
-  /* ---------- phase rail: proper tablist keyboard behaviour ---------- */
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('.rail [role="tab"]'));
-
-  function selectTab(tab, focus) {
-    tabs.forEach(function (t) {
-      var on = t === tab;
-      t.setAttribute("aria-selected", String(on));
-      t.tabIndex = on ? 0 : -1;
-      document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
-    });
-    if (focus) { tab.focus(); }
-  }
-
-  tabs.forEach(function (tab, i) {
-    tab.addEventListener("click", function () { selectTab(tab, false); });
-    tab.addEventListener("keydown", function (ev) {
-      var n = null;
-      if (ev.key === "ArrowRight" || ev.key === "ArrowDown") { n = tabs[(i + 1) % tabs.length]; }
-      else if (ev.key === "ArrowLeft" || ev.key === "ArrowUp") { n = tabs[(i - 1 + tabs.length) % tabs.length]; }
-      else if (ev.key === "Home") { n = tabs[0]; }
-      else if (ev.key === "End") { n = tabs[tabs.length - 1]; }
-      if (n) { ev.preventDefault(); selectTab(n, true); }
-    });
-  });
-
-  /* ---------- year ---------- */
-  var yr = document.getElementById("yr");
-  if (yr) { yr.textContent = String(new Date().getFullYear()); }
-
-  /* ---------- contact form ---------- */
-  var form = document.getElementById("contact-form");
-  var msg = document.getElementById("form-msg");
-  var PLACEHOLDER = "REPLACE_WITH_WEB3FORMS_ACCESS_KEY";
-
-  var COPY = {
-    en: {
-      sending: "Sending…",
-      ok: "Thank you. Your message has been sent and we will get back to you shortly.",
-      err: "Sorry, that did not send. Please call or text (732) 890-6244 instead.",
-      demo: "Preview mode: this form is not connected yet, so nothing was sent. Add the Web3Forms access key to switch it on.",
-      required: "Please fill in your name, phone, email and a short description."
-    },
-    es: {
-      sending: "Enviando…",
-      ok: "Gracias. Su mensaje fue enviado y le responderemos en breve.",
-      err: "No se pudo enviar. Por favor llame o escriba al (732) 890-6244.",
-      demo: "Modo de vista previa: este formulario aún no está conectado, así que no se envió nada. Agregue la clave de acceso de Web3Forms para activarlo.",
-      required: "Por favor complete su nombre, teléfono, correo y una breve descripción."
-    }
-  };
-
-  function say(kind, text) { msg.textContent = text; msg.className = "form-msg show " + kind; }
-
-  if (form) {
-    form.addEventListener("submit", function (ev) {
-      ev.preventDefault();
-      var t = COPY[document.documentElement.lang === "es" ? "es" : "en"];
-
-      if (!form.checkValidity()) { say("err", t.required); form.reportValidity(); return; }
-
-      var key = form.elements.access_key.value;
-      if (key === PLACEHOLDER || !key) { say("err", t.demo); return; }
-
-      var button = form.querySelector('button[type="submit"]');
-      var label = button.textContent;
-      button.disabled = true;
-      button.textContent = t.sending;
-      say("ok", t.sending);
-
-      fetch(form.action, { method: "POST", headers: { "Accept": "application/json" }, body: new FormData(form) })
-        .then(function (r) { return r.json(); })
-        .then(function (data) {
-          if (data && data.success) { say("ok", t.ok); form.reset(); }
-          else { say("err", t.err); }
-        })
-        .catch(function () { say("err", t.err); })
-        .finally(function () { button.disabled = false; button.textContent = label; });
-    });
-  }
-})();
-</script>
-
+<script src="assets/site.config.js"></script>
+<script src="assets/app.js" defer></script>
 </body>
 </html>

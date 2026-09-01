@@ -1,132 +1,180 @@
 # Complete Construction & Home Solutions LLC — website
 
-Private demo build for Adolfo (Complete Construction & Home Solutions LLC, New Jersey).
-Single static page, no build step. Open `index.html` or serve the folder.
+Private preview. Not a live site.
+
+Static site, no framework, no build step. Plain HTML, CSS and vanilla JS, plus one
+optional Netlify Function for secure lead forwarding.
 
 ```
-index.html          the whole site (HTML + CSS + JS inline)
-images/             project photos and logo crops
-fonts/              self-hosted Archivo, Source Serif 4, IBM Plex Mono (SIL OFL)
+index.html                  the page
+assets/site.config.js       ALL editable content flags — start here
+assets/styles.css           stylesheet
+assets/app.js               behaviour (menu, tabs, lightbox, form)
+netlify/functions/lead.mjs  secure lead endpoint (optional, see below)
+netlify.toml                headers, caching, functions config
+images/                     project photos and material crops
+fonts/                      self-hosted Archivo, Source Serif 4, IBM Plex Mono (OFL)
 ```
 
-## Before this goes live — three things
+## Run it locally
 
-**1. Connect the contact form.**
-Create a free Web3Forms access key at https://web3forms.com using the business email
-that should receive enquiries, then replace the placeholder in `index.html`:
+No install step. Any static server will do:
 
-```html
-<input type="hidden" name="access_key" value="REPLACE_WITH_WEB3FORMS_ACCESS_KEY">
+```bash
+npx http-server -p 8080 .
+# then open http://localhost:8080
 ```
 
-Until that key is set the form deliberately refuses to submit and says so. It never
-shows a fake "thank you", so nobody can believe a message was sent when it wasn't.
+To run the lead function locally as well:
 
-**2. Turn on search indexing.**
-Delete this line from `<head>`:
-
-```html
-<meta name="robots" content="noindex, nofollow">
+```bash
+npm install -g netlify-cli
+netlify dev
 ```
 
-It is there on purpose. An unapproved demo carrying a real business name should not
-appear in Google.
+There is nothing to build and no test suite. Verification is done in a browser at
+375, 390, 430, 768, 1024 and 1440px.
 
-**3. Remove the preview banner.**
-Delete the `<div class="demo-flag">…</div>` element just inside `<body>`.
+---
 
-Also update the canonical URL and the two `og:*` image/URL values in `<head>` once the
-real domain is known. They currently point at `completeconstructionnj.com`, which is a
-guess, not a registered domain.
+## Editing content
+
+**`assets/site.config.js` is the only file you need for day-to-day changes.**
+
+Every claim the owner has not confirmed is **off by default**. The markup ships with
+`hidden` on it, and it is revealed only when the matching flag is `true`. That means
+an unverified claim cannot go live by accident, and it stays hidden even if
+JavaScript fails to load.
+
+| Flag | Controls | Currently |
+|---|---|---|
+| `smsEnabled` | "Text us photos" CTA, photo-by-text note | **off** |
+| `spanishSupported` | "Hablamos español", English & Spanish trust item | **off** |
+| `licensedAndInsuredClaim` | "Licensed & insured", insurance line in the footer | **off** |
+| `warrantyClaim` | One-year workmanship warranty | **off** |
+| `testimonials` | Testimonial section | **off** |
+| `showRegistrationNumber` | NJ HIC registration line | **off** |
+
+Services are toggled the same way in `services[]`. **New home construction** and
+**Structural & exterior work** are disabled pending confirmation.
+
+Service-area counties are toggled in `serviceArea.counties[]`. Ocean and Hudson are
+on, because both are evidenced by documented job sites. Monmouth and Middlesex are
+off pending confirmation.
+
+Portfolio category filters appear automatically once a second real category exists.
+With bathroom work only, the filter row is hidden rather than showing empty tabs.
+
+---
+
+## Lead automation
+
+### Recommended flow
+
+1. The browser validates the form and POSTs JSON to a server endpoint you control.
+2. That endpoint validates, sanitises, rate-limits and forwards the lead.
+3. The endpoint forwards to an n8n webhook using a secret held server-side.
+4. n8n notifies the contractor immediately (SMS or push).
+5. n8n sends the homeowner a confirmation.
+6. n8n creates a CRM follow-up task.
+7. Optional: a missed-call workflow texts back anyone whose call was not answered.
+
+**Never put an n8n webhook URL, CRM key or token in `assets/site.config.js`.** That
+file ships to the browser and anyone can read it.
+
+### Connecting it
+
+`netlify/functions/lead.mjs` is the server endpoint. It serves `/api/lead`, which is
+what `lead.endpoint` in the config already points at.
+
+In Netlify, under **Site configuration → Environment variables**, add:
+
+```
+N8N_WEBHOOK_URL    = https://<your-n8n-host>/webhook/<path>
+N8N_WEBHOOK_TOKEN  = <optional shared secret, also checked inside n8n>
+```
+
+Redeploy. Until `N8N_WEBHOOK_URL` is set the function returns `501`, and the frontend
+falls back to Web3Forms if a key is present, or shows a preview notice.
+
+The function rejects non-POST requests, rate-limits to 5 submissions per minute per
+IP, strips control characters, caps field length at 2000 characters, drops honeypot
+submissions, requires name/phone/details, and stamps `submittedAt` server-side so it
+cannot be spoofed.
+
+### Lead payload
+
+```json
+{
+  "name": "",
+  "phone": "",
+  "email": "",
+  "townOrZip": "",
+  "projectType": "",
+  "timeframe": "",
+  "budgetRange": "",
+  "ownsPropertyOrLot": "",
+  "spacesIncluded": "",
+  "message": "",
+  "sourcePage": "",
+  "submittedAt": ""
+}
+```
+
+`projectType` is one of `whole-home`, `kitchen`, `bathroom`, `addition`, `new-build`,
+`millwork`, `exterior`, `unsure`. The server adds `userAgent`.
+
+### Photo upload
+
+Not built. A fake upload that silently discards a homeowner's photos is worse than no
+upload at all. Add it once the endpoint has secure file storage; until then the SMS
+route is the photo path, and it stays hidden until `smsEnabled` is confirmed.
+
+---
 
 ## Deploying to Netlify
 
-`netlify.toml` is set up already. Two ways in:
+**Drag and drop:** https://app.netlify.com/drop, drop the folder. Rename the site
+under Site configuration → Change site name.
 
-**Drag and drop (fastest, no account link needed).** Go to https://app.netlify.com/drop
-and drop the folder, or `complete-construction-netlify.zip` if one was built. You get a
-live URL in a few seconds. Rename the site under Site configuration → Change site name
-to get something like `complete-construction-preview.netlify.app`.
+**Connect the repo:** New site → Import from Git. Build command empty, publish
+directory `.`. Functions are picked up from `netlify/functions`.
 
-**Connect the repo (better once he says yes).** New site → Import from Git → pick this
-repo and branch. Build command stays empty, publish directory is `.`. Every push then
-redeploys on its own.
+`netlify.toml` sets security headers, caches images and fonts for a year, leaves HTML
+uncached, and sends `X-Robots-Tag: noindex, nofollow` while this is a preview.
 
-To put it on his own domain: Domain management → Add a domain, then point the domain's
-DNS at Netlify. HTTPS is issued automatically and free.
+Netlify's password protection is a paid feature. On the free tier the URL is public to
+anyone who has it, which is why both noindex layers and the on-page preview banner
+matter.
 
-The config sets security headers, caches images and fonts for a year while leaving HTML
-uncached so edits appear immediately, and sends `X-Robots-Tag: noindex, nofollow` on
-everything. That last one is a preview guard and is marked in the file for removal at
-launch, alongside the meta tag in `index.html`.
+---
 
-Note: Netlify's password protection is a paid feature. On the free tier the URL is
-public to anyone who has it, which is why both noindex layers and the on-page preview
-banner matter.
+## Before launch
 
-## Still outstanding
+1. Delete `<meta name="robots" content="noindex, nofollow">` from `index.html`.
+2. Delete the `.preview-flag` element at the top of `<body>`.
+3. Delete `X-Robots-Tag` from `netlify.toml`.
+4. Replace the canonical and Open Graph URLs with the real domain.
+5. Work through the owner-approval list below.
 
-- **NJ Home Improvement Contractor registration (13VH…).** Not on the page anywhere.
-  New Jersey requires registered contractors to display the number in advertising. If
-  Adolfo has one, add it to the footer. If he does not, leave the page as it is — there
-  is deliberately no "licensed" or "registered" wording anywhere in the copy.
-- **Photo permission.** Every image is a frame from video Adolfo sent, colour corrected.
-  Confirm he is happy for them to be public before the site is indexed.
-- **Higher-resolution photos.** Source video was 544x960 after phone compression. Originals
-  straight off his phone would be roughly four times the resolution. Drop-in replacements,
-  no layout changes needed.
-- **Service area.** Ocean, Monmouth, Middlesex and Hudson are listed. Confirm with him.
+## Needs owner approval before launch
 
-## Claims on the page, and where they come from
+Nothing in this list is invented on the site. Where a fact could not be verified the
+content is hidden rather than guessed.
 
-Everything factual traces to Adolfo's own written proposals. Nothing was invented.
-
-| Claim | Source |
+| Item | Status |
 |---|---|
-| One-year workmanship warranty | Stated in both of his proposals |
-| Fully insured, COI on request | His own wording, Zuli proposal footer |
-| Written scope with exclusions | Both proposals |
-| Change orders approved in writing | Both proposals |
-| Staged payments tied to progress | Both proposals |
-| Homeowner supplies finish materials on labor-only scopes | Zuli proposal, Material Responsibility |
-
-There are no review counts, star ratings, years-in-business figures, named testimonials,
-license claims, or award claims, because none of those could be verified.
-
-## Structure
-
-Deliberately not hero / services / testimonials / CTA. Services are absorbed into the
-phase rail, because showing capability as a sequence is more persuasive here than an
-icon grid, and an icon grid was the one section that could have been lifted onto any
-other contractor's site.
-
-1. **Hero** — asymmetric, image right, claim left
-2. **Finish schedule** — six material details cropped from his own photos, labelled
-   M-01 to M-06 like a real finish schedule. Placed before any service copy so the
-   first thing after the hero is evidence, not assertion
-3. **Finished rooms** — three projects, P-01 to P-03
-4. **Every phase handled** — an interactive phase rail, six phases, full tablist
-   keyboard support. Dramatises the tagline rather than repeating it
-5. **What your proposal says** — a two-column ledger, Included against Not included
-6. **Where we work**
-7. **Start a project**
-
-## Art direction
-
-Concept: a job ticket that opens into a finished room.
-
-Ground `#16242E` is sampled from the glazed tile in his own shower; brass `#C4A575`
-and steel from the logo. Sharp corners throughout, hairline rules, mono type for
-anything behaving like a spec label, serif for reading. The dark ground is what lets
-his photography sit in the page rather than on it, and it matches a logo that was
-drawn for a black field.
-
-## Notes
-
-- English first with a Spanish toggle. Choice persists in `localStorage` and follows the
-  browser language on a first visit. `<html lang>` updates with it.
-- Fonts are self-hosted rather than loaded from Google, so the page has no third-party
-  requests at all. Nothing is tracked and no analytics are installed.
-- Responsive to 360px. Verified: no horizontal overflow, no contrast failures, all tap
-  targets at least 44px, alt text on every image, single `h1` with no skipped levels,
-  `prefers-reduced-motion` respected.
+| Exact services offered | Four enabled. New home construction and exterior/structural work hidden pending confirmation |
+| Service area | Ocean and Hudson confirmed by job sites. Monmouth and Middlesex hidden pending confirmation |
+| NJ HIC registration (13VH…) | Not on the site. NJ requires it in advertising for registered contractors |
+| Insurance wording | Hidden. The owner's proposals say "fully insured, certificate available on request" |
+| Warranty wording | Hidden. Both proposals state a one-year workmanship warranty |
+| Testimonials / reviews | None on the site. No placeholders either |
+| Business address | Not published. Structured data carries region only |
+| Business hours | Not published. Omitted from structured data rather than invented |
+| Text-message capability | Hidden. Enable `smsEnabled` only if the number receives SMS |
+| Project locations and detail | Projects carry no town, date, budget or client name |
+| Spanish support | The EN/ES toggle works, but the "Hablamos español" claim is hidden until confirmed |
+| Privacy and consent wording | Marked on the page as placeholder, for owner and legal review |
+| Photo permission | The images are frames from video the owner sent. Confirm before indexing |
+| Image resolution | Source video was 544x960 after phone compression. Originals would be roughly four times that |
