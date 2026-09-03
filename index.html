@@ -89,6 +89,18 @@
 <a class="skip" href="#main" data-en="Skip to content" data-es="Ir al contenido">Skip to content</a>
 
 <header>
+  <!-- Mobile-only utility strip. Puts the language control at the very top
+       where it is seen without opening the menu. Desktop keeps its own
+       toggle in the nav, so this is hidden at >=768px. -->
+  <div class="util-bar">
+    <div class="wrap util-in">
+      <span class="mono util-label" data-en="Language" data-es="Idioma">Language</span>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">English</button>
+        <button type="button" data-lang="es" aria-pressed="false">Español</button>
+      </div>
+    </div>
+  </div>
   <div class="wrap bar">
     <a class="brand" href="#main">
       <img src="images/logo-mark.jpg" width="34" height="36" alt="Complete Construction hexagonal C monogram in gold and brushed steel">
@@ -99,6 +111,8 @@
     <nav class="desk-nav" aria-label="Main">
       <div class="nav-links">
         <a href="#work" data-en="Work" data-es="Trabajos">Work</a>
+    <a href="#gallery" data-en="Gallery" data-es="Galería">Gallery</a>
+        <a href="#gallery" data-en="Gallery" data-es="Galería">Gallery</a>
         <a href="#services" data-en="Services" data-es="Servicios">Services</a>
         <a href="#phases" data-en="Process" data-es="Proceso">Process</a>
         <a href="#scope" data-en="Proposal" data-es="Propuesta">Proposal</a>
@@ -332,10 +346,28 @@
   </div>
 </section>
 
-<section class="phases" id="phases">
+<!-- Gallery. Grid and filter buttons are rendered from
+     assets/site.config.js -> gallery. Adding a room type is a config edit,
+     not a new page. -->
+<section class="gallery" id="gallery">
   <div class="wrap">
     <div class="head">
       <span class="no">03</span>
+      <div class="ht">
+        <h2 data-en="Gallery" data-es="Galería">Gallery</h2>
+        <p data-en="Browse finished work by room. Tap any photo to see it full size." data-es="Vea el trabajo terminado por espacio. Toque cualquier foto para verla en grande.">Browse finished work by room. Tap any photo to see it full size.</p>
+      </div>
+    </div>
+    <div class="chips" id="gallery-filters" role="group" aria-label="Filter the gallery by room"></div>
+    <div class="grid-gal" id="gallery-grid" data-gallery="gallery"></div>
+    <p class="gal-empty mono" id="gallery-empty" hidden data-en="No photos in this category yet." data-es="Todavía no hay fotos en esta categoría.">No photos in this category yet.</p>
+  </div>
+</section>
+
+<section class="phases" id="phases">
+  <div class="wrap">
+    <div class="head">
+      <span class="no">04</span>
       <div class="ht">
         <h2 data-en="Every phase handled" data-es="Cada fase a cargo">Every phase handled</h2>
         <p data-en="Most renovations change hands three or four times, and the gaps between trades are where jobs go wrong. Pick a phase to see what we do in it." data-es="La mayoría de las remodelaciones cambia de manos tres o cuatro veces, y los huecos entre oficios son donde los trabajos salen mal. Elija una fase para ver qué hacemos en ella.">Most renovations change hands three or four times, and the gaps between trades are where jobs go wrong. Pick a phase to see what we do in it.</p>
@@ -455,7 +487,7 @@
 <section id="scope">
   <div class="wrap">
     <div class="head">
-      <span class="no">04</span>
+      <span class="no">05</span>
       <div class="ht">
         <h2 data-en="What your proposal says" data-es="Lo que dice su propuesta">What your proposal says</h2>
         <p data-en="Before any work is booked you get a written scope with both columns filled in. The right-hand one is the reason the final invoice matches the first number." data-es="Antes de agendar cualquier trabajo recibe un alcance por escrito con las dos columnas llenas. La de la derecha es la razón por la que la factura final coincide con el primer número.">Before any work is booked you get a written scope with both columns filled in. The right-hand one is the reason the final invoice matches the first number.</p>
@@ -495,7 +527,7 @@
 <section class="area" id="area">
   <div class="wrap">
     <div class="head">
-      <span class="no">05</span>
+      <span class="no">06</span>
       <div class="ht">
         <h2 data-en="Where we work" data-es="Dónde trabajamos">Where we work</h2>
         <p data-en="Complete Construction &amp; Home Solutions serves homeowners across New Jersey." data-es="Complete Construction &amp; Home Solutions atiende a propietarios en Nueva Jersey.">Complete Construction &amp; Home Solutions serves homeowners across New Jersey.</p>
@@ -518,7 +550,7 @@
 <section class="contact" id="contact">
   <div class="wrap">
     <div class="head">
-      <span class="no">06</span>
+      <span class="no">07</span>
       <div class="ht">
         <h2 data-en="Start a project" data-es="Empezar un proyecto">Start a project</h2>
         <p data-en="The fastest way to start is a call or a few photos of the space. Tell us what you are planning and we will let you know whether it is a fit and what the next step looks like." data-es="Lo más rápido es una llamada o algunas fotos del espacio. Cuéntenos qué está planeando y le diremos si encaja y cómo es el siguiente paso.">The fastest way to start is a call or a few photos of the space. Tell us what you are planning and we will let you know whether it is a fit and what the next step looks like.</p>
@@ -667,6 +699,7 @@
         <ul>
           <li><a href="#services" data-en="What we build" data-es="Lo que construimos">What we build</a></li>
           <li><a href="#work" data-en="Selected work" data-es="Trabajos seleccionados">Selected work</a></li>
+          <li><a href="#gallery" data-en="Gallery" data-es="Galería">Gallery</a></li>
           <li><a href="#phases" data-en="Every phase handled" data-es="Cada fase a cargo">Every phase handled</a></li>
           <li><a href="#contact" data-en="Start a project" data-es="Empezar un proyecto">Start a project</a></li>
         </ul>

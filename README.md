@@ -59,6 +59,37 @@ With bathroom work only, the filter row is hidden rather than showing empty tabs
 
 ---
 
+## Adding rooms to the gallery
+
+The gallery is one section on one page. Categories filter the grid in place, so a new
+room type never means a new page or new markup.
+
+To add kitchens:
+
+1. Put the photos in `images/gallery/kitchens/` (any folder works, the manifest is
+   what matters, but a folder per room keeps things tidy).
+2. In `assets/site.config.js`, under `gallery.categories`, the label already exists:
+   `kitchens: "Kitchens"`. Add a new key if the room is not listed.
+3. Add one line per photo to `gallery.images`:
+
+```js
+{ src: "images/gallery/kitchens/island.jpg", category: "kitchens",
+  alt: "Quartz waterfall island with walnut base cabinets and brass pendants" },
+```
+
+The **Kitchens** filter button appears on its own. Nothing else needs editing.
+
+A filter button is only rendered for a category that actually holds photos, so an
+empty "Kitchens" tab can never show up. With a single category the buttons hide
+entirely, since one button is decoration rather than a filter.
+
+`alt` should describe what is visible in the photo. It is what a screen reader
+announces and what shows in the lightbox caption, so write it as a sentence, not
+keywords.
+
+Room labels appear under each photo in the "All rooms" view and hide once a single
+room is selected, where they would just repeat the filter.
+
 ## The contact form
 
 The form posts straight to [Web3Forms](https://web3forms.com), which emails the

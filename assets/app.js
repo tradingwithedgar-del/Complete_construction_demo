@@ -203,15 +203,105 @@
   }
 
   /* ======================================================================
+     5b. Gallery
+     Renders the grid and its filter chips from CFG.gallery. A chip appears
+     only for a category that actually holds photos, so an empty room type
+     can never show up. Adding a room is a config edit, not a new page.
+     ====================================================================== */
+  function buildGallery() {
+    var grid = $("#gallery-grid");
+    var chips = $("#gallery-filters");
+    var empty = $("#gallery-empty");
+    var section = $("#gallery");
+    if (!grid || !chips) { return; }
+
+    var cfg = CFG.gallery || {};
+    var images = cfg.images || [];
+    var labels = cfg.categories || {};
+
+    // Nothing to show: hide the whole section rather than leave a gap.
+    if (!images.length) { if (section) { section.hidden = true; } return; }
+
+    var frag = document.createDocumentFragment();
+    images.forEach(function (img, i) {
+      var fig = document.createElement("figure");
+      fig.className = "gal-item";
+      fig.setAttribute("data-cat", img.category || "");
+
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.setAttribute("data-full", img.src);
+      btn.setAttribute("data-caption", img.caption || img.alt || "");
+
+      var el = document.createElement("img");
+      el.src = img.src;
+      el.alt = img.alt || "";
+      el.loading = i < 4 ? "eager" : "lazy";
+      el.decoding = "async";
+      el.width = 544;
+      el.height = 720;
+
+      btn.appendChild(el);
+      fig.appendChild(btn);
+
+      if (labels[img.category]) {
+        var cap = document.createElement("figcaption");
+        cap.className = "mono";
+        cap.textContent = labels[img.category];
+        fig.appendChild(cap);
+      }
+      frag.appendChild(fig);
+    });
+    grid.appendChild(frag);
+
+    // Which categories actually have photos, in config order
+    var present = Object.keys(labels).filter(function (key) {
+      return images.some(function (im) { return im.category === key; });
+    });
+
+    function show(cat) {
+      // The room label under each photo is useful when everything is mixed
+      // together, and pure repetition once a single room is selected.
+      grid.classList.toggle("filtered", cat !== "all");
+      var shown = 0;
+      $$(".gal-item", grid).forEach(function (fig) {
+        var match = cat === "all" || fig.getAttribute("data-cat") === cat;
+        fig.hidden = !match;
+        if (match) { shown += 1; }
+      });
+      if (empty) { empty.hidden = shown > 0; }
+    }
+
+    // One category only? The chips would be decoration, so skip them.
+    if (present.length < 2) { chips.hidden = true; return; }
+
+    ["all"].concat(present).forEach(function (cat, i) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = cat === "all" ? (labels.all || "All") : labels[cat];
+      b.setAttribute("aria-pressed", String(i === 0));
+      b.addEventListener("click", function () {
+        $$("button", chips).forEach(function (o) { o.setAttribute("aria-pressed", "false"); });
+        b.setAttribute("aria-pressed", "true");
+        show(cat);
+      });
+      chips.appendChild(b);
+    });
+  }
+
+  /* ======================================================================
      6. Lightbox — Escape, arrows, focus trap, focus restore
      ====================================================================== */
   var lb = $("#lightbox"), lbImg = $("#lb-img"), lbCap = $("#lb-cap"), lbIdx = $("#lb-index");
   var group = [], pos = 0, lbLastFocus = null;
 
   function openLb(triggerBtn) {
-    var scope = triggerBtn.closest("[data-gallery]");
-    group = $$("[data-gallery] button[data-full]", scope ? scope.parentNode : document)
-      .filter(function (b) { return b.closest("[data-gallery]") === scope; });
+    var scope = triggerBtn.closest("[data-gallery]") || document;
+    // Only images currently on screen, so prev/next follows the active filter
+    // rather than stepping into hidden categories.
+    group = $$("button[data-full]", scope).filter(function (b) {
+      return !b.hidden && b.offsetParent !== null;
+    });
     if (!group.length) { group = [triggerBtn]; }
     pos = group.indexOf(triggerBtn);
     lbLastFocus = triggerBtn;
@@ -254,8 +344,10 @@
       else if (ev.key === "ArrowLeft" && group.length > 1) { step(-1); }
       else if (ev.key === "Tab") { trapFocus(lb, ev); }
     });
-    $$("button[data-full]").forEach(function (b) {
-      b.addEventListener("click", function () { openLb(b); });
+    // Delegated, so buttons rendered after boot (the gallery) work as well.
+    document.addEventListener("click", function (ev) {
+      var btn = ev.target.closest && ev.target.closest("button[data-full]");
+      if (btn) { openLb(btn); }
     });
   }
 
@@ -474,6 +566,7 @@
      ====================================================================== */
   applyConfig();
   buildFilters();
+  buildGallery();
 
   var yr = $("#yr");
   if (yr) { yr.textContent = String(new Date().getFullYear()); }

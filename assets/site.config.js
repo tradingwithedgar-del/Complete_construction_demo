@@ -130,6 +130,56 @@ window.SITE = {
   },
 
   /* ---------------------------------------------------------------- */
+  /* Gallery                                                          */
+  /* ---------------------------------------------------------------- */
+  /* One page, no extra pages. The grid below is filtered in place, so
+     adding a room type never means building another page.
+
+     TO ADD A NEW ROOM (say kitchens):
+       1. Drop the photos in  images/gallery/kitchens/
+       2. Add a label to `categories` below:   kitchens: "Kitchens"
+       3. Add one line per photo to `images` with category: "kitchens"
+     The "Kitchens" filter button then appears on its own.
+
+     A filter button is only rendered for a category that actually holds
+     photos, so an empty "Kitchens" tab can never show up. Nothing else
+     needs touching. */
+  gallery: {
+    // Label shown on the filter button. Add or rename freely.
+    categories: {
+      all:         "All rooms",
+      bathrooms:   "Bathrooms",
+      kitchens:    "Kitchens",
+      livingRooms: "Living rooms",
+      wholeHome:   "Whole home",
+      exteriors:   "Exteriors",
+      millwork:    "Millwork",
+      details:     "Details"
+    },
+
+    // Every photo in the gallery. `category` must match a key above.
+    // Write `alt` describing what is actually visible in the photo.
+    images: [
+      { src: "images/powder-mirror-brass.jpg",        category: "bathrooms", alt: "Oval brass-framed mirror and brass tapware against dark botanical wall covering" },
+      { src: "images/shower-green-tile-brass.jpg",    category: "bathrooms", alt: "Shower in stacked dark glazed tile with a brass recessed niche and patterned mosaic floor" },
+      { src: "images/wallpaper-detail.jpg",           category: "bathrooms", alt: "Close detail of botanical wall covering showing a bird among foliage" },
+      { src: "images/powder-marble-vanity.jpg",       category: "bathrooms", alt: "Marble waterfall vanity with brass tapware and a framed mirror lit by a brass light bar" },
+      { src: "images/powder-marble-herringbone.jpg",  category: "bathrooms", alt: "Marble waterfall vanity seen from above with the herringbone mosaic floor below" },
+      { src: "images/powder-herringbone-floor.jpg",   category: "bathrooms", alt: "Herringbone marble mosaic floor meeting a marble base and painted wainscot" },
+      { src: "images/bath-marble-shower.jpg",         category: "bathrooms", alt: "Walk-in shower with glass doors, marble-look porcelain walls and a matte black grab rail" },
+      { src: "images/bath-shower-niche.jpg",          category: "bathrooms", alt: "Recessed shower niche tiled in dark hex mosaic against marble-look porcelain" },
+      { src: "images/bath-marble-floor.jpg",          category: "bathrooms", alt: "Finished bathroom floor in marble-look porcelain with the glass shower enclosure behind" },
+
+      { src: "images/materials/brass-niche.jpg",      category: "details",   alt: "Unlacquered brass shower valve and handshower against dark glazed tile" },
+      { src: "images/materials/glazed-tile.jpg",      category: "details",   alt: "Stacked dark glazed ceramic tile with a brass-lined recessed niche" },
+      { src: "images/materials/marble.jpg",           category: "details",   alt: "Marble waterfall vanity with a carved basin and brass tapware" },
+      { src: "images/materials/herringbone.jpg",      category: "details",   alt: "Marble mosaic floor laid in a herringbone pattern" },
+      { src: "images/materials/walnut.jpg",           category: "details",   alt: "Walnut floating vanity carcass beneath a white trough basin" },
+      { src: "images/materials/wallpaper.jpg",        category: "details",   alt: "Dark botanical wall covering showing painted foliage and a bird" }
+    ]
+  },
+
+  /* ---------------------------------------------------------------- */
   /* Contact form                                                     */
   /* ---------------------------------------------------------------- */
   /* The form posts straight to Web3Forms, which emails the enquiry to

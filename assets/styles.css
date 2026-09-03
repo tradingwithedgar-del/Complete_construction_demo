@@ -463,13 +463,22 @@ button[type="submit"][disabled]{opacity:.6;cursor:not-allowed}
    HEADER SWITCH — must sit last so it wins over the component defaults above.
    Desktop nav below 768px is replaced by the call button + hamburger.
    ========================================================================== */
-@media (max-width:767.98px){
+@media (max-width:1023.98px){
   .desk-nav{display:none}
   .mobile-tools{display:flex}
 }
-@media (min-width:768px){
+@media (min-width:1024px){
   .mobile-tools{display:none}
   .drawer,.drawer-backdrop{display:none}
+}
+/* Just above the switch the nav is tight, so trim it rather than let it
+   push the brand out of the bar. */
+@media (min-width:1024px) and (max-width:1180px){
+  .nav-links{gap:15px}
+  header nav{gap:14px}
+  header nav a{font-size:10px;letter-spacing:.1em}
+  .call-top{padding:11px 11px;font-size:11px}
+  .brand b{font-size:12.5px;letter-spacing:.1em}
 }
 
 /* ==========================================================================
@@ -488,3 +497,58 @@ button[type="submit"][disabled]{opacity:.6;cursor:not-allowed}
   .preview-flag span{font-size:10px;letter-spacing:.1em}
   .preview-flag .pf-long{display:none}
 }
+
+/* ==========================================================================
+   Mobile utility strip — language control at the very top of the header
+   ========================================================================== */
+.util-bar{display:none;background:var(--ground-2);border-bottom:1px solid var(--rule)}
+.util-in{display:flex;align-items:center;justify-content:flex-end;gap:12px;padding-block:6px}
+.util-label{color:var(--ink-dim);margin-right:auto}
+.util-bar .lang{border-color:var(--rule)}
+.util-bar .lang button{padding:12px 15px;min-height:44px;font-size:11.5px}
+@media (max-width:1023.98px){
+  .util-bar{display:block}
+  /* The drawer already carries a language control; one is enough. */
+  .drawer .lang{display:none}
+  .drawer-foot .btn{margin-bottom:0}
+}
+@media (max-width:400px){
+  .util-label{display:none}
+  .util-in{justify-content:center}
+  .util-bar .lang{width:100%}
+  .util-bar .lang button{flex:1 1 0}
+}
+
+/* ==========================================================================
+   Gallery — one page, filtered in place
+   ========================================================================== */
+.gallery{background:var(--ground-2);border-block:1px solid var(--rule)}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:clamp(20px,2.6vw,30px)}
+.chips[hidden]{display:none}
+.chips button{
+  background:none;border:1px solid var(--rule);color:var(--ink-soft);cursor:pointer;
+  padding:11px 17px;min-height:44px;
+  font-family:Archivo,sans-serif;font-size:12.5px;font-weight:700;font-stretch:112%;
+  letter-spacing:.11em;text-transform:uppercase;
+}
+.chips button:hover{border-color:var(--brass);color:var(--ink)}
+.chips button[aria-pressed="true"]{background:var(--brass);border-color:var(--brass);color:var(--black)}
+
+.grid-gal{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(8px,1vw,14px)}
+.gal-item{margin:0;background:var(--black)}
+.gal-item[hidden]{display:none}
+.gal-item button{display:block;width:100%;padding:0;border:1px solid transparent;background:none;cursor:pointer}
+.gal-item button:hover,.gal-item button:focus-visible{border-color:var(--brass)}
+.gal-item img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center 42%;background:var(--panel)}
+.gal-item figcaption{padding:9px 2px 4px;color:var(--ink-dim)}
+.gal-empty{margin-top:8px;color:var(--ink-soft)}
+
+@media (max-width:1000px){ .grid-gal{grid-template-columns:repeat(3,1fr)} }
+@media (max-width:680px){
+  .grid-gal{grid-template-columns:repeat(2,1fr)}
+  .chips{gap:7px}
+  .chips button{padding:10px 13px;font-size:11.5px}
+}
+/* Room label is redundant once a single room is selected */
+.grid-gal.filtered .gal-item figcaption{display:none}
