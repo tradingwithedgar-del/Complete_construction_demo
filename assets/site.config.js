@@ -42,10 +42,9 @@ window.SITE = {
   /* Handle only, no URL and no @. The link is built from it. Leave a
      value empty and its button disappears from the whole site. */
   social: {
-    // TODO(owner): paste the Instagram handle, e.g. "completeconstructionnj".
-    // Instagram is where his work actually lives today, so this button is
-    // worth having until the gallery has more in it.
-    instagram: "",
+    // Handle as supplied by the owner. Note the spelling: "cunstruccion",
+    // not "construccion". Typed exactly as given.
+    instagram: "complete_cunstruccion",
     facebook: ""
   },
 
