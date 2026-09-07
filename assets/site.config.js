@@ -42,8 +42,11 @@ window.SITE = {
   /* Handle only, no URL and no @. The link is built from it. Leave a
      value empty and its button disappears from the whole site. */
   social: {
-    // Handle only, no @ and no URL.
-    instagram: "complete_construccion",
+    // Handle only, no @ and no URL. Note: TWO underscores.
+    // Do not paste a full share URL here. Instagram share links carry a
+    // ?stkn= token tied to whoever copied them; that has no business on a
+    // client's website.
+    instagram: "complete__construccion",
     facebook: ""
   },
 
