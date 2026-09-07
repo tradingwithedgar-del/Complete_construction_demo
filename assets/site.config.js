@@ -42,9 +42,8 @@ window.SITE = {
   /* Handle only, no URL and no @. The link is built from it. Leave a
      value empty and its button disappears from the whole site. */
   social: {
-    // Handle as supplied by the owner. Note the spelling: "cunstruccion",
-    // not "construccion". Typed exactly as given.
-    instagram: "complete_cunstruccion",
+    // Handle only, no @ and no URL.
+    instagram: "complete_construccion",
     facebook: ""
   },
 
