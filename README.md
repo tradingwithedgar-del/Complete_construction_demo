@@ -184,6 +184,52 @@ upload at all. If photos matter, the simplest route is text messages to the busi
 number — enable `smsEnabled` in the config once the owner confirms the number
 receives SMS, and the "Text us photos" option appears.
 
+## Hosting on the client's own GitHub repository
+
+This is the intended home. Netlify is only for showing the demo.
+
+Everything here is static with no build step, so GitHub Pages serves it directly.
+`.nojekyll` sits in the root to switch off Jekyll processing, which is what you want
+for a plain static site and which also avoids any question about the two font files
+whose names begin with a hyphen.
+
+**Setup, once, on the client's account:**
+
+1. He creates a repository, for example `complete-construction`.
+2. Push these files to `main` at the repository root.
+3. Settings → Pages → Source: *Deploy from a branch* → `main` → `/ (root)` → Save.
+4. It appears at `https://<his-username>.github.io/complete-construction/`.
+
+Every path in the site is relative, so it works at that `/complete-construction/`
+subpath with no changes. This is verified, not assumed.
+
+**Custom domain:** add a file called `CNAME` at the repository root containing just
+the domain, then point the domain's DNS at GitHub Pages. Settings → Pages → Custom
+domain, and tick *Enforce HTTPS*. The certificate is free and automatic.
+
+### What GitHub Pages does not do
+
+`netlify.toml` is Netlify-only. GitHub Pages cannot set custom HTTP headers at all,
+so on the client's repo you lose the security headers, the cache-control rules, and
+the `X-Robots-Tag` layer.
+
+None of that matters much for a static brochure site, with one exception worth being
+clear about: **while it is still a preview, search-engine protection rests entirely on
+the `<meta name="robots" content="noindex, nofollow">` tag in `index.html`.** That tag
+is sufficient on its own, and it is the control search engines actually honor.
+
+Do **not** add a `robots.txt` with `Disallow: /` as a second layer. It works against
+you: blocking the crawl stops Google reading the noindex tag, so a page that gets
+linked from anywhere can end up indexed with no description. The meta tag alone is the
+correct control.
+
+### Why hosting it on his repo is worth arguing for
+
+He told you he was worried about being scammed. This is the answer to that, and it is
+worth saying out loud on the call: the code sits in **his** account, on **his**
+domain, paid for on **his** card. He can hand it to any developer, at any time,
+without asking anyone. Nothing is held hostage.
+
 ## Deploying to Netlify
 
 **Drag and drop:** https://app.netlify.com/drop, drop the folder. Rename the site
