@@ -45,6 +45,23 @@
       $$(".lang").forEach(function (el) { el.hidden = true; });
     }
 
+    // Social links. A handle fills in the href and reveals every button that
+    // points at it; an empty handle leaves them all hidden, so an unconfirmed
+    // profile can never ship as a dead link.
+    var social = CFG.social || {};
+    var BASE = { instagram: "https://instagram.com/", facebook: "https://facebook.com/" };
+    Object.keys(BASE).forEach(function (net) {
+      var handle = String(social[net] || "").trim().replace(/^@/, "");
+      $$('[data-social="' + net + '"]').forEach(function (el) {
+        if (!handle) { el.hidden = true; return; }
+        el.href = BASE[net] + handle;
+        el.setAttribute("aria-label", net === "instagram"
+          ? "Complete Construction on Instagram, opens in a new tab"
+          : "Complete Construction on Facebook, opens in a new tab");
+        el.hidden = false;
+      });
+    });
+
     // Phone number, in case it is changed in one place
     var b = CFG.business || {};
     if (b.phoneE164) {
@@ -229,6 +246,12 @@
     // Nothing to show: hide the whole section rather than leave a gap.
     if (!images.length) { if (section) { section.hidden = true; } return; }
 
+    var active = "all";
+
+    // `pending: true` marks a photo that is wired up but not in the repo yet.
+    // Skipping it here means the page never shows a tile it cannot fill.
+    images = images.filter(function (img) { return img.pending !== true; });
+
     var frag = document.createDocumentFragment();
     images.forEach(function (img, i) {
       var fig = document.createElement("figure");
@@ -248,6 +271,13 @@
       el.width = 544;
       el.height = 720;
 
+      // An entry can be added to the config before the file is in the repo.
+      // Rather than ship a broken tile, drop it and re-lay the grid.
+      el.addEventListener("error", function () {
+        fig.remove();
+        show(active);
+      });
+
       btn.appendChild(el);
       fig.appendChild(btn);
 
@@ -261,12 +291,18 @@
     });
     grid.appendChild(frag);
 
-    // Which categories actually have photos, in config order
-    var present = Object.keys(labels).filter(function (key) {
-      return images.some(function (im) { return im.category === key; });
-    });
+    // Which categories actually have photos on the page, in config order.
+    // Read from the DOM rather than the config so a category whose files are
+    // all still missing never gets a filter button.
+    function categoriesPresent() {
+      return Object.keys(labels).filter(function (key) {
+        return !!grid.querySelector('.gal-item[data-cat="' + key + '"]');
+      });
+    }
+    var present = categoriesPresent();
 
     function show(cat) {
+      active = cat;
       // The room label under each photo is useful when everything is mixed
       // together, and pure repetition once a single room is selected.
       grid.classList.toggle("filtered", cat !== "all");

@@ -37,6 +37,19 @@ window.SITE = {
   },
 
   /* ---------------------------------------------------------------- */
+  /* Social                                                           */
+  /* ---------------------------------------------------------------- */
+  /* Handle only, no URL and no @. The link is built from it. Leave a
+     value empty and its button disappears from the whole site. */
+  social: {
+    // TODO(owner): paste the Instagram handle, e.g. "completeconstructionnj".
+    // Instagram is where his work actually lives today, so this button is
+    // worth having until the gallery has more in it.
+    instagram: "",
+    facebook: ""
+  },
+
+  /* ---------------------------------------------------------------- */
   /* Approval gates — every one of these starts false                 */
   /* ---------------------------------------------------------------- */
   flags: {
@@ -169,6 +182,20 @@ window.SITE = {
       { src: "images/bath-marble-shower.jpg",         category: "bathrooms", alt: "Walk-in shower with glass doors, marble-look porcelain walls and a matte black grab rail" },
       { src: "images/bath-shower-niche.jpg",          category: "bathrooms", alt: "Recessed shower niche tiled in dark hex mosaic against marble-look porcelain" },
       { src: "images/bath-marble-floor.jpg",          category: "bathrooms", alt: "Finished bathroom floor in marble-look porcelain with the glass shower enclosure behind" },
+
+      /* ---- Powder room, shot properly rather than pulled from video ----
+         These six are WAITING FOR FILES. `pending: true` keeps them out of
+         the gallery entirely, so nothing half-loaded is ever on screen.
+
+         TO TURN THEM ON: save the photos into images/gallery/bathrooms/
+         under exactly these filenames, then delete the `pending: true` from
+         each line. Nothing else to change. */
+      { src: "images/gallery/bathrooms/powder-vanity-wide.jpg",   category: "bathrooms", pending: true, alt: "Powder room vanity with an ornate oval brass mirror, brass tapware and a walnut floating vanity against dark botanical wall covering" },
+      { src: "images/gallery/bathrooms/powder-swan-corner.jpg",   category: "bathrooms", pending: true, alt: "Corner of the powder room showing a framed swan painting and an equestrian print above panelled wainscoting" },
+      { src: "images/gallery/bathrooms/powder-full-room.jpg",     category: "bathrooms", pending: true, alt: "Full view of the finished powder room with botanical wall covering, panelled wainscoting and a patterned rug" },
+      { src: "images/gallery/bathrooms/powder-from-door.jpg",     category: "bathrooms", pending: true, alt: "Powder room seen from the doorway, showing the wainscot line running around the room" },
+      { src: "images/gallery/bathrooms/powder-shower-side.jpg",   category: "bathrooms", pending: true, alt: "Powder room with the glass shower enclosure at left and brass towel ring against the wall covering" },
+      { src: "images/gallery/bathrooms/powder-toilet-wall.jpg",   category: "bathrooms", pending: true, alt: "Powder room toilet wall with framed artwork above the panelled wainscoting and brass fittings" },
 
       { src: "images/materials/brass-niche.jpg",      category: "details",   alt: "Unlacquered brass shower valve and handshower against dark glazed tile" },
       { src: "images/materials/glazed-tile.jpg",      category: "details",   alt: "Stacked dark glazed ceramic tile with a brass-lined recessed niche" },

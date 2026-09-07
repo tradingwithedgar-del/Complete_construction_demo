@@ -622,3 +622,14 @@ h2{letter-spacing:.008em}
   color:var(--ink);pointer-events:none;
   background:linear-gradient(to top, rgba(6,12,16,.88), rgba(6,12,16,0));
 }
+
+/* ==========================================================================
+   Instagram
+   ========================================================================== */
+.icon-btn.is-ig{padding:0 12px}
+.icon-btn.is-ig svg{width:19px;height:19px}
+.icon-btn.is-ig:hover{border-color:var(--brass);color:var(--brass)}
+.ig-btn{display:inline-flex;align-items:center;gap:10px;justify-content:center}
+.ig-btn svg{width:18px;height:18px;flex:0 0 auto}
+.drawer-foot .ig-btn{width:100%;margin-bottom:10px}
+.contact-aside .ig-btn{margin-top:4px}

@@ -90,6 +90,42 @@ keywords.
 Room labels appear under each photo in the "All rooms" view and hide once a single
 room is selected, where they would just repeat the filter.
 
+## Instagram and social links
+
+In `assets/site.config.js`:
+
+```js
+social: {
+  instagram: "completeconstructionnj",   // handle only, no @ and no URL
+  facebook: ""
+}
+```
+
+Filling in a handle reveals the button in four places at once: the desktop header,
+the mobile menu, the contact block, and the footer. Leaving it empty keeps all four
+hidden, so an unconfirmed profile can never ship as a dead link.
+
+Links open in a new tab with `rel="noopener noreferrer"` and carry an accessible name.
+
+## Photos waiting for files
+
+Six powder-room photos are already wired into `gallery.images` but carry
+`pending: true`, which keeps them out of the gallery completely. Nothing half-loaded
+ever reaches the screen.
+
+To turn them on:
+
+1. Save the photos into `images/gallery/bathrooms/` under exactly these names:
+   `powder-vanity-wide.jpg`, `powder-swan-corner.jpg`, `powder-full-room.jpg`,
+   `powder-from-door.jpg`, `powder-shower-side.jpg`, `powder-toilet-wall.jpg`
+2. Delete `pending: true` from those six lines in `assets/site.config.js`.
+
+Check the `alt` text still describes what is actually in each photo, and swap the hero
+image to the sharpest of them while you are there.
+
+As a safety net, any gallery photo whose file fails to load is dropped from the grid
+rather than shown as a broken tile, so a filename typo degrades quietly.
+
 ## The contact form
 
 The form posts straight to [Web3Forms](https://web3forms.com), which emails the
