@@ -30,10 +30,6 @@
     $$("[data-service]").forEach(function (el) {
       el.hidden = enabled[el.getAttribute("data-service")] !== true;
     });
-    // Renumber the visible service cards so the sequence has no gaps.
-    $$(".svc-card:not([hidden]) .sn").forEach(function (el, i) {
-      el.textContent = "S-" + String(i + 1).padStart(2, "0");
-    });
 
     // Service-area counties
     var confirmed = {};
@@ -202,6 +198,16 @@
     });
   }
 
+  function paintCount() {
+    var el = document.getElementById("gallery-count");
+    if (!el || !el.dataset.n) { return; }
+    var n = Number(el.dataset.n);
+    var es = document.documentElement.lang === "es";
+    el.textContent = es
+      ? n + (n === 1 ? " foto" : " fotos")
+      : n + (n === 1 ? " photo" : " photos");
+  }
+
   /* ======================================================================
      5b. Gallery
      Renders the grid and its filter chips from CFG.gallery. A chip appears
@@ -212,6 +218,7 @@
     var grid = $("#gallery-grid");
     var chips = $("#gallery-filters");
     var empty = $("#gallery-empty");
+    var count = $("#gallery-count");
     var section = $("#gallery");
     if (!grid || !chips) { return; }
 
@@ -263,14 +270,24 @@
       // The room label under each photo is useful when everything is mixed
       // together, and pure repetition once a single room is selected.
       grid.classList.toggle("filtered", cat !== "all");
-      var shown = 0;
+      var visible = [];
       $$(".gal-item", grid).forEach(function (fig) {
         var match = cat === "all" || fig.getAttribute("data-cat") === cat;
         fig.hidden = !match;
-        if (match) { shown += 1; }
+        fig.classList.remove("is-lead");
+        if (match) { visible.push(fig); }
       });
-      if (empty) { empty.hidden = shown > 0; }
+      // The first photo of whatever is on screen runs large, so the grid has a
+      // reading order instead of fifteen equal tiles.
+      if (visible.length > 3) { visible[0].classList.add("is-lead"); }
+      if (empty) { empty.hidden = visible.length > 0; }
+      if (count) {
+        count.dataset.n = String(visible.length);
+        paintCount();
+      }
     }
+
+    show("all");
 
     // One category only? The chips would be decoration, so skip them.
     if (present.length < 2) { chips.hidden = true; return; }
