@@ -1,0 +1,15 @@
+# Complete Construction & Home Solutions LLC
+#
+# Crawling is allowed. While the site is a private preview, indexing is held
+# back by the <meta name="robots" content="noindex, nofollow"> tag in
+# index.html, which is the control search engines actually honour.
+#
+# Do NOT add "Disallow: /" here as a second layer. Blocking the crawl stops
+# search engines from ever reading that noindex tag, so a page linked from
+# anywhere can end up indexed with no description. Blocking makes a leak more
+# likely, not less.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://completeconstructionnj.com/sitemap.xml

@@ -171,6 +171,23 @@ window.SITE = {
     // Every photo in the gallery. `category` must match a key above.
     // Write `alt` describing what is actually visible in the photo.
     images: [
+      /* ---- Powder room, photographed rather than pulled from video ----
+         Rotation baked in and all metadata stripped, including the GPS
+         coordinates an iPhone writes into every shot. Those pointed at a
+         private customer's home.
+
+         These lead the list on purpose: the gallery gives its largest tile
+         to the first entry, so the sharpest image belongs at the top. */
+      { src: "images/gallery/bathrooms/powder-vanity-mirror.jpg", category: "bathrooms", alt: "Powder room vanity with an ornate oval brass mirror, brass cross-handle tap and a walnut cabinet, against dark botanical wall covering" },
+      { src: "images/gallery/bathrooms/powder-vanity-wide.jpg",   category: "bathrooms", alt: "Powder room looking across the vanity to the toilet, with a framed swan painting and an equestrian print on the papered wall" },
+      { src: "images/gallery/bathrooms/powder-room-artwork.jpg",  category: "bathrooms", alt: "Papered wall carrying a framed swan painting and a gilt-framed equestrian print above cream panelled wainscoting" },
+      { src: "images/gallery/bathrooms/powder-toilet-corner.jpg", category: "bathrooms", alt: "Corner of the powder room where the wainscot cap meets the papered wall behind the toilet" },
+      { src: "images/gallery/bathrooms/powder-wainscot-wall.jpg", category: "bathrooms", alt: "Full height of the papered wall above raised-panel wainscoting, with the brass towel ring and framed artwork" },
+      { src: "images/gallery/bathrooms/powder-from-doorway.jpg",  category: "bathrooms", alt: "Powder room seen from the doorway, showing the glass shower enclosure, the vanity and the papered return wall" },
+
+      /* ---- Earlier projects, stills pulled from the owner's video ----
+         Lower resolution than the photographs above. Replace with real
+         photographs of these two bathrooms when they are available. */
       { src: "images/powder-mirror-brass.jpg",        category: "bathrooms", alt: "Oval brass-framed mirror and brass tapware against dark botanical wall covering" },
       { src: "images/shower-green-tile-brass.jpg",    category: "bathrooms", alt: "Shower in stacked dark glazed tile with a brass recessed niche and patterned mosaic floor" },
       { src: "images/wallpaper-detail.jpg",           category: "bathrooms", alt: "Close detail of botanical wall covering showing a bird among foliage" },
@@ -181,20 +198,7 @@ window.SITE = {
       { src: "images/bath-shower-niche.jpg",          category: "bathrooms", alt: "Recessed shower niche tiled in dark hex mosaic against marble-look porcelain" },
       { src: "images/bath-marble-floor.jpg",          category: "bathrooms", alt: "Finished bathroom floor in marble-look porcelain with the glass shower enclosure behind" },
 
-      /* ---- Powder room, shot properly rather than pulled from video ----
-         These six are WAITING FOR FILES. `pending: true` keeps them out of
-         the gallery entirely, so nothing half-loaded is ever on screen.
-
-         TO TURN THEM ON: save the photos into images/gallery/bathrooms/
-         under exactly these filenames, then delete the `pending: true` from
-         each line. Nothing else to change. */
-      { src: "images/gallery/bathrooms/powder-vanity-wide.jpg",   category: "bathrooms", pending: true, alt: "Powder room vanity with an ornate oval brass mirror, brass tapware and a walnut floating vanity against dark botanical wall covering" },
-      { src: "images/gallery/bathrooms/powder-swan-corner.jpg",   category: "bathrooms", pending: true, alt: "Corner of the powder room showing a framed swan painting and an equestrian print above panelled wainscoting" },
-      { src: "images/gallery/bathrooms/powder-full-room.jpg",     category: "bathrooms", pending: true, alt: "Full view of the finished powder room with botanical wall covering, panelled wainscoting and a patterned rug" },
-      { src: "images/gallery/bathrooms/powder-from-door.jpg",     category: "bathrooms", pending: true, alt: "Powder room seen from the doorway, showing the wainscot line running around the room" },
-      { src: "images/gallery/bathrooms/powder-shower-side.jpg",   category: "bathrooms", pending: true, alt: "Powder room with the glass shower enclosure at left and brass towel ring against the wall covering" },
-      { src: "images/gallery/bathrooms/powder-toilet-wall.jpg",   category: "bathrooms", pending: true, alt: "Powder room toilet wall with framed artwork above the panelled wainscoting and brass fittings" },
-
+      /* ---- Material details ---- */
       { src: "images/materials/brass-niche.jpg",      category: "details",   alt: "Unlacquered brass shower valve and handshower against dark glazed tile" },
       { src: "images/materials/glazed-tile.jpg",      category: "details",   alt: "Stacked dark glazed ceramic tile with a brass-lined recessed niche" },
       { src: "images/materials/marble.jpg",           category: "details",   alt: "Marble waterfall vanity with a carved basin and brass tapware" },

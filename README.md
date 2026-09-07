@@ -107,24 +107,39 @@ hidden, so an unconfirmed profile can never ship as a dead link.
 
 Links open in a new tab with `rel="noopener noreferrer"` and carry an accessible name.
 
-## Photos waiting for files
+## Photos and image hygiene
 
-Six powder-room photos are already wired into `gallery.images` but carry
-`pending: true`, which keeps them out of the gallery completely. Nothing half-loaded
-ever reaches the screen.
+The powder-room photographs are in `images/gallery/bathrooms/`. Before they went in
+they were **rotated and stripped of all metadata**.
 
-To turn them on:
+That second part matters. Every photo an iPhone takes carries GPS coordinates, and
+these were taken inside a customer's home. Publishing them untouched would have put a
+private homeowner's address on a public website. All EXIF is gone from the files in
+this repo. Do the same to any photo added later.
 
-1. Save the photos into `images/gallery/bathrooms/` under exactly these names:
-   `powder-vanity-wide.jpg`, `powder-swan-corner.jpg`, `powder-full-room.jpg`,
-   `powder-from-door.jpg`, `powder-shower-side.jpg`, `powder-toilet-wall.jpg`
-2. Delete `pending: true` from those six lines in `assets/site.config.js`.
+Five of the six were also stored sideways with an EXIF orientation flag. Browsers
+honour that flag, but the rotation is now baked into the pixels so nothing depends on
+downstream software reading it correctly.
 
-Check the `alt` text still describes what is actually in each photo, and swap the hero
-image to the sharpest of them while you are there.
+The gallery gives its largest tile to the first entry in `gallery.images`, so keep the
+sharpest photograph at the top of that list. Nine entries below the photographs are
+stills pulled from video and are noticeably softer; replace them when real photographs
+of those two bathrooms exist.
 
-As a safety net, any gallery photo whose file fails to load is dropped from the grid
-rather than shown as a broken tile, so a filename typo degrades quietly.
+Any gallery photo whose file fails to load is dropped from the grid rather than shown
+as a broken tile, so a filename typo degrades quietly.
+
+## Files at the site root
+
+| File | What it does |
+|---|---|
+| `404.html` | Styled not-found page. GitHub Pages and Netlify both serve it automatically |
+| `robots.txt` | Allows crawling and points at the sitemap. Read the comment in it before adding a `Disallow` |
+| `sitemap.xml` | One URL. Update it to the real domain at launch |
+| `llms.txt` | Plain-language summary for language models, including which claims are unverified |
+| `favicon.ico`, `favicon-32.png`, `apple-touch-icon.png` | Icons, generated from the logo mark |
+| `.nojekyll` | Stops GitHub Pages running the site through Jekyll |
+| `images/og-share.jpg` | 1200x630 share card, cropped from the hero photograph |
 
 ## The contact form
 
