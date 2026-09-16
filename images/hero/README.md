@@ -14,6 +14,10 @@ Order matters — the number is the playback order of the hero sequence.
 | `07-clad.png`         | Clad and glazed, interior lights off       |
 | `08-finished.png`     | Finished, interior lights on               |
 
+The eight PNGs currently in this folder are FLAT COLOUR PLACEHOLDERS, put
+here so the sequence could be built and tested before the real renders
+arrived. Overwrite every one of them. They are not fit to publish.
+
 Keep the `.png` extension and the two-digit prefix. Everything is converted to
 sized WebP during integration; the PNGs stay here as the masters so a frame can
 be re-cut without regenerating it.

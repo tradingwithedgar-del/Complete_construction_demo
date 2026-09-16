@@ -83,9 +83,17 @@
       if (t !== null) { n.textContent = t; }
     });
     document.documentElement.lang = lang;
+    // Elements whose translation belongs in an attribute, not in text. The
+    // hero stage is one: writing textContent into it would delete every
+    // layer of the sequence.
+    $$("[data-alt-en]").forEach(function (n) {
+      var t = n.getAttribute("data-alt-" + lang);
+      if (t !== null) { n.setAttribute("aria-label", t); }
+    });
     $$(".lang button").forEach(function (b) {
       b.setAttribute("aria-pressed", String(b.dataset.lang === lang));
     });
+    if (typeof paintStageLabel === "function") { paintStageLabel(); }
     try { localStorage.setItem("cc-lang", lang); } catch (e) {}
   }
   $$(".lang button").forEach(function (b) {
@@ -615,11 +623,142 @@
   }
 
   /* ======================================================================
-     9. Boot
+     9. Hero assembly sequence
+     ----------------------------------------------------------------------
+     Eight frames of one house, stacked, revealed over each other as the
+     visitor scrolls.
+
+     Every layer's state is a pure function of one number: how far through
+     the hero's scroll track we are. Nothing is triggered, queued or played,
+     so scrolling back up is not a reverse animation — it is the same
+     function evaluated at a smaller number, and the house comes apart slab
+     by slab exactly the way it went together. Stop halfway and it stops
+     halfway.
+
+     The markup ships with every layer visible and the pin inert. This adds
+     the class that switches the sequence on, so a JS failure, an old
+     browser or reduced motion all resolve to the finished house with the
+     name in place.
+     ====================================================================== */
+  var STAGES = [
+    { en: "Idea",       es: "Idea" },
+    { en: "Blueprint",  es: "Plano" },
+    { en: "Site",       es: "Terreno" },
+    { en: "Foundation", es: "Cimientos" },
+    { en: "Framing",    es: "Estructura" },
+    { en: "Enclosure",  es: "Cerramiento" },
+    { en: "Cladding",   es: "Recubrimiento" },
+    { en: "Finished",   es: "Terminado" }
+  ];
+
+  var stageIndex = 0;
+  var stageLabelEl = null;
+
+  function paintStageLabel() {
+    if (!stageLabelEl) { return; }
+    var s = STAGES[stageIndex] || STAGES[0];
+    stageLabelEl.textContent = document.documentElement.lang === "es" ? s.es : s.en;
+  }
+
+  function heroSequence() {
+    var hero = $("#hero");
+    var pin  = $(".hero-pin");
+    if (!hero || !pin) { return; }
+    if (prefersReduced()) { return; }
+
+    var layers = $$(".hf[data-step]", hero).map(function (el) {
+      return {
+        el: el,
+        step: Number(el.getAttribute("data-step")),
+        bands: $$(".hb i", el).map(function (i) {
+          return { i: i, order: Number(i.parentNode.style.getPropertyValue("--b")) || 0 };
+        })
+      };
+    });
+    if (!layers.length) { return; }
+
+    stageLabelEl = $("#hero-stage-label");
+
+    var meter = $(".hero-meter");
+    var STEPS = 7;                  // sketch->blueprint ... clad->finished
+    var SPAN  = 1 / STEPS;
+    var LAP   = SPAN * 0.2;         // steps overlap, so there is never a
+                                    // frozen beat between them
+    var BAND_STAGGER = 0.13;
+
+    // The pinned stage sits under the sticky header. Measure it rather than
+    // hard-coding, because the header is two rows on a phone and one on a
+    // desktop, and the language strip changes its height.
+    var header = document.querySelector("header");
+    function setHeaderVar() {
+      var h = header ? Math.round(header.getBoundingClientRect().height) : 0;
+      document.documentElement.style.setProperty("--hdr", h + "px");
+    }
+    setHeaderVar();
+    window.addEventListener("resize", setHeaderVar);
+
+    document.documentElement.classList.add("seq-on");
+
+    // Exponential ease-out. The piece arrives fast and decelerates hard into
+    // position; that deceleration is what the eye reads as weight. Linear is
+    // what makes this look like a slideshow.
+    function ease(t) {
+      return 1 - Math.pow(1 - t, 5);
+    }
+
+    function clamp01(n) { return n < 0 ? 0 : n > 1 ? 1 : n; }
+
+    function paint() {
+      var rect   = hero.getBoundingClientRect();
+      var travel = hero.offsetHeight - pin.offsetHeight;
+      var p      = travel > 0 ? clamp01(-rect.top / travel) : 1;
+
+      layers.forEach(function (layer) {
+        var start = (layer.step - 1) * SPAN - LAP;
+        var end   = layer.step * SPAN + LAP;
+        var local = clamp01((p - start) / (end - start));
+
+        if (!layer.bands.length) {
+          // The wipe and the dissolve read their progress straight.
+          layer.el.style.setProperty("--p", ease(local).toFixed(4));
+          return;
+        }
+
+        // Slabs land bottom-up, a beat apart. The denominator keeps the last
+        // slab finishing exactly at the end of the step.
+        var denom = 1 - BAND_STAGGER * 3;
+        layer.bands.forEach(function (b) {
+          var t = clamp01((local - b.order * BAND_STAGGER) / denom);
+          b.i.style.setProperty("--t", ease(t).toFixed(4));
+        });
+      });
+
+      if (meter) { meter.style.setProperty("--seq", p.toFixed(4)); }
+
+      var idx = Math.min(STAGES.length - 1, Math.round(p * (STAGES.length - 1)));
+      if (idx !== stageIndex) { stageIndex = idx; paintStageLabel(); }
+    }
+
+    var ticking = false;
+    function onScroll() {
+      if (ticking) { return; }
+      ticking = true;
+      window.requestAnimationFrame(function () { paint(); ticking = false; });
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    paint();
+    paintStageLabel();
+  }
+
+  /* ======================================================================
+     10. Boot
      ====================================================================== */
   applyConfig();
   buildFilters();
   buildGallery();
+  heroSequence();
 
   var yr = $("#yr");
   if (yr) { yr.textContent = String(new Date().getFullYear()); }
