@@ -40,12 +40,7 @@
 <!-- The first frame of the sequence and the frame it resolves to. The
      finished frame is also what shows if JavaScript never runs, so it is
      worth the early fetch. -->
-<link rel="preload" as="image" href="images/hero/01-sketch.webp"
-      imagesrcset="images/hero/01-sketch-sm.webp 768w, images/hero/01-sketch.webp 1344w"
-      imagesizes="100vw" fetchpriority="high">
-<link rel="preload" as="image" href="images/hero/08-finished.webp"
-      imagesrcset="images/hero/08-finished-sm.webp 768w, images/hero/08-finished.webp 1344w"
-      imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="video" href="video/hero.mp4" type="video/mp4" fetchpriority="high">
 <link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="assets/styles.css">
 
@@ -193,106 +188,32 @@
      work. They are labelled as such below and must never move into the
      portfolio or the gallery.
      ====================================================================== -->
+<!-- ======================================================================
+     HERO
+
+     One video: the build, sketch through to the lit dusk exterior.
+
+     THE DEFAULT STATE IS THE POSTER FRAME. The video autoplays muted on
+     load, plays once, and holds on its last frame. It never loops - a
+     build that restarts every ten seconds reads as a glitch and throws
+     away the finished-home ending.
+
+     If the video cannot play at all - no file yet, a codec the browser
+     refuses, autoplay blocked, JavaScript off, reduced motion - the
+     poster frame shows instead and the name still sits over it. The
+     fail state is a good still, never a blank box.
+     ====================================================================== -->
 <section class="hero" id="hero" aria-labelledby="hero-h">
   <div class="hero-pin">
 
-    <!-- data-alt-* rather than data-en/data-es: the language switch writes
-         textContent, which on this element would delete every layer inside
-         it. These set aria-label instead. -->
-    <div class="hero-stage" role="img"
-         data-alt-en="Concept sequence of one house: a pencil sketch becomes a blueprint, then an empty lot is built up through foundation, framing and cladding into a finished home at dusk."
-         data-alt-es="Secuencia conceptual de una casa: un boceto a lápiz se convierte en plano, y luego un terreno vacío se construye desde cimientos, estructura y recubrimiento hasta una casa terminada al anochecer."
-         aria-label="Concept sequence of one house: a pencil sketch becomes a blueprint, then an empty lot is built up through foundation, framing and cladding into a finished home at dusk.">
-
-      <!-- 1. The idea. Always present; everything else lands on top of it. -->
-      <div class="hf hf-base"><img class="hfi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/01-sketch-sm.webp 768w, images/hero/01-sketch.webp 1344w"
-             sizes="100vw" src="images/hero/01-sketch.webp"></div>
-
-      <!-- 2. The plan. Wipes across with a soft edge, like a pen passing. -->
-      <div class="hf hf-wipe" data-step="1"><img class="hfi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/02-blueprint-sm.webp 768w, images/hero/02-blueprint.webp 1344w"
-             sizes="100vw" src="images/hero/02-blueprint.webp"></div>
-
-      <!-- 3. The ground. Dissolves — plan giving way to real dirt. -->
-      <div class="hf hf-fade" data-step="2"><img class="hfi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/03-lot-sm.webp 768w, images/hero/03-lot.webp 1344w"
-             sizes="100vw" src="images/hero/03-lot.webp"></div>
-
-      <!-- 4-8. The build. Each stage lands in four slabs, bottom-up, so
-           nothing ever arrives before the thing it rests on. --k is the
-           slab's row; --b is its place in the landing order. -->
-      <div class="hf hf-slab" data-step="3">
-        <span class="hb" style="--k:0;--b:3"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/04-foundation-sm.webp 768w, images/hero/04-foundation.webp 1344w"
-             sizes="100vw" src="images/hero/04-foundation.webp"></span>
-        <span class="hb" style="--k:1;--b:2"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/04-foundation-sm.webp 768w, images/hero/04-foundation.webp 1344w"
-             sizes="100vw" src="images/hero/04-foundation.webp"></span>
-        <span class="hb" style="--k:2;--b:1"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/04-foundation-sm.webp 768w, images/hero/04-foundation.webp 1344w"
-             sizes="100vw" src="images/hero/04-foundation.webp"></span>
-        <span class="hb" style="--k:3;--b:0"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/04-foundation-sm.webp 768w, images/hero/04-foundation.webp 1344w"
-             sizes="100vw" src="images/hero/04-foundation.webp"></span>
-      </div>
-      <div class="hf hf-slab" data-step="4">
-        <span class="hb" style="--k:0;--b:3"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/05-framing-sm.webp 768w, images/hero/05-framing.webp 1344w"
-             sizes="100vw" src="images/hero/05-framing.webp"></span>
-        <span class="hb" style="--k:1;--b:2"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/05-framing-sm.webp 768w, images/hero/05-framing.webp 1344w"
-             sizes="100vw" src="images/hero/05-framing.webp"></span>
-        <span class="hb" style="--k:2;--b:1"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/05-framing-sm.webp 768w, images/hero/05-framing.webp 1344w"
-             sizes="100vw" src="images/hero/05-framing.webp"></span>
-        <span class="hb" style="--k:3;--b:0"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/05-framing-sm.webp 768w, images/hero/05-framing.webp 1344w"
-             sizes="100vw" src="images/hero/05-framing.webp"></span>
-      </div>
-      <div class="hf hf-slab" data-step="5">
-        <span class="hb" style="--k:0;--b:3"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/06-enclosure-sm.webp 768w, images/hero/06-enclosure.webp 1344w"
-             sizes="100vw" src="images/hero/06-enclosure.webp"></span>
-        <span class="hb" style="--k:1;--b:2"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/06-enclosure-sm.webp 768w, images/hero/06-enclosure.webp 1344w"
-             sizes="100vw" src="images/hero/06-enclosure.webp"></span>
-        <span class="hb" style="--k:2;--b:1"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/06-enclosure-sm.webp 768w, images/hero/06-enclosure.webp 1344w"
-             sizes="100vw" src="images/hero/06-enclosure.webp"></span>
-        <span class="hb" style="--k:3;--b:0"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/06-enclosure-sm.webp 768w, images/hero/06-enclosure.webp 1344w"
-             sizes="100vw" src="images/hero/06-enclosure.webp"></span>
-      </div>
-      <div class="hf hf-slab" data-step="6">
-        <span class="hb" style="--k:0;--b:3"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/07-clad-sm.webp 768w, images/hero/07-clad.webp 1344w"
-             sizes="100vw" src="images/hero/07-clad.webp"></span>
-        <span class="hb" style="--k:1;--b:2"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/07-clad-sm.webp 768w, images/hero/07-clad.webp 1344w"
-             sizes="100vw" src="images/hero/07-clad.webp"></span>
-        <span class="hb" style="--k:2;--b:1"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/07-clad-sm.webp 768w, images/hero/07-clad.webp 1344w"
-             sizes="100vw" src="images/hero/07-clad.webp"></span>
-        <span class="hb" style="--k:3;--b:0"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/07-clad-sm.webp 768w, images/hero/07-clad.webp 1344w"
-             sizes="100vw" src="images/hero/07-clad.webp"></span>
-      </div>
-      <div class="hf hf-slab" data-step="7">
-        <span class="hb" style="--k:0;--b:3"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/08-finished-sm.webp 768w, images/hero/08-finished.webp 1344w"
-             sizes="100vw" src="images/hero/08-finished.webp"></span>
-        <span class="hb" style="--k:1;--b:2"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/08-finished-sm.webp 768w, images/hero/08-finished.webp 1344w"
-             sizes="100vw" src="images/hero/08-finished.webp"></span>
-        <span class="hb" style="--k:2;--b:1"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/08-finished-sm.webp 768w, images/hero/08-finished.webp 1344w"
-             sizes="100vw" src="images/hero/08-finished.webp"></span>
-        <span class="hb" style="--k:3;--b:0"><img class="hbi" alt="" decoding="async" width="1344" height="752"
-             srcset="images/hero/08-finished-sm.webp 768w, images/hero/08-finished.webp 1344w"
-             sizes="100vw" src="images/hero/08-finished.webp"></span>
-      </div>
-
+    <div class="hero-stage">
+      <video id="hero-video" class="hero-video"
+             muted playsinline preload="auto" disablepictureinpicture
+             poster="images/hero-poster.jpg"
+             aria-label="The house built from first sketch to finished home at dusk">
+        <source src="video/hero.webm" type="video/webm">
+        <source src="video/hero.mp4" type="video/mp4">
+      </video>
       <div class="hero-veil" aria-hidden="true"></div>
     </div>
 
@@ -305,19 +226,13 @@
       </div>
     </div>
 
-    <!-- Reads the sequence position and names the stage. Hidden entirely
-         when the sequence is off. -->
-    <div class="hero-meter" aria-hidden="true">
-      <span class="hm-label mono" id="hero-stage-label"></span>
-      <span class="hm-track"><span class="hm-fill"></span></span>
-    </div>
   </div>
 </section>
 
 <!-- Concept-imagery disclosure. This is not decoration: the frames above
      are generated, and saying so is what keeps the rest of the page's
      claims worth believing. -->
-<p class="concept-note mono" data-en="The sequence above is an illustration of how a build progresses. Every photograph further down this page is our own completed work." data-es="La secuencia de arriba ilustra cómo avanza una obra. Cada fotografía más abajo en esta página es trabajo terminado por nosotros.">The sequence above is an illustration of how a build progresses. Every photograph further down this page is our own completed work.</p>
+<p class="concept-note mono" data-en="The opening sequence is an illustration of how a build progresses. Every photograph further down this page is our own completed work." data-es="La secuencia inicial ilustra cómo avanza una obra. Cada fotografía más abajo en esta página es trabajo terminado por nosotros.">The opening sequence is an illustration of how a build progresses. Every photograph further down this page is our own completed work.</p>
 
 <!-- The page below the hero is composed in editor.html and rendered from
      assets/blocks.js. Nothing is hard-coded here on purpose: that is what

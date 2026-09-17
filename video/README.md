@@ -1,33 +1,37 @@
-# Hero clips
+# Hero video
 
-Kling 3.0 Turbo clips, 5s each at 720p, generated from the hero stills.
-Download them from the Higgsfield widget and upload them here with these
-exact names:
+Upload the finished build video here as:
 
-| file                  | starts from        | shows                                  |
-|-----------------------|--------------------|----------------------------------------|
-| `01-foundation.mp4`   | empty lot          | foundation descends and settles         |
-| `02-framing.mp4`      | foundation         | timber framing rises                    |
-| `03-enclosure.mp4`    | open frame         | sheathing and slate roof enclose it     |
-| `04-lights.mp4`       | clad, lights off   | interior and facade lights bloom on     |
+    video/hero.mp4
 
-Only upload the clips that actually hold. A clip is unusable if the camera
-drifts, pushes or gains parallax, or if the house changes - a gable that
-grows or shifts, or a roof pitch that moves mid-clip. Those cannot be cut
-against the stills either side of them, and no prompt rewrite fixes it on a
-start-frame-only model.
+That is the only file the page needs. Everything else in the hero is
+ordinary HTML over the top of it.
 
-Upload the good ones and leave the rest out. The page falls back to the
-still-frame assembly for any stage that has no clip, so a partial set still
-produces a working opener.
+## What happens after you upload it
 
-WHY THESE ARE UPLOADED BY HAND
-Higgsfield serves generation output from a CloudFront host that this build
-environment's egress policy blocks, so the clips cannot be fetched directly.
-The renders from the 3D service came through because that one uses Cloudflare
-R2, which is allowed.
+The video is re-encoded for the web, a WebM is produced alongside it, and a
+poster frame is pulled from its final frame to `images/hero-poster.jpg`.
+Until that poster exists the hero shows a plain dark ground behind the name,
+which is tidy but not the real thing.
 
-AFTER UPLOADING
-The clips get concatenated, retimed to fit inside the ten-second opener,
-stripped of audio and re-encoded for the web. The originals stay in this
-folder as masters; the page loads the encoded result.
+## How it behaves on the page
+
+- Autoplays muted on load, plays once, holds on the last frame
+- Never loops. A build that restarts every ten seconds reads as a glitch and
+  throws away the finished-home ending, which is the frame the name sits on
+- The first scroll, tap or keypress jumps to the end, so nobody is held
+  hostage waiting for it before they can reach a phone number
+- `prefers-reduced-motion` parks on the final frame without ever playing
+- If the video cannot play at all - no file, a refused codec, autoplay
+  blocked by the operating system, JavaScript off - the poster frame shows
+  and the name still sits over it. There is no state where the hero is a
+  blank box.
+
+## Uploading
+
+GitHub web UI: open this folder, then **Add file -> Upload files**. Not the
+pencil icon - that is a text editor and refuses binaries.
+
+The clips cannot be fetched automatically because Higgsfield serves
+generation output from a CloudFront host this build environment's egress
+policy blocks, so this upload is by hand.

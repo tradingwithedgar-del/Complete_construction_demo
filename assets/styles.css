@@ -273,18 +273,20 @@ header nav.desk-nav { display: none; }
 .btn-ghost:hover { border-color: var(--brass); color: var(--brass); }
 
 /* ==========================================================================
-   HERO — the assembly sequence
+   HERO
    --------------------------------------------------------------------------
-   DEFAULT STATE IS THE FINISHED HOUSE. Everything below that switches a layer
-   off is scoped to .seq-on, which only JavaScript adds. No script, an old
-   browser, or reduced motion all land on the finished frame with the name in
-   place, which is the picture we would have chosen anyway.
+   One video, played once on load, holding on its last frame.
+
+   The poster carries everything if the video does not: no file yet, a
+   refused codec, blocked autoplay, JavaScript off, reduced motion. The
+   name and the buttons are ordinary HTML over the top, so they are legible
+   and translatable in every one of those cases.
    ========================================================================== */
 .hero {
   position: relative;
   background: var(--black);
   /* The hero is a <section>, so it would otherwise pick up the generic
-     section padding and push the pinned stage down the page. */
+     section padding and push the stage down the page. */
   padding-block: 0;
 }
 
@@ -301,63 +303,13 @@ header nav.desk-nav { display: none; }
   align-content: end;
 }
 
-/* The opener plays on load and is over in seven seconds, so the hero is an
-   ordinary screen-height section. There is no scroll track any more: the
-   sequence is driven by the clock, not by the scrollbar. */
-
 .hero-stage { position: absolute; inset: 0; }
 
-/* Each layer carries a real <img> rather than a CSS background, so srcset
-   picks the right size per screen. A phone has no use for a 1344px frame and
-   the sequence holds eight of them at once. */
-.hf { position: absolute; inset: 0; }
-.hfi {
+.hero-video {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover; object-position: center;
-}
-
-/* Step 1 — the plan wipes across the sketch with a feathered edge, so the
-   sketch is still visible ahead of the pen. */
-.seq-on .hf-wipe {
-  --p: 0;
-  -webkit-mask-image: linear-gradient(100deg,
-    #000 calc(var(--p) * 132% - 16%), transparent calc(var(--p) * 132%));
-          mask-image: linear-gradient(100deg,
-    #000 calc(var(--p) * 132% - 16%), transparent calc(var(--p) * 132%));
-}
-
-/* Step 2 — plan gives way to real ground. */
-.seq-on .hf-fade { --p: 0; opacity: var(--p); }
-
-/* Steps 3-7 — assembly. Each stage is four slabs; each slab sits in a
-   clipped slot and slides into it from above. Slots are cut across the whole
-   frame, but sky and ground are identical between stages, so the only place
-   anything appears to move is the house. */
-.hf-slab { /* nothing of its own — the slabs carry the picture */ }
-
-.hf-slab .hb {
-  position: absolute;
-  left: 0; width: 100%;
-  height: 25.2%;                 /* a hair of overlap kills seam hairlines */
-  top: calc(var(--k) * 25%);
-  overflow: hidden;
-  display: block;
-}
-.hf-slab .hb .hbi {
-  position: absolute;
-  left: 0; width: 100%;
-  height: 400%;                  /* == the full stage height */
-  max-width: none;
-  top: calc(var(--k) * -100%);
-  display: block;
-  object-fit: cover; object-position: center;
-  will-change: transform;
-}
-.seq-on .hf-slab .hb .hbi {
-  --t: 0;
-  transform: translate3d(0, calc((1 - var(--t)) * -3.6vh), 0);
-  opacity: clamp(0, calc(var(--t) * 2.4), 1);
+  background: var(--black);
 }
 
 /* Legibility under the title, without a scrim over the whole picture. */
@@ -394,39 +346,8 @@ header nav.desk-nav { display: none; }
 
 .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
 
-/* Sequence position readout. Purely a progress cue; hidden when off. */
-.hero-meter {
-  position: absolute;
-  left: var(--gut); right: var(--gut);
-  bottom: 0;
-  display: none;
-  align-items: center; gap: 14px;
-  padding-bottom: 14px;
-  max-width: var(--wrap);
-  margin-inline: auto;
-}
-.seq-on .hero-meter { display: flex; }
-.hm-label { color: var(--brass); font-size: 0.5625rem; white-space: nowrap; }
-.hm-track { flex: 1; height: 1px; background: var(--rule); position: relative; }
-.hm-fill {
-  position: absolute; left: 0; top: 0; height: 100%;
-  width: calc(var(--seq, 0) * 100%);
-  background: var(--brass);
-}
-
 @media (max-width: 720px) {
-  .hero-pin { align-content: end; }
-  .hero-meter { display: none !important; }
   .hero-copy { padding-bottom: clamp(74px, 13vh, 104px); }
-}
-
-/* Reduced motion: no sequence at all, finished frame only. */
-@media (prefers-reduced-motion: reduce) {
-  .seq-on .hf-wipe { -webkit-mask-image: none; mask-image: none; }
-  .seq-on .hf-fade { opacity: 1; }
-  .seq-on .hf-slab .hb .hbi { transform: none; opacity: 1; }
-  .seq-on .hero-meter { display: none; }
-  .hero-copy { opacity: 1 !important; }
 }
 
 .concept-note {

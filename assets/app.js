@@ -95,7 +95,6 @@
     $$(".lang button").forEach(function (b) {
       b.setAttribute("aria-pressed", String(b.dataset.lang === lang));
     });
-    if (typeof paintStageLabel === "function") { paintStageLabel(); }
     try { localStorage.setItem("cc-lang", lang); } catch (e) {}
   }
   $$(".lang button").forEach(function (b) {
@@ -434,151 +433,78 @@
      browser or reduced motion all resolve to the finished house with the
      name in place.
      ====================================================================== */
-  var STAGES = [
-    { en: "Idea",       es: "Idea" },
-    { en: "Blueprint",  es: "Plano" },
-    { en: "Site",       es: "Terreno" },
-    { en: "Foundation", es: "Cimientos" },
-    { en: "Framing",    es: "Estructura" },
-    { en: "Enclosure",  es: "Cerramiento" },
-    { en: "Cladding",   es: "Recubrimiento" },
-    { en: "Finished",   es: "Terminado" }
-  ];
+  /* ======================================================================
+     9. Hero video
+     ----------------------------------------------------------------------
+     One video, played once on load, holding on its last frame.
 
-  var stageIndex = 0;
-  var stageLabelEl = null;
+     It never loops. A build that restarts every ten seconds reads as a
+     glitch and throws away the finished-home ending, which is the frame
+     the business name sits on.
 
-  function paintStageLabel() {
-    if (!stageLabelEl) { return; }
-    var s = STAGES[stageIndex] || STAGES[0];
-    stageLabelEl.textContent = document.documentElement.lang === "es" ? s.es : s.en;
-  }
+     Nobody is held hostage by it either: the first scroll, tap or keypress
+     jumps to the end. That matters more than the animation does - this is
+     a contractor's site and the visitor came for a phone number, which
+     stays in the sticky header throughout.
 
-  function heroSequence() {
+     Every failure lands on the poster frame: no file yet, a codec the
+     browser refuses, autoplay blocked by the OS, JavaScript off, or
+     reduced motion. There is no state where the hero is a blank box.
+     ====================================================================== */
+  function heroVideo() {
     var hero = $("#hero");
-    var pin  = $(".hero-pin");
-    if (!hero || !pin) { return; }
+    var video = $("#hero-video");
+    if (!hero || !video) { return; }
 
-    var layers = $$(".hf[data-step]", hero).map(function (el) {
-      return {
-        el: el,
-        step: Number(el.getAttribute("data-step")),
-        bands: $$(".hb .hbi", el).map(function (i) {
-          return { i: i, order: Number(i.parentNode.style.getPropertyValue("--b")) || 0 };
-        })
-      };
-    });
-    if (!layers.length) { return; }
+    // The stage sits under the sticky header. Measure it rather than
+    // hard-coding: the header is two rows on a phone and one on a desktop.
+    var header = document.querySelector("header");
+    function setHeaderVar() {
+      var h = header ? Math.round(header.getBoundingClientRect().height) : 0;
+      document.documentElement.style.setProperty("--hdr", h + "px");
+    }
+    setHeaderVar();
+    window.addEventListener("resize", setHeaderVar);
 
-    stageLabelEl = $("#hero-stage-label");
-    var meter = $(".hero-meter");
+    video.loop = false;
+    video.muted = true;             // set in the markup too; autoplay needs it
+    video.playsInline = true;
 
-    var STEPS = 7;                  // sketch->blueprint ... clad->finished
-    var SPAN  = 1 / STEPS;
-    var LAP   = SPAN * 0.2;         // steps overlap, so there is never a
-                                    // frozen beat between them
-    var BAND_STAGGER = 0.13;
-    var RUN_MS = 7000;              // the whole build, start to lit windows
-
-    function clamp01(n) { return n < 0 ? 0 : n > 1 ? 1 : n; }
-
-    // Exponential ease-out. A piece arrives fast and decelerates hard into
-    // position; that deceleration is what the eye reads as weight. Linear is
-    // what makes this kind of thing look like a slideshow.
-    function ease(t) { return 1 - Math.pow(1 - t, 5); }
-
-    function paint(p) {
-      layers.forEach(function (layer) {
-        // The overlap is clamped at both ends of the timeline. Without this
-        // the first step starts at -0.028, so the blueprint is already 60%
-        // wiped across before the opener has begun and the sketch is never
-        // really seen; and the last step ends at 1.028, so its final slab
-        // stalls at 0.9993 and the build never actually lands.
-        var start = Math.max(0, (layer.step - 1) * SPAN - LAP);
-        var end   = Math.min(1, layer.step * SPAN + LAP);
-        var local = clamp01((p - start) / (end - start));
-
-        if (!layer.bands.length) {
-          // The wipe and the dissolve read their progress straight.
-          layer.el.style.setProperty("--p", ease(local).toFixed(4));
-          return;
+    // Reduced motion: no playback at all. Park on the final frame once the
+    // duration is known, so the still is the finished house rather than a
+    // sketch nobody asked to sit through.
+    if (prefersReduced()) {
+      var parkAtEnd = function () {
+        if (isFinite(video.duration) && video.duration > 0) {
+          try { video.currentTime = Math.max(0, video.duration - 0.05); } catch (e) {}
         }
-
-        // Slabs land bottom-up, a beat apart. The denominator keeps the last
-        // slab finishing exactly at the end of the step.
-        var denom = 1 - BAND_STAGGER * 3;
-        layer.bands.forEach(function (b) {
-          var t = clamp01((local - b.order * BAND_STAGGER) / denom);
-          b.i.style.setProperty("--t", ease(t).toFixed(4));
-        });
-      });
-
-      if (meter) { meter.style.setProperty("--seq", p.toFixed(4)); }
-
-      var idx = Math.min(STAGES.length - 1, Math.round(p * (STAGES.length - 1)));
-      if (idx !== stageIndex) { stageIndex = idx; paintStageLabel(); }
+      };
+      if (video.readyState >= 1) { parkAtEnd(); }
+      else { video.addEventListener("loadedmetadata", parkAtEnd, { once: true }); }
+      return;
     }
 
-    // Reduced motion gets the finished house immediately. The markup ships
-    // that way, so there is nothing to do but leave it alone.
-    if (prefersReduced()) { return; }
-
-    document.documentElement.classList.add("seq-on");
-    paint(0);
-    paintStageLabel();
-
-    /* ------------------------------------------------------------------
-       The opener. It runs once, on load, and finishes inside seven
-       seconds.
-
-       Nobody is held hostage by it: the first scroll, tap or keypress
-       fast-forwards to the finished house. That matters more than the
-       animation does — this is a contractor's site, and the visitor is
-       here for a phone number, which stays in the header throughout.
-       ------------------------------------------------------------------ */
-    var t0 = null;
     var done = false;
-    var skipping = false;
-    var skipFrom = 0, skipAt = 0;
-    var SKIP_MS = 420;
 
     function finish() {
+      if (done) { return; }
       done = true;
-      paint(1);
-      document.documentElement.classList.remove("seq-on");   // back to the
-      // markup's own default state, so nothing depends on the timeline once
-      // it has played.
+      try {
+        video.pause();
+        if (isFinite(video.duration) && video.duration > 0) {
+          video.currentTime = Math.max(0, video.duration - 0.05);
+        }
+      } catch (e) {}
       window.removeEventListener("wheel", skip);
       window.removeEventListener("touchstart", skip);
       window.removeEventListener("keydown", skip);
       window.removeEventListener("pointerdown", skip);
     }
 
-    function frame(ts) {
-      if (done) { return; }
-      if (t0 === null) { t0 = ts; }
-
-      var p;
-      if (skipping) {
-        var st = clamp01((ts - skipAt) / SKIP_MS);
-        p = skipFrom + (1 - skipFrom) * ease(st);
-        if (st >= 1) { finish(); return; }
-      } else {
-        p = clamp01((ts - t0) / RUN_MS);
-        if (p >= 1) { finish(); return; }
-      }
-
-      paint(p);
-      window.requestAnimationFrame(frame);
-    }
-
     function skip(ev) {
-      if (done || skipping) { return; }
       // A modifier-key shortcut is not an attempt to dismiss the opener.
       if (ev && ev.type === "keydown" && (ev.metaKey || ev.ctrlKey || ev.altKey)) { return; }
-      skipping = true;
-      skipAt = performance.now();
-      skipFrom = t0 === null ? 0 : clamp01((skipAt - t0) / RUN_MS);
+      finish();
     }
 
     window.addEventListener("wheel", skip, { passive: true });
@@ -586,30 +512,13 @@
     window.addEventListener("keydown", skip);
     window.addEventListener("pointerdown", skip);
 
-    /* Wait for the frames to decode before starting, so the build does not
-       stutter through its first second on a slow connection. The timeout is
-       the point: a frame that will not load must not stop the opener. */
-    var imgs = $$(".hf img", hero);
-    var pending = imgs.filter(function (im) { return !im.complete; });
+    video.addEventListener("ended", finish);
 
-    function go() {
-      if (t0 !== null || done) { return; }
-      window.requestAnimationFrame(frame);
-    }
-
-    if (!pending.length) {
-      go();
-    } else {
-      var waited = false;
-      var settle = function () {
-        if (waited) { return; }
-        waited = true;
-        go();
-      };
-      Promise.all(imgs.map(function (im) {
-        return im.decode ? im.decode().catch(function () {}) : Promise.resolve();
-      })).then(settle);
-      window.setTimeout(settle, 2500);
+    // A rejected play() is not an error worth surfacing: a blocked autoplay
+    // leaves the poster showing, which is a perfectly good hero.
+    var attempt = video.play();
+    if (attempt && typeof attempt.catch === "function") {
+      attempt.catch(function () {});
     }
   }
 
@@ -626,7 +535,7 @@
   }
 
   applyConfig();
-  heroSequence();
+  heroVideo();
 
   var yr = $("#yr");
   if (yr) { yr.textContent = String(new Date().getFullYear()); }
