@@ -291,3 +291,47 @@ content is hidden rather than guessed.
 | Privacy and consent wording | Marked on the page as placeholder, for owner and legal review |
 | Photo permission | The images are frames from video the owner sent. Confirm before indexing |
 | Image resolution | Source video was 544x960 after phone compression. Originals would be roughly four times that |
+
+
+## Editing the page
+
+The page is two things: a hero, and a list of blocks.
+
+- **The hero** is fixed. It lives in `index.html` and `assets/styles.css`, and
+  its eight frames are in `images/hero/`.
+- **Everything below the hero** comes from `assets/blocks.js`, which is just an
+  array. Nothing below the hero is hard-coded in `index.html`.
+
+### The editor
+
+Open `editor.html` in a browser. You do not need a server for it, though
+running one avoids browsers being fussy about local files:
+
+    python3 -m http.server 8765      # then open http://127.0.0.1:8765/editor.html
+
+In it you can:
+
+- **Click** any part of the page to select it
+- **Type directly on the page** to change wording — click the words and write
+- **Drag** the handle in a block's top-left corner to move it
+- **Add** blocks from the palette; they land under whatever is selected
+- **Duplicate** or **Delete** the selected block
+- Set each block's background, width, alignment and spacing
+- Choose which photographs a gallery block shows, and how many columns
+- Decide whether a block appears in the menu, and what it is called
+- Preview at phone, tablet and desktop width
+- **Undo / Redo** (Ctrl+Z, Ctrl+Shift+Z)
+
+Work is kept in the browser as you go. When you are happy, press **Export**
+and save the result over `assets/blocks.js`. That is the only file that
+changes.
+
+If the top bar says "Not saved", the browser is refusing storage (usually a
+private window) — export before closing the tab.
+
+### What the editor deliberately does not touch
+
+The phone number, the Instagram handle, the approval flags and the list of
+photographs all live in `assets/site.config.js`. Blocks point at them rather
+than copying them, so the number is changed in one place and an unapproved
+claim still cannot appear on the page.

@@ -75,10 +75,12 @@
   /* ======================================================================
      2. Language
      ====================================================================== */
-  var langNodes = $$("[data-en]");
   function setLang(lang) {
     if (lang !== "es") { lang = "en"; }
-    langNodes.forEach(function (n) {
+    // Re-queried each time rather than captured once: the blocks below the
+    // hero are rendered after this script loads, so a cached list would
+    // leave every word in them untranslated.
+    $$("[data-en]").forEach(function (n) {
       var t = n.getAttribute("data-" + lang);
       if (t !== null) { n.textContent = t; }
     });
@@ -152,202 +154,8 @@
     });
   }
 
-  /* ======================================================================
-     4. Phase rail — tablist on desktop, scroll strip on mobile
-     ====================================================================== */
-  var tabs = $$('.rail [role="tab"]');
-  function selectTab(tab, focus) {
-    tabs.forEach(function (t) {
-      var on = t === tab;
-      t.setAttribute("aria-selected", String(on));
-      t.tabIndex = on ? 0 : -1;
-      $("#" + t.getAttribute("aria-controls")).hidden = !on;
-    });
-    if (focus) { tab.focus(); }
-    if (window.matchMedia("(max-width:680px)").matches && tab.scrollIntoView) {
-      tab.scrollIntoView({ inline: "center", block: "nearest", behavior: prefersReduced() ? "auto" : "smooth" });
-    }
-  }
-  tabs.forEach(function (tab, i) {
-    tab.addEventListener("click", function () { selectTab(tab, false); });
-    tab.addEventListener("keydown", function (ev) {
-      var n = null;
-      if (ev.key === "ArrowRight" || ev.key === "ArrowDown") { n = tabs[(i + 1) % tabs.length]; }
-      else if (ev.key === "ArrowLeft" || ev.key === "ArrowUp") { n = tabs[(i - 1 + tabs.length) % tabs.length]; }
-      else if (ev.key === "Home") { n = tabs[0]; }
-      else if (ev.key === "End") { n = tabs[tabs.length - 1]; }
-      if (n) { ev.preventDefault(); selectTab(n, true); }
-    });
-  });
-
   function prefersReduced() {
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  }
-
-  /* ======================================================================
-     5. Portfolio filters
-     A filter renders only when at least one published project carries that
-     category, so an empty "New builds" tab can never appear.
-     ====================================================================== */
-  function buildFilters() {
-    var host = $("#filters");
-    if (!host) { return; }
-    var projects = $$("[data-category]");
-    var present = [];
-    projects.forEach(function (p) {
-      p.getAttribute("data-category").split(/\s+/).forEach(function (c) {
-        if (c && present.indexOf(c) === -1) { present.push(c); }
-      });
-    });
-
-    var labels = (CFG.portfolio && CFG.portfolio.categoryLabels) || {};
-    var showSingle = CFG.portfolio && CFG.portfolio.showFiltersWhenSingleCategory;
-    if (present.length < 2 && !showSingle) { host.hidden = true; return; }
-
-    host.hidden = false;
-    var cats = ["all"].concat(present);
-    cats.forEach(function (cat, i) {
-      var b = document.createElement("button");
-      b.type = "button";
-      b.textContent = labels[cat] || cat;
-      b.setAttribute("aria-pressed", String(i === 0));
-      b.addEventListener("click", function () {
-        $$("#filters button").forEach(function (o) { o.setAttribute("aria-pressed", "false"); });
-        b.setAttribute("aria-pressed", "true");
-        projects.forEach(function (p) {
-          var match = cat === "all" || p.getAttribute("data-category").split(/\s+/).indexOf(cat) > -1;
-          p.hidden = !match;
-        });
-      });
-      host.appendChild(b);
-    });
-  }
-
-  function paintCount() {
-    var el = document.getElementById("gallery-count");
-    if (!el || !el.dataset.n) { return; }
-    var n = Number(el.dataset.n);
-    var es = document.documentElement.lang === "es";
-    el.textContent = es
-      ? n + (n === 1 ? " foto" : " fotos")
-      : n + (n === 1 ? " photo" : " photos");
-  }
-
-  /* ======================================================================
-     5b. Gallery
-     Renders the grid and its filter chips from CFG.gallery. A chip appears
-     only for a category that actually holds photos, so an empty room type
-     can never show up. Adding a room is a config edit, not a new page.
-     ====================================================================== */
-  function buildGallery() {
-    var grid = $("#gallery-grid");
-    var chips = $("#gallery-filters");
-    var empty = $("#gallery-empty");
-    var count = $("#gallery-count");
-    var section = $("#gallery");
-    if (!grid || !chips) { return; }
-
-    var cfg = CFG.gallery || {};
-    var images = cfg.images || [];
-    var labels = cfg.categories || {};
-
-    // Nothing to show: hide the whole section rather than leave a gap.
-    if (!images.length) { if (section) { section.hidden = true; } return; }
-
-    var active = "all";
-
-    // `pending: true` marks a photo that is wired up but not in the repo yet.
-    // Skipping it here means the page never shows a tile it cannot fill.
-    images = images.filter(function (img) { return img.pending !== true; });
-
-    var frag = document.createDocumentFragment();
-    images.forEach(function (img, i) {
-      var fig = document.createElement("figure");
-      fig.className = "gal-item";
-      fig.setAttribute("data-cat", img.category || "");
-
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.setAttribute("data-full", img.src);
-      btn.setAttribute("data-caption", img.caption || img.alt || "");
-
-      var el = document.createElement("img");
-      el.src = img.src;
-      el.alt = img.alt || "";
-      el.loading = i < 4 ? "eager" : "lazy";
-      el.decoding = "async";
-      el.width = 544;
-      el.height = 720;
-
-      // An entry can be added to the config before the file is in the repo.
-      // Rather than ship a broken tile, drop it and re-lay the grid.
-      el.addEventListener("error", function () {
-        fig.remove();
-        show(active);
-      });
-
-      btn.appendChild(el);
-      fig.appendChild(btn);
-
-      if (labels[img.category]) {
-        var cap = document.createElement("figcaption");
-        cap.className = "mono";
-        cap.textContent = labels[img.category];
-        fig.appendChild(cap);
-      }
-      frag.appendChild(fig);
-    });
-    grid.appendChild(frag);
-
-    // Which categories actually have photos on the page, in config order.
-    // Read from the DOM rather than the config so a category whose files are
-    // all still missing never gets a filter button.
-    function categoriesPresent() {
-      return Object.keys(labels).filter(function (key) {
-        return !!grid.querySelector('.gal-item[data-cat="' + key + '"]');
-      });
-    }
-    var present = categoriesPresent();
-
-    function show(cat) {
-      active = cat;
-      // The room label under each photo is useful when everything is mixed
-      // together, and pure repetition once a single room is selected.
-      grid.classList.toggle("filtered", cat !== "all");
-      var visible = [];
-      $$(".gal-item", grid).forEach(function (fig) {
-        var match = cat === "all" || fig.getAttribute("data-cat") === cat;
-        fig.hidden = !match;
-        fig.classList.remove("is-lead");
-        if (match) { visible.push(fig); }
-      });
-      // The first photo of whatever is on screen runs large, so the grid has a
-      // reading order instead of fifteen equal tiles.
-      if (visible.length > 3) { visible[0].classList.add("is-lead"); }
-      if (empty) { empty.hidden = visible.length > 0; }
-      if (count) {
-        count.dataset.n = String(visible.length);
-        paintCount();
-      }
-    }
-
-    show("all");
-
-    // One category only? The chips would be decoration, so skip them.
-    if (present.length < 2) { chips.hidden = true; return; }
-
-    ["all"].concat(present).forEach(function (cat, i) {
-      var b = document.createElement("button");
-      b.type = "button";
-      b.textContent = cat === "all" ? (labels.all || "All") : labels[cat];
-      b.setAttribute("aria-pressed", String(i === 0));
-      b.addEventListener("click", function () {
-        $$("button", chips).forEach(function (o) { o.setAttribute("aria-pressed", "false"); });
-        b.setAttribute("aria-pressed", "true");
-        show(cat);
-      });
-      chips.appendChild(b);
-    });
   }
 
   /* ======================================================================
@@ -429,20 +237,6 @@
       if (history.replaceState) { history.replaceState(null, "", "#" + id); }
     });
   });
-
-  // "Check your project area" drops the visitor into the Town/ZIP field.
-  var areaCta = $("#check-area");
-  if (areaCta) {
-    areaCta.addEventListener("click", function (ev) {
-      ev.preventDefault();
-      var f = $("#contact");
-      f.scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth", block: "start" });
-      window.setTimeout(function () {
-        var town = $("#f-town");
-        if (town) { town.focus({ preventScroll: true }); }
-      }, prefersReduced() ? 0 : 520);
-    });
-  }
 
   /* ======================================================================
      8. Lead form
@@ -755,9 +549,16 @@
   /* ======================================================================
      10. Boot
      ====================================================================== */
+  // Blocks first: everything after this point expects the page to exist.
+  // applyConfig fills in phone links, the language switch reads the text,
+  // and the lightbox binds to the photographs — none of which are in the
+  // document until the blocks are rendered.
+  if (window.RENDER) {
+    window.RENDER.blocks(document.getElementById("canvas"), window.BLOCKS);
+    window.RENDER.nav(window.BLOCKS);
+  }
+
   applyConfig();
-  buildFilters();
-  buildGallery();
   heroSequence();
 
   var yr = $("#yr");

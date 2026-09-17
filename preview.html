@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editor canvas</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+/* ==========================================================================
+   Editor chrome. Lives only in this frame, never on the site.
+   ========================================================================== */
+body { padding-bottom: 120px; }
+
+.blk { position: relative; outline: 1px dashed transparent; outline-offset: -1px; }
+.blk:hover { outline-color: rgba(196, 165, 117, 0.45); }
+.blk.sel  { outline: 2px solid var(--brass); outline-offset: -2px; }
+
+/* Grab bar. Sits inside the block's top-left so it never covers content. */
+.grip {
+  position: absolute; top: 8px; left: 8px; z-index: 5;
+  display: flex; align-items: center; gap: 6px;
+  background: var(--brass); color: var(--black);
+  font-family: var(--mono); font-size: 0.5625rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 9px; cursor: grab;
+  opacity: 0; transition: opacity 0.12s ease;
+  user-select: none;
+}
+.blk:hover .grip, .blk.sel .grip { opacity: 1; }
+.grip:active { cursor: grabbing; }
+.grip svg { width: 11px; height: 11px; }
+
+.blk.dragging { opacity: 0.35; }
+
+/* Where the block will land. */
+.drop-line {
+  height: 3px; background: var(--brass); margin: 0;
+  box-shadow: 0 0 0 1px rgba(13, 22, 28, 0.6);
+}
+
+[contenteditable] { outline: none; cursor: text; }
+[contenteditable]:hover  { background: rgba(196, 165, 117, 0.09); }
+[contenteditable]:focus  { background: rgba(196, 165, 117, 0.16); box-shadow: 0 0 0 1px var(--brass); }
+[contenteditable]:empty::before {
+  content: attr(data-placeholder);
+  color: var(--ink-dim); font-style: italic;
+}
+
+.empty-note {
+  padding: 80px 24px; text-align: center;
+  color: var(--ink-dim); font-family: var(--mono);
+  font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+
+<div id="canvas"></div>
+
+<script src="assets/site.config.js"></script>
+<script>window.__EDIT__ = true;</script>
+<script src="assets/render.js"></script>
+<script>
+/* ==========================================================================
+   Canvas behaviour.
+
+   This frame owns nothing. The editor holds the blocks; this renders what it
+   is given and reports back what the person did. That one-way flow is why
+   undo works and why the canvas can never drift out of step with the file
+   that gets exported.
+   ========================================================================== */
+(function () {
+  "use strict";
+
+  var canvas = document.getElementById("canvas");
+  var blocks = [];
+  var selected = null;
+
+  function send(msg) { parent.postMessage(msg, "*"); }
+
+  function paint() {
+    window.RENDER.blocks(canvas, blocks);
+
+    if (!blocks.length) {
+      var note = document.createElement("div");
+      note.className = "empty-note";
+      note.textContent = "No blocks yet — add one from the left";
+      canvas.appendChild(note);
+      return;
+    }
+
+    Array.prototype.forEach.call(canvas.querySelectorAll(".blk"), function (sec) {
+      var id = sec.getAttribute("data-block-id");
+      if (id === selected) { sec.classList.add("sel"); }
+
+      var grip = document.createElement("div");
+      grip.className = "grip";
+      grip.draggable = true;
+      grip.innerHTML =
+        '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">' +
+        '<circle cx="5" cy="3" r="1.4"/><circle cx="11" cy="3" r="1.4"/>' +
+        '<circle cx="5" cy="8" r="1.4"/><circle cx="11" cy="8" r="1.4"/>' +
+        '<circle cx="5" cy="13" r="1.4"/><circle cx="11" cy="13" r="1.4"/></svg>' +
+        '<span></span>';
+      grip.querySelector("span").textContent =
+        (window.RENDER.meta[sec.className.match(/blk-([a-z]+)/)[1]] || {}).label || "Block";
+
+      grip.addEventListener("dragstart", function (ev) {
+        dragId = id;
+        sec.classList.add("dragging");
+        ev.dataTransfer.effectAllowed = "move";
+        // Firefox will not start a drag without payload.
+        ev.dataTransfer.setData("text/plain", id);
+      });
+      grip.addEventListener("dragend", function () {
+        sec.classList.remove("dragging");
+        clearLine();
+        dragId = null;
+      });
+
+      sec.insertBefore(grip, sec.firstChild);
+    });
+
+    // Placeholder text so an emptied field is still findable and clickable.
+    Array.prototype.forEach.call(canvas.querySelectorAll("[contenteditable]"), function (n) {
+      n.setAttribute("data-placeholder", "Empty — click to write");
+    });
+  }
+
+  /* --- selection ----------------------------------------------------- */
+  canvas.addEventListener("mousedown", function (ev) {
+    var sec = ev.target.closest(".blk");
+    if (!sec) { return; }
+    var id = sec.getAttribute("data-block-id");
+    if (id === selected) { return; }
+    selected = id;
+    Array.prototype.forEach.call(canvas.querySelectorAll(".blk"), function (s) {
+      s.classList.toggle("sel", s === sec);
+    });
+    send({ type: "select", id: id });
+  });
+
+  /* --- editing in place ---------------------------------------------- */
+  canvas.addEventListener("focusout", function (ev) {
+    var node = ev.target;
+    if (!node.hasAttribute || !node.hasAttribute("data-path")) { return; }
+    var sec = node.closest(".blk");
+    if (!sec) { return; }
+    send({
+      type: "edit",
+      id: sec.getAttribute("data-block-id"),
+      path: node.getAttribute("data-path"),
+      value: node.textContent
+    });
+  });
+
+  // Enter commits rather than inserting a newline. These are single strings,
+  // not prose fields, and a stray line break in a heading is a bug.
+  canvas.addEventListener("keydown", function (ev) {
+    if (ev.key === "Enter" && ev.target.hasAttribute && ev.target.hasAttribute("data-path")) {
+      ev.preventDefault();
+      ev.target.blur();
+    }
+    if (ev.key === "Escape" && ev.target.hasAttribute && ev.target.hasAttribute("data-path")) {
+      ev.target.blur();
+    }
+  });
+
+  // A link inside the canvas is content, not navigation.
+  canvas.addEventListener("click", function (ev) {
+    var a = ev.target.closest("a");
+    if (a) { ev.preventDefault(); }
+  });
+
+  /* --- drag to reorder ------------------------------------------------ */
+  var dragId = null;
+  var line = null;
+
+  function clearLine() {
+    if (line && line.parentNode) { line.parentNode.removeChild(line); }
+    line = null;
+  }
+
+  document.addEventListener("dragover", function (ev) {
+    if (!dragId) { return; }
+    ev.preventDefault();
+    ev.dataTransfer.dropEffect = "move";
+
+    var over = ev.target.closest && ev.target.closest(".blk");
+    if (!over || over.getAttribute("data-block-id") === dragId) { return; }
+
+    var box = over.getBoundingClientRect();
+    var after = (ev.clientY - box.top) > box.height / 2;
+
+    if (!line) {
+      line = document.createElement("div");
+      line.className = "drop-line";
+    }
+    if (after) { over.parentNode.insertBefore(line, over.nextSibling); }
+    else       { over.parentNode.insertBefore(line, over); }
+  });
+
+  document.addEventListener("drop", function (ev) {
+    if (!dragId || !line) { clearLine(); return; }
+    ev.preventDefault();
+
+    // Where the marker ended up, counting only real blocks.
+    var kids = Array.prototype.slice.call(canvas.children);
+    var target = kids.indexOf(line);
+    var from = blocks.findIndex(function (b) { return b.id === dragId; });
+
+    // The marker sits among the blocks, so anything before it that is the
+    // dragged block itself has to come out of the count.
+    var to = 0;
+    for (var i = 0; i < target; i++) {
+      var id = kids[i].getAttribute && kids[i].getAttribute("data-block-id");
+      if (id && id !== dragId) { to++; }
+    }
+
+    clearLine();
+    var id2 = dragId;
+    dragId = null;
+    if (from === -1 || from === to) { return; }
+    send({ type: "reorder", id: id2, to: to });
+  });
+
+  /* --- from the editor ------------------------------------------------ */
+  window.addEventListener("message", function (ev) {
+    var m = ev.data || {};
+    if (m.type === "render") {
+      blocks = m.blocks || [];
+      selected = m.selected || null;
+      paint();
+    }
+    if (m.type === "scrollTo") {
+      var sec = canvas.querySelector('[data-block-id="' + m.id + '"]');
+      if (sec) { sec.scrollIntoView({ block: "center", behavior: "smooth" }); }
+    }
+  });
+
+  send({ type: "ready" });
+})();
+</script>
+</body>
+</html>
