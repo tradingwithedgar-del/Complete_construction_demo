@@ -10,9 +10,12 @@ ordinary HTML over the top of it.
 ## What happens after you upload it
 
 The video is re-encoded for the web, a WebM is produced alongside it, and a
-poster frame is pulled from its final frame to `images/hero-poster.jpg`.
-Until that poster exists the hero shows a plain dark ground behind the name,
-which is tidy but not the real thing.
+poster frame is pulled from its final frame, overwriting
+`images/hero-poster.jpg`.
+
+That poster already exists as a placeholder - a dark gradient in the site's
+own palette - so nothing 404s while the video is outstanding. You do not
+need to supply it. `video/hero.mp4` is the only file to upload.
 
 ## How it behaves on the page
 
