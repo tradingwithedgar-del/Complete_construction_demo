@@ -458,7 +458,6 @@
     var hero = $("#hero");
     var pin  = $(".hero-pin");
     if (!hero || !pin) { return; }
-    if (prefersReduced()) { return; }
 
     var layers = $$(".hf[data-step]", hero).map(function (el) {
       return {
@@ -472,44 +471,31 @@
     if (!layers.length) { return; }
 
     stageLabelEl = $("#hero-stage-label");
-
     var meter = $(".hero-meter");
+
     var STEPS = 7;                  // sketch->blueprint ... clad->finished
     var SPAN  = 1 / STEPS;
     var LAP   = SPAN * 0.2;         // steps overlap, so there is never a
                                     // frozen beat between them
     var BAND_STAGGER = 0.13;
-
-    // The pinned stage sits under the sticky header. Measure it rather than
-    // hard-coding, because the header is two rows on a phone and one on a
-    // desktop, and the language strip changes its height.
-    var header = document.querySelector("header");
-    function setHeaderVar() {
-      var h = header ? Math.round(header.getBoundingClientRect().height) : 0;
-      document.documentElement.style.setProperty("--hdr", h + "px");
-    }
-    setHeaderVar();
-    window.addEventListener("resize", setHeaderVar);
-
-    document.documentElement.classList.add("seq-on");
-
-    // Exponential ease-out. The piece arrives fast and decelerates hard into
-    // position; that deceleration is what the eye reads as weight. Linear is
-    // what makes this look like a slideshow.
-    function ease(t) {
-      return 1 - Math.pow(1 - t, 5);
-    }
+    var RUN_MS = 7000;              // the whole build, start to lit windows
 
     function clamp01(n) { return n < 0 ? 0 : n > 1 ? 1 : n; }
 
-    function paint() {
-      var rect   = hero.getBoundingClientRect();
-      var travel = hero.offsetHeight - pin.offsetHeight;
-      var p      = travel > 0 ? clamp01(-rect.top / travel) : 1;
+    // Exponential ease-out. A piece arrives fast and decelerates hard into
+    // position; that deceleration is what the eye reads as weight. Linear is
+    // what makes this kind of thing look like a slideshow.
+    function ease(t) { return 1 - Math.pow(1 - t, 5); }
 
+    function paint(p) {
       layers.forEach(function (layer) {
-        var start = (layer.step - 1) * SPAN - LAP;
-        var end   = layer.step * SPAN + LAP;
+        // The overlap is clamped at both ends of the timeline. Without this
+        // the first step starts at -0.028, so the blueprint is already 60%
+        // wiped across before the opener has begun and the sketch is never
+        // really seen; and the last step ends at 1.028, so its final slab
+        // stalls at 0.9993 and the build never actually lands.
+        var start = Math.max(0, (layer.step - 1) * SPAN - LAP);
+        var end   = Math.min(1, layer.step * SPAN + LAP);
         var local = clamp01((p - start) / (end - start));
 
         if (!layer.bands.length) {
@@ -533,17 +519,98 @@
       if (idx !== stageIndex) { stageIndex = idx; paintStageLabel(); }
     }
 
-    var ticking = false;
-    function onScroll() {
-      if (ticking) { return; }
-      ticking = true;
-      window.requestAnimationFrame(function () { paint(); ticking = false; });
+    // Reduced motion gets the finished house immediately. The markup ships
+    // that way, so there is nothing to do but leave it alone.
+    if (prefersReduced()) { return; }
+
+    document.documentElement.classList.add("seq-on");
+    paint(0);
+    paintStageLabel();
+
+    /* ------------------------------------------------------------------
+       The opener. It runs once, on load, and finishes inside seven
+       seconds.
+
+       Nobody is held hostage by it: the first scroll, tap or keypress
+       fast-forwards to the finished house. That matters more than the
+       animation does — this is a contractor's site, and the visitor is
+       here for a phone number, which stays in the header throughout.
+       ------------------------------------------------------------------ */
+    var t0 = null;
+    var done = false;
+    var skipping = false;
+    var skipFrom = 0, skipAt = 0;
+    var SKIP_MS = 420;
+
+    function finish() {
+      done = true;
+      paint(1);
+      document.documentElement.classList.remove("seq-on");   // back to the
+      // markup's own default state, so nothing depends on the timeline once
+      // it has played.
+      window.removeEventListener("wheel", skip);
+      window.removeEventListener("touchstart", skip);
+      window.removeEventListener("keydown", skip);
+      window.removeEventListener("pointerdown", skip);
     }
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    paint();
-    paintStageLabel();
+    function frame(ts) {
+      if (done) { return; }
+      if (t0 === null) { t0 = ts; }
+
+      var p;
+      if (skipping) {
+        var st = clamp01((ts - skipAt) / SKIP_MS);
+        p = skipFrom + (1 - skipFrom) * ease(st);
+        if (st >= 1) { finish(); return; }
+      } else {
+        p = clamp01((ts - t0) / RUN_MS);
+        if (p >= 1) { finish(); return; }
+      }
+
+      paint(p);
+      window.requestAnimationFrame(frame);
+    }
+
+    function skip(ev) {
+      if (done || skipping) { return; }
+      // A modifier-key shortcut is not an attempt to dismiss the opener.
+      if (ev && ev.type === "keydown" && (ev.metaKey || ev.ctrlKey || ev.altKey)) { return; }
+      skipping = true;
+      skipAt = performance.now();
+      skipFrom = t0 === null ? 0 : clamp01((skipAt - t0) / RUN_MS);
+    }
+
+    window.addEventListener("wheel", skip, { passive: true });
+    window.addEventListener("touchstart", skip, { passive: true });
+    window.addEventListener("keydown", skip);
+    window.addEventListener("pointerdown", skip);
+
+    /* Wait for the frames to decode before starting, so the build does not
+       stutter through its first second on a slow connection. The timeout is
+       the point: a frame that will not load must not stop the opener. */
+    var imgs = $$(".hf img", hero);
+    var pending = imgs.filter(function (im) { return !im.complete; });
+
+    function go() {
+      if (t0 !== null || done) { return; }
+      window.requestAnimationFrame(frame);
+    }
+
+    if (!pending.length) {
+      go();
+    } else {
+      var waited = false;
+      var settle = function () {
+        if (waited) { return; }
+        waited = true;
+        go();
+      };
+      Promise.all(imgs.map(function (im) {
+        return im.decode ? im.decode().catch(function () {}) : Promise.resolve();
+      })).then(settle);
+      window.setTimeout(settle, 2500);
+    }
   }
 
   /* ======================================================================

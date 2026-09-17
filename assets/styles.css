@@ -28,9 +28,6 @@
   --wrap: 1240px;
   --gut:  clamp(20px, 5vw, 56px);
 
-  /* Height of the hero's scroll track. Set here so it can be tuned in one
-     place; the sequence maps 0-1 across whatever this is. */
-  --seq-h: 620vh;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -304,9 +301,9 @@ header nav.desk-nav { display: none; }
   align-content: end;
 }
 
-/* Scroll track. Only exists once the sequence is live. */
-.seq-on .hero { height: var(--seq-h); }
-.seq-on .hero-pin { position: sticky; top: var(--hdr, 0px); }
+/* The opener plays on load and is over in seven seconds, so the hero is an
+   ordinary screen-height section. There is no scroll track any more: the
+   sequence is driven by the clock, not by the scrollbar. */
 
 .hero-stage { position: absolute; inset: 0; }
 
@@ -423,10 +420,8 @@ header nav.desk-nav { display: none; }
   .hero-copy { padding-bottom: clamp(74px, 13vh, 104px); }
 }
 
-/* Reduced motion: no track, no sequence, finished frame only. */
+/* Reduced motion: no sequence at all, finished frame only. */
 @media (prefers-reduced-motion: reduce) {
-  .seq-on .hero { height: auto; }
-  .seq-on .hero-pin { position: relative; }
   .seq-on .hf-wipe { -webkit-mask-image: none; mask-image: none; }
   .seq-on .hf-fade { opacity: 1; }
   .seq-on .hf-slab .hb .hbi { transform: none; opacity: 1; }

@@ -44,14 +44,16 @@ Corners are 0px everywhere. Nothing on this page is rounded.
 
 ## Motion
 
-**One authored moment: the hero assembly.** Everything else on the page is
-still. No section entrances, no scroll reveals, no parallax.
+**One authored moment: the hero opener.** Everything else on the page is still.
+No section entrances, no scroll reveals, no parallax.
 
-The assembly runs on exponential ease-out from an already-visible default, and
-every stage of it is scroll-scrubbed rather than timed, so the visitor controls
-the pace and can stop it. `prefers-reduced-motion` and a JavaScript failure both
-resolve to the finished frame with the name in place — the fail state is the
-good picture.
+The build plays once, on load, and is over inside seven seconds. It runs on
+exponential ease-out from an already-visible default.
+
+Nobody is held hostage by it. The first scroll, tap or keypress fast-forwards
+to the finished house, the phone number stays in the sticky header throughout,
+and `prefers-reduced-motion` or a JavaScript failure both resolve straight to
+the finished frame with the name in place — the fail state is the good picture.
 
 ## Bans carried from the craft floor
 
@@ -92,3 +94,8 @@ Eight frames stacked in one pinned stage, revealed over each other:
 Assembly slabs sit in clipped slots and slide in from above, staggered, landing
 bottom-up so nothing arrives before the thing it rests on. Sky and ground are
 identical across frames, so only the house appears to move.
+
+Steps overlap by a fifth of their span so there is never a frozen beat between
+them, but that overlap is clamped at both ends of the timeline. Unclamped, the
+first step starts before zero (the sketch is never seen) and the last ends
+after one (the final slab never lands).
