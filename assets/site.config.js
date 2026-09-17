@@ -182,23 +182,14 @@ window.SITE = {
          These lead the list on purpose: the gallery gives its largest tile
          to the first entry, so the sharpest image belongs at the top. */
       { src: "images/gallery/bathrooms/powder-vanity-mirror.jpg", category: "bathrooms", alt: "Powder room vanity with an ornate oval brass mirror, brass cross-handle tap and a walnut cabinet, against dark botanical wall covering" },
-      { src: "images/gallery/bathrooms/powder-vanity-wide.jpg",   category: "bathrooms", alt: "Powder room looking across the vanity to the toilet, with a framed swan painting and an equestrian print on the papered wall" },
       { src: "images/gallery/bathrooms/powder-room-artwork.jpg",  category: "bathrooms", alt: "Papered wall carrying a framed swan painting and a gilt-framed equestrian print above cream panelled wainscoting" },
-      { src: "images/gallery/bathrooms/powder-toilet-corner.jpg", category: "bathrooms", alt: "Corner of the powder room where the wainscot cap meets the papered wall behind the toilet" },
       { src: "images/gallery/bathrooms/powder-wainscot-wall.jpg", category: "bathrooms", alt: "Full height of the papered wall above raised-panel wainscoting, with the brass towel ring and framed artwork" },
-      { src: "images/gallery/bathrooms/powder-from-doorway.jpg",  category: "bathrooms", alt: "Powder room seen from the doorway, showing the glass shower enclosure, the vanity and the papered return wall" },
 
       /* ---- Earlier projects, stills pulled from the owner's video ----
          Lower resolution than the photographs above. Replace with real
          photographs of these two bathrooms when they are available. */
       { src: "images/powder-mirror-brass.jpg",        category: "bathrooms", alt: "Oval brass-framed mirror and brass tapware against dark botanical wall covering" },
-      { src: "images/shower-green-tile-brass.jpg",    category: "bathrooms", alt: "Shower in stacked dark glazed tile with a brass recessed niche and patterned mosaic floor" },
-      { src: "images/wallpaper-detail.jpg",           category: "bathrooms", alt: "Close detail of botanical wall covering showing a bird among foliage" },
-      { src: "images/powder-marble-vanity.jpg",       category: "bathrooms", alt: "Marble waterfall vanity with brass tapware and a framed mirror lit by a brass light bar" },
       { src: "images/powder-marble-herringbone.jpg",  category: "bathrooms", alt: "Marble waterfall vanity seen from above with the herringbone mosaic floor below" },
-      { src: "images/powder-herringbone-floor.jpg",   category: "bathrooms", alt: "Herringbone marble mosaic floor meeting a marble base and painted wainscot" },
-      { src: "images/bath-marble-shower.jpg",         category: "bathrooms", alt: "Walk-in shower with glass doors, marble-look porcelain walls and a matte black grab rail" },
-      { src: "images/bath-shower-niche.jpg",          category: "bathrooms", alt: "Recessed shower niche tiled in dark hex mosaic against marble-look porcelain" },
       { src: "images/bath-marble-floor.jpg",          category: "bathrooms", alt: "Finished bathroom floor in marble-look porcelain with the glass shower enclosure behind" },
 
       /* ---- Material details ---- */
