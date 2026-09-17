@@ -211,6 +211,9 @@
              muted playsinline preload="auto" disablepictureinpicture
              poster="images/hero-poster.jpg"
              aria-label="The house built from first sketch to finished home at dusk">
+        <!-- WebM first: VP9 is ~20% smaller than the H.264 here and every
+             browser that understands it prefers it. Safari falls through to
+             the MP4, which is also the universal fallback. -->
         <source src="video/hero.webm" type="video/webm">
         <source src="video/hero.mp4" type="video/mp4">
       </video>

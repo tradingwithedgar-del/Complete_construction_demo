@@ -470,17 +470,67 @@
     video.muted = true;             // set in the markup too; autoplay needs it
     video.playsInline = true;
 
-    // Reduced motion: no playback at all. Park on the final frame once the
-    // duration is known, so the still is the finished house rather than a
-    // sketch nobody asked to sit through.
+    /* --------------------------------------------------------------------
+       Parking on the last frame.
+
+       Assigning currentTime near the duration looks like it should be
+       enough, and is not: a browser can only seek inside what it has
+       buffered, and a seek past that is silently dropped and the video
+       resets to zero. That put the SKETCH on screen instead of the
+       finished house - the worst possible frame to land on, and the one
+       every fallback path uses.
+
+       So: seek as far as the buffer currently allows, then keep trying as
+       more of the file arrives, and stop as soon as we are actually there.
+       -------------------------------------------------------------------- */
+    var wantEnd = false;
+    var lastTarget = -1;
+    var WATCH = ["loadedmetadata", "loadeddata", "progress", "canplaythrough", "seeked"];
+
+    function atEnd() {
+      var d = video.duration;
+      return isFinite(d) && d > 0 && video.currentTime >= d - 0.25;
+    }
+
+    function stopWatching() {
+      WATCH.forEach(function (ev) { video.removeEventListener(ev, tryEnd); });
+    }
+
+    function tryEnd() {
+      if (!wantEnd) { return; }
+      if (atEnd()) { stopWatching(); return; }
+
+      var d = video.duration;
+      if (!isFinite(d) || d <= 0) { return; }        // metadata not in yet
+
+      var target = d - 0.05;
+      var sk = video.seekable;
+      if (sk && sk.length) {
+        var buffered = sk.end(sk.length - 1);
+        if (buffered < target) { target = buffered - 0.05; }
+      }
+      if (target <= 0) { return; }
+
+      // Only seek when the buffer has actually grown. Without this, `seeked`
+      // re-fires tryEnd, which seeks to the same spot, which fires `seeked`
+      // again - a tight loop that pins the main thread and never settles.
+      if (target <= lastTarget + 0.01) { return; }
+      lastTarget = target;
+      try { video.currentTime = target; } catch (e) {}
+    }
+
+    function goToEnd() {
+      wantEnd = true;
+      // Each of these means "there may be more of the file now".
+      WATCH.forEach(function (ev) { video.addEventListener(ev, tryEnd); });
+      tryEnd();
+    }
+
+    // Reduced motion: never play. Park on the final frame, so the still is
+    // the finished house rather than a sketch nobody asked to sit through.
     if (prefersReduced()) {
-      var parkAtEnd = function () {
-        if (isFinite(video.duration) && video.duration > 0) {
-          try { video.currentTime = Math.max(0, video.duration - 0.05); } catch (e) {}
-        }
-      };
-      if (video.readyState >= 1) { parkAtEnd(); }
-      else { video.addEventListener("loadedmetadata", parkAtEnd, { once: true }); }
+      video.pause();
+      goToEnd();
       return;
     }
 
@@ -489,12 +539,8 @@
     function finish() {
       if (done) { return; }
       done = true;
-      try {
-        video.pause();
-        if (isFinite(video.duration) && video.duration > 0) {
-          video.currentTime = Math.max(0, video.duration - 0.05);
-        }
-      } catch (e) {}
+      try { video.pause(); } catch (e) {}
+      goToEnd();
       window.removeEventListener("wheel", skip);
       window.removeEventListener("touchstart", skip);
       window.removeEventListener("keydown", skip);
@@ -512,7 +558,11 @@
     window.addEventListener("keydown", skip);
     window.addEventListener("pointerdown", skip);
 
-    video.addEventListener("ended", finish);
+    // Played out on its own: hold, do not rewind and do not loop.
+    video.addEventListener("ended", function () {
+      done = true;
+      goToEnd();
+    });
 
     // A rejected play() is not an error worth surfacing: a blocked autoplay
     // leaves the poster showing, which is a perfectly good hero.

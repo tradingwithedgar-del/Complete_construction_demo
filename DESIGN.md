@@ -83,19 +83,18 @@ The order is fixed by the brief: the sequence, then the business.
 
 ## Hero mechanic
 
-Eight frames stacked in one pinned stage, revealed over each other:
+One video, played once on load, holding on its last frame. It never loops:
+a build that restarts every ten seconds reads as a glitch and throws away
+the finished-home ending, which is the frame the business name sits on.
 
-| step | from → to | register |
-|---|---|---|
-| 1 | sketch → blueprint | soft-edged wipe |
-| 2 | blueprint → lot | dissolve |
-| 3–7 | lot → finished | slab assembly, bottom-up |
+The first scroll, tap or keypress jumps to the end. Reduced motion never
+plays at all and parks on the final frame. A missing file, an unsupported
+codec, blocked autoplay or no JavaScript all land on the poster - which is
+the video's own final frame, the finished house with its lights on. Every
+fail state is the best frame in the clip.
 
-Assembly slabs sit in clipped slots and slide in from above, staggered, landing
-bottom-up so nothing arrives before the thing it rests on. Sky and ground are
-identical across frames, so only the house appears to move.
-
-Steps overlap by a fifth of their span so there is never a frozen beat between
-them, but that overlap is clamped at both ends of the timeline. Unclamped, the
-first step starts before zero (the sketch is never seen) and the last ends
-after one (the final slab never lands).
+Seeking to that final frame needs two things that are easy to get wrong:
+the host must answer HTTP Range requests, and the seek must be clamped to
+what is actually buffered and retried as more arrives. Without either, the
+seek is silently dropped and the video resets to frame zero - putting the
+opening sketch on screen, the worst possible frame to fall back to.

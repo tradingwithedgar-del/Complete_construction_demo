@@ -9,9 +9,16 @@ ordinary HTML over the top of it.
 
 ## What happens after you upload it
 
-The video is re-encoded for the web, a WebM is produced alongside it, and a
-poster frame is pulled from its final frame, overwriting
+The video is re-encoded for the web, a VP9 WebM is produced alongside it,
+and a poster frame is pulled from its final frame, overwriting
 `images/hero-poster.jpg`.
+
+    hero.webm   677,878 bytes   VP9, offered first
+    hero.mp4    843,882 bytes   H.264, universal fallback
+    original  6,327,450 bytes   kept in git history
+
+Both are audio-free. The hero never plays sound, so the AAC track on the
+upload was pure transfer cost.
 
 That poster already exists as a placeholder - a dark gradient in the site's
 own palette - so nothing 404s while the video is outstanding. You do not
@@ -38,3 +45,15 @@ pencil icon - that is a text editor and refuses binaries.
 The clips cannot be fetched automatically because Higgsfield serves
 generation output from a CloudFront host this build environment's egress
 policy blocks, so this upload is by hand.
+
+DO NOT RENAME A VIDEO THROUGH THE GITHUB WEB EDITOR. It cannot rename a
+binary: it will replace the file with a one-line text file of the same
+name and the video is gone from the working tree. Delete and re-upload
+under the right name instead. (The first upload here was lost that way and
+had to be recovered from the git object store.)
+
+SERVING REQUIREMENT: the host must support HTTP Range requests, or the
+browser cannot seek and the skip-to-end and reduced-motion paths land on
+the opening sketch instead of the finished house. GitHub Pages and Netlify
+both support Range. `python -m http.server` does not, which is worth
+knowing before trusting a local preview.
