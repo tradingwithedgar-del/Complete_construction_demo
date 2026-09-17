@@ -14,11 +14,15 @@ Order matters — the number is the playback order of the hero sequence.
 | `07-clad.png`         | Clad and glazed, interior lights off       |
 | `08-finished.png`     | Finished, interior lights on               |
 
-The eight PNGs currently in this folder are FLAT COLOUR PLACEHOLDERS, put
-here so the sequence could be built and tested before the real renders
-arrived. Overwrite every one of them. They are not fit to publish.
+The real frames are installed. What the page actually loads is the WebP in
+this folder, at two widths (`-sm` is 768px for phones, the plain name is
+1344px). The full-resolution PNG masters are in `src/` and are never
+fetched by the page - they are there so a frame can be re-cut without
+regenerating it.
 
-Keep the `.png` extension and the two-digit prefix. Everything is converted to
+TO REPLACE A FRAME
+Put the new PNG in `src/` under the same name, then re-run the conversion
+(Pillow: resize to 1344 and 768 wide, save as WebP quality 80). Everything is converted to
 sized WebP during integration; the PNGs stay here as the masters so a frame can
 be re-cut without regenerating it.
 

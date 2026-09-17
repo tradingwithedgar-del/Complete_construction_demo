@@ -40,8 +40,12 @@
 <!-- The first frame of the sequence and the frame it resolves to. The
      finished frame is also what shows if JavaScript never runs, so it is
      worth the early fetch. -->
-<link rel="preload" as="image" href="images/hero/01-sketch.png" fetchpriority="high">
-<link rel="preload" as="image" href="images/hero/08-finished.png" fetchpriority="high">
+<link rel="preload" as="image" href="images/hero/01-sketch.webp"
+      imagesrcset="images/hero/01-sketch-sm.webp 768w, images/hero/01-sketch.webp 1344w"
+      imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" href="images/hero/08-finished.webp"
+      imagesrcset="images/hero/08-finished-sm.webp 768w, images/hero/08-finished.webp 1344w"
+      imagesizes="100vw" fetchpriority="high">
 <link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="assets/styles.css">
 
@@ -201,46 +205,92 @@
          aria-label="Concept sequence of one house: a pencil sketch becomes a blueprint, then an empty lot is built up through foundation, framing and cladding into a finished home at dusk.">
 
       <!-- 1. The idea. Always present; everything else lands on top of it. -->
-      <div class="hf hf-base" style="background-image:url('images/hero/01-sketch.png')"></div>
+      <div class="hf hf-base"><img class="hfi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/01-sketch-sm.webp 768w, images/hero/01-sketch.webp 1344w"
+             sizes="100vw" src="images/hero/01-sketch.webp"></div>
 
       <!-- 2. The plan. Wipes across with a soft edge, like a pen passing. -->
-      <div class="hf hf-wipe" data-step="1" style="background-image:url('images/hero/02-blueprint.png')"></div>
+      <div class="hf hf-wipe" data-step="1"><img class="hfi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/02-blueprint-sm.webp 768w, images/hero/02-blueprint.webp 1344w"
+             sizes="100vw" src="images/hero/02-blueprint.webp"></div>
 
       <!-- 3. The ground. Dissolves — plan giving way to real dirt. -->
-      <div class="hf hf-fade" data-step="2" style="background-image:url('images/hero/03-lot.png')"></div>
+      <div class="hf hf-fade" data-step="2"><img class="hfi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/03-lot-sm.webp 768w, images/hero/03-lot.webp 1344w"
+             sizes="100vw" src="images/hero/03-lot.webp"></div>
 
       <!-- 4-8. The build. Each stage lands in four slabs, bottom-up, so
            nothing ever arrives before the thing it rests on. --k is the
            slab's row; --b is its place in the landing order. -->
-      <div class="hf hf-slab" data-step="3" >
-        <span class="hb" style="--k:0;--b:3"><i style="background-image:url('images/hero/04-foundation.png')"></i></span>
-        <span class="hb" style="--k:1;--b:2"><i style="background-image:url('images/hero/04-foundation.png')"></i></span>
-        <span class="hb" style="--k:2;--b:1"><i style="background-image:url('images/hero/04-foundation.png')"></i></span>
-        <span class="hb" style="--k:3;--b:0"><i style="background-image:url('images/hero/04-foundation.png')"></i></span>
+      <div class="hf hf-slab" data-step="3">
+        <span class="hb" style="--k:0;--b:3"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/04-foundation-sm.webp 768w, images/hero/04-foundation.webp 1344w"
+             sizes="100vw" src="images/hero/04-foundation.webp"></span>
+        <span class="hb" style="--k:1;--b:2"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/04-foundation-sm.webp 768w, images/hero/04-foundation.webp 1344w"
+             sizes="100vw" src="images/hero/04-foundation.webp"></span>
+        <span class="hb" style="--k:2;--b:1"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/04-foundation-sm.webp 768w, images/hero/04-foundation.webp 1344w"
+             sizes="100vw" src="images/hero/04-foundation.webp"></span>
+        <span class="hb" style="--k:3;--b:0"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/04-foundation-sm.webp 768w, images/hero/04-foundation.webp 1344w"
+             sizes="100vw" src="images/hero/04-foundation.webp"></span>
       </div>
-      <div class="hf hf-slab" data-step="4" >
-        <span class="hb" style="--k:0;--b:3"><i style="background-image:url('images/hero/05-framing.png')"></i></span>
-        <span class="hb" style="--k:1;--b:2"><i style="background-image:url('images/hero/05-framing.png')"></i></span>
-        <span class="hb" style="--k:2;--b:1"><i style="background-image:url('images/hero/05-framing.png')"></i></span>
-        <span class="hb" style="--k:3;--b:0"><i style="background-image:url('images/hero/05-framing.png')"></i></span>
+      <div class="hf hf-slab" data-step="4">
+        <span class="hb" style="--k:0;--b:3"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/05-framing-sm.webp 768w, images/hero/05-framing.webp 1344w"
+             sizes="100vw" src="images/hero/05-framing.webp"></span>
+        <span class="hb" style="--k:1;--b:2"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/05-framing-sm.webp 768w, images/hero/05-framing.webp 1344w"
+             sizes="100vw" src="images/hero/05-framing.webp"></span>
+        <span class="hb" style="--k:2;--b:1"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/05-framing-sm.webp 768w, images/hero/05-framing.webp 1344w"
+             sizes="100vw" src="images/hero/05-framing.webp"></span>
+        <span class="hb" style="--k:3;--b:0"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/05-framing-sm.webp 768w, images/hero/05-framing.webp 1344w"
+             sizes="100vw" src="images/hero/05-framing.webp"></span>
       </div>
-      <div class="hf hf-slab" data-step="5" >
-        <span class="hb" style="--k:0;--b:3"><i style="background-image:url('images/hero/06-enclosure.png')"></i></span>
-        <span class="hb" style="--k:1;--b:2"><i style="background-image:url('images/hero/06-enclosure.png')"></i></span>
-        <span class="hb" style="--k:2;--b:1"><i style="background-image:url('images/hero/06-enclosure.png')"></i></span>
-        <span class="hb" style="--k:3;--b:0"><i style="background-image:url('images/hero/06-enclosure.png')"></i></span>
+      <div class="hf hf-slab" data-step="5">
+        <span class="hb" style="--k:0;--b:3"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/06-enclosure-sm.webp 768w, images/hero/06-enclosure.webp 1344w"
+             sizes="100vw" src="images/hero/06-enclosure.webp"></span>
+        <span class="hb" style="--k:1;--b:2"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/06-enclosure-sm.webp 768w, images/hero/06-enclosure.webp 1344w"
+             sizes="100vw" src="images/hero/06-enclosure.webp"></span>
+        <span class="hb" style="--k:2;--b:1"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/06-enclosure-sm.webp 768w, images/hero/06-enclosure.webp 1344w"
+             sizes="100vw" src="images/hero/06-enclosure.webp"></span>
+        <span class="hb" style="--k:3;--b:0"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/06-enclosure-sm.webp 768w, images/hero/06-enclosure.webp 1344w"
+             sizes="100vw" src="images/hero/06-enclosure.webp"></span>
       </div>
-      <div class="hf hf-slab" data-step="6" >
-        <span class="hb" style="--k:0;--b:3"><i style="background-image:url('images/hero/07-clad.png')"></i></span>
-        <span class="hb" style="--k:1;--b:2"><i style="background-image:url('images/hero/07-clad.png')"></i></span>
-        <span class="hb" style="--k:2;--b:1"><i style="background-image:url('images/hero/07-clad.png')"></i></span>
-        <span class="hb" style="--k:3;--b:0"><i style="background-image:url('images/hero/07-clad.png')"></i></span>
+      <div class="hf hf-slab" data-step="6">
+        <span class="hb" style="--k:0;--b:3"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/07-clad-sm.webp 768w, images/hero/07-clad.webp 1344w"
+             sizes="100vw" src="images/hero/07-clad.webp"></span>
+        <span class="hb" style="--k:1;--b:2"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/07-clad-sm.webp 768w, images/hero/07-clad.webp 1344w"
+             sizes="100vw" src="images/hero/07-clad.webp"></span>
+        <span class="hb" style="--k:2;--b:1"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/07-clad-sm.webp 768w, images/hero/07-clad.webp 1344w"
+             sizes="100vw" src="images/hero/07-clad.webp"></span>
+        <span class="hb" style="--k:3;--b:0"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/07-clad-sm.webp 768w, images/hero/07-clad.webp 1344w"
+             sizes="100vw" src="images/hero/07-clad.webp"></span>
       </div>
-      <div class="hf hf-slab" data-step="7" >
-        <span class="hb" style="--k:0;--b:3"><i style="background-image:url('images/hero/08-finished.png')"></i></span>
-        <span class="hb" style="--k:1;--b:2"><i style="background-image:url('images/hero/08-finished.png')"></i></span>
-        <span class="hb" style="--k:2;--b:1"><i style="background-image:url('images/hero/08-finished.png')"></i></span>
-        <span class="hb" style="--k:3;--b:0"><i style="background-image:url('images/hero/08-finished.png')"></i></span>
+      <div class="hf hf-slab" data-step="7">
+        <span class="hb" style="--k:0;--b:3"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/08-finished-sm.webp 768w, images/hero/08-finished.webp 1344w"
+             sizes="100vw" src="images/hero/08-finished.webp"></span>
+        <span class="hb" style="--k:1;--b:2"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/08-finished-sm.webp 768w, images/hero/08-finished.webp 1344w"
+             sizes="100vw" src="images/hero/08-finished.webp"></span>
+        <span class="hb" style="--k:2;--b:1"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/08-finished-sm.webp 768w, images/hero/08-finished.webp 1344w"
+             sizes="100vw" src="images/hero/08-finished.webp"></span>
+        <span class="hb" style="--k:3;--b:0"><img class="hbi" alt="" decoding="async" width="1344" height="752"
+             srcset="images/hero/08-finished-sm.webp 768w, images/hero/08-finished.webp 1344w"
+             sizes="100vw" src="images/hero/08-finished.webp"></span>
       </div>
 
       <div class="hero-veil" aria-hidden="true"></div>

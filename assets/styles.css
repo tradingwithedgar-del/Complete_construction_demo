@@ -310,15 +310,14 @@ header nav.desk-nav { display: none; }
 
 .hero-stage { position: absolute; inset: 0; }
 
-/* The picture itself is set inline on each layer, not through a custom
-   property: a url() inside a custom property resolves against the
-   stylesheet's own URL, which silently turned every frame into a request
-   for assets/images/hero/. */
-.hf {
+/* Each layer carries a real <img> rather than a CSS background, so srcset
+   picks the right size per screen. A phone has no use for a 1344px frame and
+   the sequence holds eight of them at once. */
+.hf { position: absolute; inset: 0; }
+.hfi {
   position: absolute; inset: 0;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
 }
 
 /* Step 1 — the plan wipes across the sketch with a feathered edge, so the
@@ -338,7 +337,7 @@ header nav.desk-nav { display: none; }
    clipped slot and slides into it from above. Slots are cut across the whole
    frame, but sky and ground are identical between stages, so the only place
    anything appears to move is the house. */
-.hf-slab { background-image: none; }  /* the slabs carry it */
+.hf-slab { /* nothing of its own — the slabs carry the picture */ }
 
 .hf-slab .hb {
   position: absolute;
@@ -348,18 +347,17 @@ header nav.desk-nav { display: none; }
   overflow: hidden;
   display: block;
 }
-.hf-slab .hb i {
+.hf-slab .hb .hbi {
   position: absolute;
   left: 0; width: 100%;
-  height: 400%;                  /* == full stage height */
+  height: 400%;                  /* == the full stage height */
+  max-width: none;
   top: calc(var(--k) * -100%);
   display: block;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  object-fit: cover; object-position: center;
   will-change: transform;
 }
-.seq-on .hf-slab .hb i {
+.seq-on .hf-slab .hb .hbi {
   --t: 0;
   transform: translate3d(0, calc((1 - var(--t)) * -3.6vh), 0);
   opacity: clamp(0, calc(var(--t) * 2.4), 1);
@@ -431,7 +429,7 @@ header nav.desk-nav { display: none; }
   .seq-on .hero-pin { position: relative; }
   .seq-on .hf-wipe { -webkit-mask-image: none; mask-image: none; }
   .seq-on .hf-fade { opacity: 1; }
-  .seq-on .hf-slab .hb i { transform: none; opacity: 1; }
+  .seq-on .hf-slab .hb .hbi { transform: none; opacity: 1; }
   .seq-on .hero-meter { display: none; }
   .hero-copy { opacity: 1 !important; }
 }

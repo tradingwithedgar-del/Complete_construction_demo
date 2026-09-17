@@ -464,7 +464,7 @@
       return {
         el: el,
         step: Number(el.getAttribute("data-step")),
-        bands: $$(".hb i", el).map(function (i) {
+        bands: $$(".hb .hbi", el).map(function (i) {
           return { i: i, order: Number(i.parentNode.style.getPropertyValue("--b")) || 0 };
         })
       };
