@@ -116,7 +116,7 @@ button { font: inherit; cursor: pointer; }
   box-shadow: 0 0 0 1px var(--e-edge);
   transition: max-width 0.18s ease;
 }
-iframe { width: 100%; height: 100%; border: 0; display: block; background: #16242E; }
+iframe { width: 100%; height: 100%; border: 0; display: block; background: #F4F1EA; }
 
 /* --- inspector ------------------------------------------------------- */
 .insp { padding: 0 14px 28px; }
@@ -732,7 +732,7 @@ dialog::backdrop { background: rgba(6, 10, 13, 0.76); }
           commit(function () { byId(b.id).props[key][i].href = v; });
         }));
         box.appendChild(select(item.style || "primary",
-          [["primary", "Solid brass"], ["ghost", "Outline"]],
+          [["primary", "Solid"], ["ghost", "Outline"]],
           function (v) { commit(function () { byId(b.id).props[key][i].style = v; }); }));
       } else if (b.type === "rows") {
         box.appendChild(textInput(item.title, function (v) {

@@ -32,7 +32,7 @@
 <meta name="twitter:description" content="Home renovations and residential construction across New Jersey.">
 <meta name="twitter:image" content="https://completeconstructionnj.com/images/og-share.jpg">
 
-<meta name="theme-color" content="#0D161C">
+<meta name="theme-color" content="#14100C">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -40,7 +40,11 @@
 <!-- The first frame of the sequence and the frame it resolves to. The
      finished frame is also what shows if JavaScript never runs, so it is
      worth the early fetch. -->
-<link rel="preload" as="video" href="video/hero.mp4" type="video/mp4" fetchpriority="high">
+<!-- The badge is the <h1>, so it is the largest contentful paint. WebP is
+     ~50KB against the PNG's 400KB; the PNG is only ever fetched by a
+     browser that cannot read WebP. -->
+<link rel="preload" as="image" href="images/logo-badge.webp" type="image/webp" fetchpriority="high">
+<link rel="preload" as="video" href="video/hero.mp4" type="video/mp4">
 <link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="assets/styles.css">
 
@@ -58,11 +62,11 @@
   "name": "Complete Construction",
   "legalName": "Complete Construction & Home Solutions LLC",
   "description": "Residential construction and renovation company serving New Jersey homeowners. Whole-home renovations, kitchens and bathrooms, additions, and custom architectural millwork.",
-  "slogan": "We finish the home, not just the room you can see.",
+  "slogan": "Built right. Finished strong.",
   "url": "https://completeconstructionnj.com/",
   "telephone": "+17328906244",
   "image": "https://completeconstructionnj.com/images/og-share.jpg",
-  "logo": "https://completeconstructionnj.com/images/logo-mark.jpg",
+  "logo": "https://completeconstructionnj.com/images/logo-badge.png",
   "sameAs": ["https://instagram.com/complete__construccion"],
   "knowsLanguage": ["en"],
   "address": {
@@ -109,8 +113,11 @@
   </div>
   <div class="wrap bar">
     <a class="brand" href="#main">
-      <img src="images/logo-mark.jpg" width="34" height="36" alt="Complete Construction hexagonal C monogram in gold and brushed steel">
-      <span><b>Complete Construction</b><i>&amp; Home Solutions LLC</i></span>
+      <picture>
+        <source srcset="images/logo-badge-144.webp" type="image/webp">
+        <img src="images/logo-badge-144.png" width="46" height="46" alt="">
+      </picture>
+      <span><b>Complete Construction</b><i data-en="Built right. Finished strong." data-es="Bien construido. Bien terminado.">Built right. Finished strong.</i></span>
     </a>
 
     <nav class="desk-nav" aria-label="Main">
@@ -172,23 +179,6 @@
 <main id="main">
 
 <!-- ======================================================================
-     HERO — the assembly sequence.
-
-     Eight frames of one house from one camera, stacked and revealed over
-     each other as the visitor scrolls: sketch, blueprint, empty lot, then
-     five build stages landing bottom-up.
-
-     THE DEFAULT STATE IS THE FINISHED HOUSE. Every layer ships fully
-     visible and the pin is inert. JavaScript adds .seq-on to switch the
-     sequence on, so a script failure, an old browser or reduced-motion all
-     resolve to the good picture with the name in place rather than to a
-     broken animation.
-
-     The frames are generated concept renders, not photographs of completed
-     work. They are labelled as such below and must never move into the
-     portfolio or the gallery.
-     ====================================================================== -->
-<!-- ======================================================================
      HERO
 
      One video: the build, sketch through to the lit dusk exterior.
@@ -210,7 +200,7 @@
       <video id="hero-video" class="hero-video"
              muted playsinline preload="auto" disablepictureinpicture
              poster="images/hero-poster.jpg"
-             aria-label="The house built from first sketch to finished home at dusk">
+             aria-hidden="true" tabindex="-1">
         <!-- WebM first: VP9 is ~20% smaller than the H.264 here and every
              browser that understands it prefers it. Safari falls through to
              the MP4, which is also the universal fallback. -->
@@ -221,7 +211,18 @@
     </div>
 
     <div class="hero-copy">
-      <h1 id="hero-h"><span class="h1-a">Complete Construction</span><span class="h1-b">&amp; Home Solutions</span></h1>
+      <!-- The badge IS the heading. It already carries the name, the trade,
+           the tagline and the state in the client's own lettering; setting
+           those words again beside it would say everything twice. The alt
+           text is the name, so search engines and screen readers get it. -->
+      <h1 id="hero-h"><picture>
+        <source srcset="images/logo-badge.webp" type="image/webp">
+        <img src="images/logo-badge.png" width="306" height="306"
+             fetchpriority="high" decoding="sync"
+             alt="Complete Construction — Built Right. Finished Strong. New Jersey."
+             data-alt-en="Complete Construction — Built Right. Finished Strong. New Jersey."
+             data-alt-es="Complete Construction — Bien construido. Bien terminado. Nueva Jersey.">
+      </picture></h1>
       <p class="hero-promise" data-en="We finish the home, not just the room you can see." data-es="Terminamos la casa, no solo el cuarto que se ve.">We finish the home, not just the room you can see.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="#contact" data-en="Start your project" data-es="Empiece su proyecto">Start your project</a>
@@ -248,7 +249,10 @@
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <img src="images/logo-lockup.jpg" width="150" height="116" loading="lazy" alt="Complete Construction and Home Solutions LLC logo. Built right. No shortcuts. Every phase handled.">
+        <picture>
+          <source srcset="images/logo-badge.webp" type="image/webp">
+          <img src="images/logo-badge.png" width="132" height="132" loading="lazy" alt="Complete Construction, New Jersey.">
+        </picture>
         <p data-en="Residential construction, renovation and custom millwork in New Jersey." data-es="Construcción residencial, remodelación y carpintería a medida en Nueva Jersey.">Residential construction, renovation and custom millwork in New Jersey.</p>
       </div>
       <div>
@@ -263,10 +267,10 @@
       <div>
         <h3 class="f" data-en="Sections" data-es="Secciones">Sections</h3>
         <ul>
+          <li><a href="#business" data-en="About" data-es="Nosotros">About</a></li>
           <li><a href="#services" data-en="What we build" data-es="Lo que construimos">What we build</a></li>
-          <li><a href="#work" data-en="Selected work" data-es="Trabajos seleccionados">Selected work</a></li>
-          <li><a href="#gallery" data-en="Gallery" data-es="Galería">Gallery</a></li>
-          <li><a href="#phases" data-en="Every phase handled" data-es="Cada fase a cargo">Every phase handled</a></li>
+          <li><a href="#work" data-en="Finished work" data-es="Trabajo terminado">Finished work</a></li>
+          <li><a href="#scope" data-en="What your proposal says" data-es="Lo que dice su propuesta">What your proposal says</a></li>
           <li><a href="#contact" data-en="Start a project" data-es="Empezar un proyecto">Start a project</a></li>
         </ul>
       </div>

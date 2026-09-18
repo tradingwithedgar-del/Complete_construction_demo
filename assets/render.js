@@ -220,7 +220,7 @@
     facts:    { label: "Marked list",    make: function () { return { items: [{ text: "First point" }] }; } },
     ledger:   { label: "Two columns",    make: function () { return { titleA: "Included", itemsA: [{ text: "First" }], titleB: "Not included", itemsB: [{ text: "First" }] }; } },
     gallery:  { label: "Photographs",    make: function () { return { category: "bathrooms", columns: 3, width: "wide" }; } },
-    image:    { label: "Single image",   make: function () { return { src: "images/logo-lockup.jpg", alt: "", caption: "" }; } },
+    image:    { label: "Single image",   make: function () { return { src: "images/logo-badge.png", alt: "", caption: "" }; } },
     buttons:  { label: "Buttons",        make: function () { return { items: [{ label: "Call", href: "tel:+17328906244", style: "primary" }] }; } },
     phone:    { label: "Phone panel",    make: function () { return { label: "Call" }; } },
     divider:  { label: "Divider",        make: function () { return {}; } },

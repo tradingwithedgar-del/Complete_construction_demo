@@ -85,12 +85,15 @@
       if (t !== null) { n.textContent = t; }
     });
     document.documentElement.lang = lang;
-    // Elements whose translation belongs in an attribute, not in text. The
-    // hero stage is one: writing textContent into it would delete every
-    // layer of the sequence.
+    // Elements whose translation belongs in an attribute, not in text.
+    // An image gets its real alt rewritten rather than an aria-label laid
+    // over it, so the accessible name and the indexed text stay the same
+    // string - the hero badge is the <h1>, so that string is the heading.
     $$("[data-alt-en]").forEach(function (n) {
       var t = n.getAttribute("data-alt-" + lang);
-      if (t !== null) { n.setAttribute("aria-label", t); }
+      if (t === null) { return; }
+      if (n.tagName === "IMG") { n.setAttribute("alt", t); }
+      else { n.setAttribute("aria-label", t); }
     });
     $$(".lang button").forEach(function (b) {
       b.setAttribute("aria-pressed", String(b.dataset.lang === lang));

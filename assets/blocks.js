@@ -145,6 +145,25 @@ window.BLOCKS = [
   },
 
   {
+    /* The only dark band in the page body, and the only place the badge's
+       own words are set as type. It sits here because it is the bridge
+       between the finished photographs above and the written scope below:
+       "finished strong" is a claim about what is behind the surface, and
+       the proposal is where that claim gets enforced. */
+    id: "b-creed",
+    type: "heading",
+    props: {
+      background: "black",
+      align: "center",
+      width: "narrow",
+      text: "Built right. Finished strong.",
+      textEs: "Bien construido. Bien terminado.",
+      sub: "Waterproofing, framing, venting and blocking are done the same way whether or not anyone is ever going to see them. That is the whole of it.",
+      subEs: "La impermeabilización, la estructura, la ventilación y los refuerzos se hacen igual, sin importar si alguien los va a ver algún día. Eso es todo."
+    }
+  },
+
+  {
     id: "b-scope-h",
     type: "heading",
     nav: { id: "scope", label: "Proposal", labelEs: "Propuesta" },

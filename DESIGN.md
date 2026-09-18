@@ -1,100 +1,124 @@
 # Design record
 
-## The world: the build record
+## The badge decides the page
 
-The page is organised the way a job is documented, not the way a brochure is
-laid out. The hero is a building going up; everything below it is the record of
-how that happens — what gets built, what has been built, what each phase covers,
-what the proposal does and does not include.
+The client's identity is a circular gold-on-black badge. It already carries
+the name, the trade, the tagline and the state, set in its own lettering.
+Three things follow from that, and they are the whole layout:
 
-The light in the page is the light in the renders. The hero frames are shot at
-dusk against a petrol-blue sky with warm interior light; the page carries the
-same petrol ground and the same brass light, so the sequence bleeds into the
-document rather than sitting on top of it as a banner.
+1. **A gold-on-black badge only reads on a dark field.** So the page has dark
+   bands — header, hero, one statement band, footer, the mobile action bar —
+   and light paper everywhere else. The badge appears only on the dark.
+2. **The badge is the `<h1>`.** Setting "Complete Construction" in type beside
+   a logo that already says "Complete Construction" is saying everything
+   twice. The heading is the badge image; its `alt` is the name, translated
+   with the rest of the page, so search engines and screen readers get the
+   same string a sighted visitor reads off the coin.
+3. **It is the only circle in the build.** Every other corner is 0px. That is
+   what stops the badge reading as one more rounded ornament.
 
-Dark is chosen from the use scene, not the category: this is browsed in the
-evening, on a phone, by someone who has been thinking about their house all day.
+## The palette, and the rule it had to get around
 
-## Tokens
+The standing rule is that a client demo never lands in dark-ground-plus-gold:
+it is the stock "luxury trade" costume, and it is Grand Nash Studio's own
+house style, so it is generic and off-brand at the same time. **It applies
+even when the client's own print material is black and gold — which this one
+is.** The resolution is the documented one: promote a secondary colour out of
+the client's real identity, demote gold to hairlines, put it all on light.
+
+The secondary colour here is not invented. It is sampled from the botanical
+wall covering in the powder room Adolfo actually built and photographed —
+`#485848` / `#384848` off the tiles in `images/gallery/bathrooms/`. The page
+ground is the limestone and plaster from the same photographs. So the green on
+the buttons and the green on the wall in the gallery are the same green, and
+the page is built out of the client's own finished work rather than out of the
+category's idea of expensive.
 
 ```
---ground     #16242E   page ground, matches the render sky
---ground-2   #1B2C38   alternating section ground
---panel      #20323E   raised surfaces
---black      #0D161C   header, footer, lightbox
---ink        #EFE9DE   primary text
---ink-soft   #AEBAC2   secondary text, tinted from the ground hue
---ink-dim    #8494A0   tertiary, labels
---brass      #C4A575   the single accent
---brass-deep #9A7F4E   pressed and hover states
---steel      #8A9AA3
---rule       #2E4150   hairlines
+--ground     #F4F1EA   warm limestone paper, from his own marble and plaster
+--ground-2   #EAE5DA   alternating ground
+--panel      #FFFFFF   raised surfaces
+--black      #14100C   the badge's field: header, hero, creed band, footer
+
+--ink        #1E1913
+--ink-soft   #4E463C
+--ink-dim    #7A7163
+--rule       #D6CEBF
+
+--accent     #2E4033   promoted from his powder-room wall covering
+--accent-2   #1F2C23
+--accent-ink #F6F3EC
+
+--brass      #B49059   sampled off the badge; hairlines and the badge only
+--brass-lit  #E7CE96
 ```
 
-One accent. Brass marks the thing to act on and nothing else.
+Gold does exactly three jobs on this page, and no others: it is the badge, it
+is the 13px hairline in front of a listed fact, and it is the single rule at
+the edge where a dark band meets the paper. It is never a fill, never a button,
+never a heading.
+
+### The inverted scope
+
+The dark bands re-declare the same tokens rather than owning a second set of
+component rules, so every block works unchanged on either ground. They also
+re-declare `color`, because a custom property inherits but an inherited
+*colour* does not re-resolve it — `body`'s colour was already computed from
+the light `--ink`, and without that line every heading inside a dark band
+inherits it and disappears.
 
 ## Type
 
 - **Archivo** — display, expanded, caps for headings. Self-hosted.
 - **Source Serif 4** — body. Self-hosted.
-- **IBM Plex Mono** — used only for measurement, labels on real data, and
-  sequence numbers. Never as a costume for "technical".
-
-Corners are 0px everywhere. Nothing on this page is rounded.
+- **IBM Plex Mono** — measurement, labels on real data, the badge's tagline
+  where it is set as text. Never as a costume for "technical".
 
 ## Motion
 
-**One authored moment: the hero opener.** Everything else on the page is still.
+**One authored moment: the hero video.** Everything else on the page is still.
 No section entrances, no scroll reveals, no parallax.
-
-The build plays once, on load, and is over inside seven seconds. It runs on
-exponential ease-out from an already-visible default.
-
-Nobody is held hostage by it. The first scroll, tap or keypress fast-forwards
-to the finished house, the phone number stays in the sticky header throughout,
-and `prefers-reduced-motion` or a JavaScript failure both resolve straight to
-the finished frame with the name in place — the fail state is the good picture.
 
 ## Bans carried from the craft floor
 
-- No eyebrow or kicker above a heading. The previous build had
-  `Finish schedule` set above its `<h2>`; it is gone and does not come back.
-- No same-size card grids as page structure. Services and phases are editorial
-  rows and a real tablist.
-- Section numbers appear **only** on the phase rail, where the sequence is the
-  information — a renovation runs 01 through 08 in that order.
+- No eyebrow or kicker above a heading.
+- No same-size card grids as page structure. Services are editorial rows.
 - No gradient text, no decorative glass, no coloured left borders above 1px.
+- No dark ground with gold accents (see above).
 
 ## Structure
 
-The order is fixed by the brief: the sequence, then the business.
-
-1. Hero assembly sequence
+1. Hero — the badge over the build video
 2. Who this is and how to reach them
 3. What we build
-4. Selected work
-5. Gallery, filtered in place
-6. Finish schedule
-7. Every phase handled
-8. What your proposal says
-9. Where we work
-10. Start a project
-11. Footer
+4. Finished work, and materials from finished work
+5. **Built right. Finished strong.** — the one dark band in the body
+6. What your proposal says: Included / Not included
+7. Start a project
+8. Footer
+
+The creed band sits at 5 on purpose. It is the bridge: "finished strong" is a
+claim about what is behind the surface, and the proposal immediately below is
+where that claim is actually enforced in writing.
 
 ## Hero mechanic
 
-One video, played once on load, holding on its last frame. It never loops:
-a build that restarts every ten seconds reads as a glitch and throws away
-the finished-home ending, which is the frame the business name sits on.
+One video, played once on load, holding on its last frame. It never loops: a
+build that restarts every ten seconds reads as a glitch and throws away the
+finished-home ending, which is the frame the badge sits on.
 
-The first scroll, tap or keypress jumps to the end. Reduced motion never
-plays at all and parks on the final frame. A missing file, an unsupported
-codec, blocked autoplay or no JavaScript all land on the poster - which is
-the video's own final frame, the finished house with its lights on. Every
-fail state is the best frame in the clip.
+The first scroll, tap or keypress jumps to the end. Reduced motion never plays
+at all and parks on the final frame. A missing file, an unsupported codec,
+blocked autoplay or no JavaScript all land on the poster — which is the
+video's own final frame, the finished house with its lights on, with the badge
+centred over it. Every fail state is the best frame in the clip.
 
-Seeking to that final frame needs two things that are easy to get wrong:
-the host must answer HTTP Range requests, and the seek must be clamped to
-what is actually buffered and retried as more arrives. Without either, the
-seek is silently dropped and the video resets to frame zero - putting the
-opening sketch on screen, the worst possible frame to fall back to.
+Seeking to that final frame needs two things that are easy to get wrong: the
+host must answer HTTP Range requests, and the seek must be clamped to what is
+actually buffered and retried as more arrives. Without either, the seek is
+silently dropped and the video resets to frame zero — putting the opening
+sketch on screen, the worst possible frame to fall back to.
+
+`--hdr` (the measured header height) carries a `112px` default in CSS rather
+than `0`, so the hero composes correctly in the moment before `app.js` runs,
+and for good if it never does.

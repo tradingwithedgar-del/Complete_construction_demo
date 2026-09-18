@@ -34,7 +34,10 @@ starts it. The core promise, in the owner's own framing:
   first number.
 - The owner avoids jobs that try to bargain and works at the upper end. The
   site must read as expensive without ever using the word "luxury".
-- Tagline on the logo: **Built right. No shortcuts. Every phase handled.**
+- Tagline on the logo: **Built right. Finished strong.** (Sept 2026 badge; it
+  replaced "Built right. No shortcuts. Every phase handled." The new badge also
+  reads **Complete Construction** and **New Jersey**, and drops "& Home
+  Solutions" — that name now appears only in the legal line and the footer.)
 - Phone: (732) 890-6244. Instagram: `complete__construccion`.
 
 ## Hard constraints
